@@ -3,6 +3,6 @@
 
     
 <script>
-	location.href="test"; 
+	location.href="test";  
 </script>    
     
