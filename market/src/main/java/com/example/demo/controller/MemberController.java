@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MemberController {
 	@RequestMapping("home")
 	public String test(){
-		System.out.println("컨트롤러 들어옴");
-		
 		return "home";
 	}
 }
