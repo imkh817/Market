@@ -3,6 +3,7 @@
 
     
 <script>
+
 	location.href="test"; 
 </script>    
     
