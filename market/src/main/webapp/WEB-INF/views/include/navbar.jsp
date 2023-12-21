@@ -13,7 +13,7 @@
 	<div class="container-fluid ms-5 my-auto">
 		<a class="navbar-brand fs-2" href="#"><div class="hstack gap-3">
 				<!-- <i class="fa-solid fa-seedling" style="color: #21F11C"></i> -->
-				<img src="../images/cabbage.png" width="70px" height="70px">
+				<img src="./images/cabbage.png" width="70px" height="70px">
 				<p class="fw-bold">양배추마켓</p>
 			</div></a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
