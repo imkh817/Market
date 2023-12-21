@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>home</title>
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 <link rel="stylesheet" href="./css/banner.css">
 </head>
