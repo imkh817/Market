@@ -4,7 +4,7 @@
 
 <div class="col">
 	<div class="card" style="border: none;">
-		<img src="../images/example.png" class="card-img-top mx-auto my-3"
+		<img src="./images/example.png" class="card-img-top mx-auto my-3"
 			alt="" style="width: 250px; height: 250px;">
 		<div class="card-body mx-2">
 			<h5 class="card-title">상품명</h5>
