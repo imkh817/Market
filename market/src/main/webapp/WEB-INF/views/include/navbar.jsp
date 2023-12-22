@@ -38,7 +38,7 @@
 								style="background-color: #21F11C; font-size: 0.6rem; position: absolute; transform: translate(100%, -70%);">${chat}</span>
 							<p class="my-auto" style="font-size: 0.8rem">채팅하기</p>
 						</div></a></li>
-				<li class="nav-item px-2 fs-2"><a class="nav-link" href="#"><div
+				<li class="nav-item px-2 fs-2"><a class="nav-link" href="sell"><div
 							class="hstack gap-2">
 							<i class="fa-solid fa-money-check-dollar"></i>
 							<p class="my-auto" style="font-size: 0.8rem">판매하기</p>
