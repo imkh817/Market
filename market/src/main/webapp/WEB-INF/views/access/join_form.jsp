@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="./css/banner.css">
 <link rel="stylesheet" href="./css/join.css"> 
 </head>
-<script src="./js/join/join.js"></script>
+
 <script src="./js/join/join_function.js"></script>
 
 <body class="pt-5">
@@ -50,7 +50,7 @@
 				</div>
 				<input class="col-5" type="text" id="jumin2" class="form-control fw-medium"
 					style="border-radius: 0 4px 4px 0; height: 43px;" maxlength="1"
-					name="member_jumin2" required placeholder="주민번호 뒷 1자리 입력">
+					id="jumin2" name="member_jumin2" required placeholder="주민번호 뒷 1자리 입력">
 			</div>
             
              <label  for="phone_number" class="fw-medium">전화번호:</label>
@@ -72,5 +72,5 @@
 </div>
 <%@ include file="/WEB-INF/views/include/footer.jsp"%>
 </body>
-
+<script src="./js/join/join.js"></script>
 </html>
