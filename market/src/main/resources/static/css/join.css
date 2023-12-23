@@ -1,0 +1,43 @@
+.join-container {
+         max-width: 600px;
+         margin: 0 auto;
+}
+
+.join-form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.join-form label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.join-form input {
+    padding: 10px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+}
+
+.join-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.join-form button:hover {
+    background-color: #45a049;
+}
+.join-form h2 {
+    margin-bottom: 20px; /* h2 태그와의 간격을 조절하고자 하는 값 */
+}
