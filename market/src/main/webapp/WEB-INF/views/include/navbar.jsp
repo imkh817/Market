@@ -11,7 +11,7 @@
 <c:set var="join"
 	value="${sessionScope.member_id==null ? '회원가입' : '마이페이지'}" />
 <c:set var="join_link"
-	value="${sessionScope.member_id==null ? 'join' : 'mypage'}" />
+	value="${sessionScope.member_id==null ? 'join_form' : 'mypage_form'}" />
 <c:set var="loginout"
 	value="${sessionScope.member_id==null ? '로그인' : '로그아웃'}" />
 <c:set var="loginout_link"
