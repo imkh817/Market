@@ -23,6 +23,10 @@
 	#{member_phone_num},'N',null)
 </insert>
 
+<select id="user_check" parameterType="member" resultType="member">
+	select * from member where member_id = #{member_id}
+</select>
+
 
 </mapper>
 

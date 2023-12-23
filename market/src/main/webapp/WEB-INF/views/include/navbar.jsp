@@ -1,21 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<c:set var="user"
-	value="${sessionScope.member_id==null ? '' : '${sessionScope.member_id}'}" />
-<c:set var="chat" value="${sessionScope.member_id==null ? '5' : ''}" />
+<c:set var="user" value="${sessionScope.id == null ? '' : sessionScope.nickname}" />
+<c:set var="chat" value="${sessionScope.id==null ? '5' : ''}" />
 <c:set var="chat_link"
-	value="${sessionScope.member_id==null ? 'login_form' : 'chat'}" />
+	value="${sessionScope.id==null ? 'login_form' : 'chat'}" />
 <c:set var="sell_link"
-	value="${sessionScope.member_id==null ? 'login_form' : 'sell'}" />
+	value="${sessionScope.id==null ? 'login_form' : 'sell'}" />
 <c:set var="join"
-	value="${sessionScope.member_id==null ? '회원가입' : '마이페이지'}" />
+	value="${sessionScope.id==null ? '회원가입' : '마이페이지'}" />
 <c:set var="join_link"
-	value="${sessionScope.member_id==null ? 'join_form' : 'mypage_form'}" />
+	value="${sessionScope.id==null ? 'join_form' : 'mypage_form'}" />
 <c:set var="loginout"
-	value="${sessionScope.member_id==null ? '로그인' : '로그아웃'}" />
+	value="${sessionScope.id==null ? '로그인' : '로그아웃'}" />
 <c:set var="loginout_link"
-	value="${sessionScope.member_id==null ? 'login_from' : 'logout'}" />
+	value="${sessionScope.id==null ? 'login_form' : '/logout'}" />
 	
 <nav class="navbar navbar-expand-lg fixed-top" style="background-color: #fff">
 		<div class="container-fluid ms-5 my-auto">

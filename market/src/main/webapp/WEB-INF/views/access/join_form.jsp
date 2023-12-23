@@ -41,16 +41,16 @@
             
 			<label for="jumin" class="fw-medium">주민번호</label>
 			<div class="input-group">
-				<input class="col-5" type="text" id="jumin1" class="form-control fw-medium"
+				<input class="col-5" type="text" id="member_jumin1" class="form-control fw-medium"
 					style="border-radius: 4px 0 0 4px; height: 43px;" maxlength="6"
 					name="member_jumin1" required onfocus="name_valiable1()" placeholder="주민번호 앞 6자리 입력">
 				<div class="input-group-prepend">
 					<span class="input-group-text"
 						style="border-radius: 0; height: 43px;">-</span>
 				</div>
-				<input class="col-5" type="text" id="jumin2" class="form-control fw-medium"
+				<input class="col-5" type="text" class="form-control fw-medium"
 					style="border-radius: 0 4px 4px 0; height: 43px;" maxlength="1"
-					id="jumin2" name="member_jumin2" required placeholder="주민번호 뒷 1자리 입력">
+					id="member_jumin2" name="member_jumin2" required placeholder="주민번호 뒷 1자리 입력">
 			</div>
             
              <label  for="phone_number" class="fw-medium">전화번호:</label>

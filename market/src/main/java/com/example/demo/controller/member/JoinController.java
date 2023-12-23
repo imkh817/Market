@@ -76,7 +76,6 @@ public class JoinController {
 	
 	@RequestMapping("join_member")
 	public String join_member(Member member) {
-		
 		int result = joinService.join_member(member);
 		System.out.println("성공여부 : " + result);
 		return "home";

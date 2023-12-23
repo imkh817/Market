@@ -1,5 +1,5 @@
-document.getElementById("jumin2").addEventListener("input", function() {
-	const firstDigit = document.getElementById("jumin1").value;
+document.getElementById("member_jumin2").addEventListener("input", function() {
+	const firstDigit = document.getElementById("member_jumin1").value;
 	const input = this.value;
 
 	if (input.length === 1) {
@@ -9,7 +9,7 @@ document.getElementById("jumin2").addEventListener("input", function() {
 	}
 });
 
-document.getElementById("jumin2").addEventListener("keydown",
+document.getElementById("member_jumin2").addEventListener("keydown",
 	function(event) {
 		if (event.key === "Backspace") {
 			event.preventDefault();

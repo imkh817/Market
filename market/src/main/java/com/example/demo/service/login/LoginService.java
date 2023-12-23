@@ -1,0 +1,42 @@
+package com.example.demo.service.login;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.demo.dao.MemberDao;
+import com.example.demo.model.Member;
+import com.example.demo.service.join.JoinService;
+
+@Service
+public class LoginService {
+
+	@Autowired
+	MemberDao memberDao;
+	
+	@Autowired
+	JoinService joinService;
+	
+	public Member user_check(Member member) {
+		Member user = memberDao.user_check(member);
+		return user;
+	}
+	
+	public int login_check(Member member,HttpSession session) {
+		
+		Member user = user_check(member);
+		
+		if(user == null) { // DB에 회원 아이디 없는 경우
+			return -1;
+		}else {
+			if(joinService.match_password(member.getMember_pw(), user.getMember_pw())) { // 로그인 성공!
+				session.setAttribute("id", member.getMember_id());
+				session.setAttribute("nickname", member.getMember_nickname());
+				return 1;
+			}
+		}
+		// DB에는 아이디가 있지만 비번 불일치 한 경우
+		return 0;
+	}
+}
