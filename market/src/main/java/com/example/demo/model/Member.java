@@ -17,4 +17,9 @@ public class Member {
 	private String member_state; // -> n: y
 	private Date member_reg_date;
 	private String member_image;
+	private String member_jumin1;
+	private String member_jumin2;
+	private String member_phone_num;
+	private String member_auth_check;
+	private String member_auth_add;
 }

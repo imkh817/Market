@@ -5,17 +5,17 @@
 	value="${sessionScope.member_id==null ? '' : '${sessionScope.member_id}'}" />
 <c:set var="chat" value="${sessionScope.member_id==null ? '5' : ''}" />
 <c:set var="chat_link"
-	value="${sessionScope.member_id==null ? 'login' : 'chat'}" />
+	value="${sessionScope.member_id==null ? 'login_form' : 'chat'}" />
 <c:set var="sell_link"
-	value="${sessionScope.member_id==null ? 'login' : 'sell'}" />
+	value="${sessionScope.member_id==null ? 'login_form' : 'sell'}" />
 <c:set var="join"
 	value="${sessionScope.member_id==null ? '회원가입' : '마이페이지'}" />
 <c:set var="join_link"
-	value="${sessionScope.member_id==null ? 'join' : 'mypage'}" />
+	value="${sessionScope.member_id==null ? 'join_form' : 'mypage_form'}" />
 <c:set var="loginout"
 	value="${sessionScope.member_id==null ? '로그인' : '로그아웃'}" />
 <c:set var="loginout_link"
-	value="${sessionScope.member_id==null ? 'login' : 'logout'}" />
+	value="${sessionScope.member_id==null ? 'login_from' : 'logout'}" />
 	
 <nav class="navbar navbar-expand-lg fixed-top" style="background-color: #fff">
 		<div class="container-fluid ms-5 my-auto">

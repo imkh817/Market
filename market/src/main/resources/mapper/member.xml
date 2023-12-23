@@ -2,4 +2,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.demo.dao.MemberDao">
+
+<!-- id 체크 -->
+<select id="id_valiable" parameterType="String" resultType="int">
+	select count(*) from member where member_id = #{member_id}
+</select>
+
+<!-- nickname 체크 -->
+<select id="nickname_valiable" parameterType="String" resultType="int">
+	select count(*) from member where member_nickname = #{member_nickname}
+</select>
+<!-- phone_number -->
+<select id="phone_num_valiable" parameterType="String" resultType="int">
+	select count(*) from member where member_phone_num = #{member_phone_num}
+</select>
+
+<!-- 회원가입 -->
+<insert id="join_member" parameterType="member">
+	insert into member values(null,#{member_id},#{member_pw},#{member_nickname},'Y',sysdate(),null,#{member_jumin1},#{member_jumin2},
+	#{member_phone_num},'N',null)
+</insert>
+
+
 </mapper>
+
