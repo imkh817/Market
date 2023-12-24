@@ -8,7 +8,7 @@ import com.example.demo.model.Member;
 public interface MemberDao {
 	
 	// 위치 인증
-	int update_member_add();
+	int update_member_add(Member member);
 
 	// 유저 정보
 	Member get_member();	

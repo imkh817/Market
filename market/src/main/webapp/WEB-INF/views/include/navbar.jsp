@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<c:set var="user"
-	value="${sessionScope.member_id==null ? '' : '${sessionScope.member_id}'}" />
 <c:set var="chat" value="${sessionScope.member_id==null ? '5' : ''}" />
 <c:set var="chat_link"
 	value="${sessionScope.member_id==null ? 'login' : 'chat'}" />
@@ -11,11 +9,11 @@
 <c:set var="join"
 	value="${sessionScope.member_id==null ? '회원가입' : '마이페이지'}" />
 <c:set var="join_link"
-	value="${sessionScope.member_id==null ? 'join' : 'mypage'}" />
+	value="${sessionScope.member_id==null ? 'join_form' : 'mypage'}" />
 <c:set var="loginout"
 	value="${sessionScope.member_id==null ? '로그인' : '로그아웃'}" />
 <c:set var="loginout_link"
-	value="${sessionScope.id==null ? 'login_form' : '/logout'}" />
+	value="${sessionScope.member_id==null ? 'login_form' : '/logout'}" />
 
 <nav class="navbar navbar-expand-lg fixed-top"
 	style="background-color: #fff">
@@ -58,8 +56,10 @@
 					<div class="dropdown">
 						<div data-bs-toggle="dropdown" aria-expanded="false"
 							style="position: relative;">
-							<i class="fa-regular fa-user"></i>
-							<p class="my-auto" style="font-size: 0.8rem">${user}</p>
+							<div class="hstack gap-2">
+								<i class="fa-regular fa-user"></i>
+								<p class="my-auto" style="font-size: 0.8rem">${sessionScope.member_id}</p>
+							</div>
 						</div>
 						<ul class="dropdown-menu"
 							style="font-size: 0.8rem; position: absolute; transform: translate(-10%, -10%);">
@@ -67,8 +67,8 @@
 								href="<c:url value='${join_link}'/>">${join}</a></li>
 							<li><a class="dropdown-item border-bottom"
 								href="<c:url value='${loginout_link}'/>">${loginout}</a></li>
-							<li><a class="dropdown-item pb-0"
-								href="auth_location">내 위치 인증</a></li>
+							<li><a class="dropdown-item pb-0" href="auth_location">내
+									위치 인증</a></li>
 						</ul>
 					</div>
 				</li>

@@ -4,8 +4,8 @@
 <mapper namespace="com.example.demo.dao.MemberDao">
 
 	<!-- 위치 인증-->
-	<update id="update_member_add">
-		UPDATE member SET member_auth_check="Y", member_auth_add=#{member_auth_add} WHERE member_id=#{member_id}
+	<update id="update_member_add" parameterType="member">
+		UPDATE member SET member_auth_check='Y', member_auth_add=#{member_auth_add} WHERE member_id=#{member_id}
 	</update>
 	
 	<!-- 유저 정보 -->

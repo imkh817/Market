@@ -12,8 +12,8 @@ public class MemberService {
 	private MemberDao memberDao;
 	
 	// 위치 인증
-	public int update_member_add() {
-		return memberDao.update_member_add();
+	public int update_member_add(Member member) {
+		return memberDao.update_member_add(member);
 	}
 
 	// 유저 정보

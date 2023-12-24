@@ -2,37 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<!-- <script>
-	function access_geo(position) {
-		latitude = position.coords.latitude;
-		longitude = position.coords.longitude;
-		//		console.log(latitude);
-		//		console.log(longitude);
-
-		$.ajax({
-			type : 'POST',
-			url : 'auth',
-			data : {
-				'lat' : latitude,
-				'lng' : longitude
-			},
-			success : function(result) {
-				if (result == 1) {
-					alert("인증되었습니다.");
-				} else {
-					alert("인증에 실패했습니다.");
-				}
-			},
-			error : function(error) {
-				alert("Error: " + error.message);
-			}
-		});
-	}
-	function ask_geo() {
-		navigator.geolocation.getCurrentPosition(access_geo)
-	}
-</script> -->
-
 <div class="d-flex flex-column align-items-center my-5">
 	<div>
 		<button class="btn btn-secondary btn-lg mb-5 fw-bold"

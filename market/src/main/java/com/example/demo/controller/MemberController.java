@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.model.Member;
 import com.example.demo.service.MemberService;
+import com.example.demo.service.login.LoginService;
 
 @Controller
 public class MemberController {
@@ -19,14 +20,14 @@ public class MemberController {
 
 	@RequestMapping("auth")
 	@ResponseBody
-	public int auth(HttpSession session, @RequestParam("member_auth_add") String member_auth_add){
-		session.setAttribute("member_id", "fortest");
+	public int auth(HttpSession session, @RequestParam("member_auth_add") String member_auth_add, Member member){
+		
 		String member_id = (String)session.getAttribute("member_id");
-		Member member = memberService.get_member(member_id);
-
+		
+		member.setMember_id(member_id);
 		member.setMember_auth_add(member_auth_add);
 
-		int result = memberService.update_member_add();
+		int result = memberService.update_member_add(member);
 		return result;
 	}	
 
