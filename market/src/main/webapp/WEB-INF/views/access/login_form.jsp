@@ -24,12 +24,12 @@
        	<h2>양배추 마켓에 오신 것을</h2>
         <h2>환영합니다.</h2>
         
-        <form action="#" method="post">
+        <form action="login" method="post">
             <label for="username">아이디:</label>
-            <input class="col-12" type="text" id="username" name="username" required>
+            <input class="col-12" type="text" id="member_id" name="member_id" required>
 
             <label for="password">비밀번호:</label>
-            <input class="col-12" type="password" id="password" name="password" required>
+            <input class="col-12" type="password" id="member_pw" name="member_pw" required>
 
 			<div class="password-reset" align="center">
 				<a href="find_id">아이디 찾기</a> | <a href="find_pw">비밀번호 찾기</a>

@@ -18,12 +18,6 @@ public class JoinController {
 	@Autowired
 	SendMessageService smsService;
 	
-	
-	@RequestMapping("home")
-	public String test(){
-		return "home";
-	}
-	
 	@RequestMapping("join_form")
 	public String join_form(){
 		return "access/join_form";
@@ -76,7 +70,6 @@ public class JoinController {
 	
 	@RequestMapping("join_member")
 	public String join_member(Member member) {
-		
 		int result = joinService.join_member(member);
 		System.out.println("성공여부 : " + result);
 		return "home";
