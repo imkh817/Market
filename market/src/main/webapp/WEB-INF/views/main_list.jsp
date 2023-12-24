@@ -2,22 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<!-- Geolocation API -->
-<script>
-	function access_geo(location) {
-		/* console.log(location) */
-		const location_geo = {
-			latitude : location.coords.latitude,
-			longitude : location.coords.longitude
-		}
-		console.log(location_geo)
-	}
-	function ask_geo() {
-		navigator.geolocation.getCurrentPosition(access_geo)
-	}
-	ask_geo();
-</script>
-
 <!-- 배너 -->
 <section class="banner my-5 py-5">
 	<div class="title">
