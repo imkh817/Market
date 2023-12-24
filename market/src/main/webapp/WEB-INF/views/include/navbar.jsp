@@ -5,7 +5,7 @@
 <c:set var="chat_link"
 	value="${sessionScope.member_id==null ? 'login_form' : 'chat'}" />
 <c:set var="sell_link"
-	value="${sessionScope.member_id==null ? 'login_form' : 'sell'}" />
+	value="${sessionScope.member_id==null ? 'login_form' : 'sell_form'}" />
 <c:set var="join"
 	value="${sessionScope.member_id==null ? '회원가입' : '마이페이지'}" />
 <c:set var="join_link"
