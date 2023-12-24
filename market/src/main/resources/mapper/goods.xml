@@ -3,4 +3,9 @@
 
 <mapper namespace="com.example.demo.dao.GoodsDao">
 
+	<!-- 글 목록 -->
+	<select id="select_goods_list" resultType="goods">
+		SELECT * FROM goods ORDER BY goods_regdate DESC LIMIT 0, 15
+	</select>
+
 </mapper>
