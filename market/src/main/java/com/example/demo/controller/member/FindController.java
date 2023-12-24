@@ -64,7 +64,6 @@ public class FindController {
 	@PostMapping("find_pw")
 	public String find_pw(Member member,Model model) {
 		String new_pw = smsService.get_autorization_number(); // 새로운 암호
-		System.out.println("새로운 암호 : " + new_pw);
 		String result = smsService.sendOne(member.getMember_phone_num(),new_pw);
 		member.setMember_pw(joinService.encode_password(new_pw));
 		int update = findService.update_pw(member);
