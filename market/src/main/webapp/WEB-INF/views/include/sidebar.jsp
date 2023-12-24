@@ -6,21 +6,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>마이 페이지</title>
+    
+   
+    
+    <!-- Custom styles for this template -->
 </head>
 <body>
 
-<div style="width: 250px; height: 100%; position: fixed; top: 0; left: 0; background-color: #333; padding-top: 20px; color: #fff;">
-    <strong style="font-size: 24px; text-align: center; margin-bottom: 20px; display: block;">마이 페이지</strong>
-    <a href="#" style="padding: 10px 15px; text-decoration: none; font-size: 18px; color: #818181; display: block; transition: 0.3s;">판매 내역</a>
-    <a href="#" style="padding: 10px 15px; text-decoration: none; font-size: 18px; color: #818181; display: block; transition: 0.3s;">관심 상품</a>
-    <a href="#" style="padding: 10px 15px; text-decoration: none; font-size: 18px; color: #818181; display: block; transition: 0.3s;">회원 탈퇴</a>
-</div>
-
-<!-- 나머지 페이지 내용 -->
-<div style="margin-left: 250px; padding: 20px;">
-    <!-- 마이 페이지 컨텐츠 영역 -->
-    <h2>여기에 마이 페이지 내용을 넣어주세요.</h2>
-</div>
+<div class="d-flex flex-column flex-shrink-0 p-3 text-dark bg-white" style="width: 280px;">
+    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+      <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+      <span class="fs-4">마이 페이지</span>
+    </a>
+    <hr>
+    <ul class="nav nav-pills flex-column mb-auto">
+      <li class="nav-item">
+        <a href="#" class="nav-link active" aria-current="page">
+          <svg class="bi me-2" width="16" height="16" onClick="location.href='mypage_form'"><use xlink:href="#home"></use></svg>
+          판매 내역
+        </a>
+      </li><br>
+      <li>
+        <a href="#" class="nav-link text-dark">
+          <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
+          관심 상품
+        </a>
+      </li><br>
+      <li>
+        <a href="#" class="nav-link text-dark">
+          <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
+          회원 탈퇴
+        </a>
+      </li>
+    </ul>
+  </div>
 
 </body>
 </html>
