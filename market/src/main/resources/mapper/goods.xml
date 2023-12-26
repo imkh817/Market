@@ -2,6 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.demo.dao.GoodsDao">
+	<!-- 상품 판매 글 등록 -->
+	<insert id="goods_reg" parameterType="goods">
+		insert into goods values (null, #{member_no}, #{category_no}, #{goods_name},#{goods_content},
+								 #{goods_price},null, 0, sysdate(), '1', #{goods_image})
+	</insert>
 
 	<!-- 글 목록 -->
 	<select id="select_goods_list" resultType="goods">

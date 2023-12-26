@@ -12,7 +12,7 @@
 </section>
 
 <!-- 정렬 아이콘 -->
-<div class="d-flex justify-content-center mx-auto px-3"
+<div class="d-flex justify-content-center mx-auto px-3 gap-5"
 	style="max-width: 768px;">
 	<!-- 새로고침 -->
 	<a onClick="location.replace(location.href)">
