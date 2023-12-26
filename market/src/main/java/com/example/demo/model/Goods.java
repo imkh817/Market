@@ -17,7 +17,7 @@ public class Goods {
 	private int goods_price;
 	private String goods_place;
 	private String goods_readcount;
-	private Date goods_reg_date;
+	private Date goods_regdate;
 	private String goods_state; //-> 1 : 판매중 , 2: 예약중 3: 판매완료 4: 삭제
 	private String goods_image;
 	
@@ -26,7 +26,7 @@ public class Goods {
 	private int end_list;
 	
 	// sort
-	private String sort_order;
+	private String order;
 	
 	// search
 	private String keyword;
@@ -42,7 +42,7 @@ public class Goods {
                 ", goods_price=" + goods_price +
                 ", goods_place='" + goods_place + '\'' +
                 ", goods_readcount='" + goods_readcount + '\'' +
-                ", goods_reg_date=" + goods_reg_date +
+                ", goods_regdate=" + goods_regdate +
                 ", goods_state='" + goods_state + '\'' +
                 ", goods_image='" + goods_image + '\'' +
                 '}';
