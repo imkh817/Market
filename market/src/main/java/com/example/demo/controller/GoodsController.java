@@ -39,12 +39,11 @@ public class GoodsController {
 	}
 	
 	// 상품판매 글 등록 폼
-	@RequestMapping("sell")
-	public String sell(Model model) {
+	@RequestMapping("sell_form")
+	public String sell_form(Model model) {
 		
 		// 카테고리 불러오기
 		List<Category> Category = CategoryService.get_category();
-		
 		
 		model.addAttribute("Category",Category);
 		return "goods/sell_form";
@@ -55,68 +54,28 @@ public class GoodsController {
 	public String goods_reg(@RequestParam(name="images") MultipartFile mf, Goods goods, 
 						HttpServletRequest request, HttpSession session, Model model) throws Exception {
 		
-		String filename = mf.getOriginalFilename(); // 첨부파일명
-		int size = (int)mf.getSize(); // 첨부파일의 크기 (단위:Byte)
+		// 이미지 업로드
+		String upload_result = GoodsService.image_upload(mf, request, model);
 		
-		String path = request.getRealPath("upload");
-		System.out.println("mf=" + mf);
-		System.out.println("filename=" + filename);
-		System.out.println("size=" + size);
-		System.out.println("Path=" + path);
-		int result=0;
+		// 첨부파일 사이즈가 클 때
+		if (upload_result.equals("FileSizeOver")){
+			model.addAttribute("result", 1);
+			return "goods/uploadResult";
+			
+		// 파일 확장자가 다를 때
+		}else if (upload_result.equals("FileNotMatch")){
+			model.addAttribute("result", 2);
+			return "goods/uploadResult";
+		}else {
+			goods.setGoods_image(upload_result);
+		}
 		
-		String file[] = new String[2];
-		
-		String newfilename = "";
-		
-		if(size > 0){	 	// 첨부파일이 전송된 경우	
-			
-			// 파일 중복문제 해결
-			String extension = filename.substring(filename.lastIndexOf("."), filename.length());
-			System.out.println("extension:"+extension);
-			
-			UUID uuid = UUID.randomUUID();
-			
-			newfilename = uuid.toString() + extension;
-			System.out.println("newfilename:"+newfilename);		
-			
-			StringTokenizer st = new StringTokenizer(filename, ".");
-			file[0] = st.nextToken();		// 파일명
-			file[1] = st.nextToken();		// 확장자			
-			
-			// 첨부파일 크기가 클 경우
-			if(size > 1000000){				// 976KB
-				result=1;
-				model.addAttribute("result", result);
-				
-				return "goods/uploadResult";
-			
-			// 확장자가 다를 경우
-			}else if(!file[1].equals("jpg")  &&
-					 !file[1].equals("jpeg") &&
-					 !file[1].equals("gif")  &&
-					 !file[1].equals("png") ){
-				
-				result=2;
-				model.addAttribute("result", result);
-				
-				return "goods/uploadResult";
-			}
-		}	
-
-			if (size > 0) { 	// 첨부파일이 전송된 경우
-
-				mf.transferTo(new File(path + "/" + newfilename));
-
-			}
-		
-		goods.setGoods_image(newfilename);
 //		goods.setMember_no((int)session.getAttribute("no")); // 세션에 no저장되면 이걸로
 		goods.setMember_no(7); // 임의로 넣기
 		
 		System.out.println(goods.toString());
 		
-		result = GoodsService.goods_reg(goods);
+		int result = GoodsService.goods_reg(goods);
 		
 		model.addAttribute("result",result);
 		return "goods/reg_result";
