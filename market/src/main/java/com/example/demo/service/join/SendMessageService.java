@@ -17,9 +17,7 @@ public class SendMessageService {
 
 	DefaultMessageService messageService;
 	
-	@Value("${cool.sms-id}")
 	private String sendMessageId;
-	@Value("${cool.sms-secret}")
 	private String sendMessageSecret;
 
 	@Autowired
@@ -43,7 +41,7 @@ public class SendMessageService {
 		// 발신번호 및 수신번호는 반드시 01012345678 형태로 입력되어야 합니다.
 		String random_number = get_autorization_number();
 		System.out.println("인증 번호 : " +random_number);
-		message.setFrom("01093309892");
+		message.setFrom("01076841581");
 		message.setTo(number);
 		message.setText("[양배추 마켓] 회원가입 인증번호는 " + random_number+"입니다.");
 		try {
@@ -61,7 +59,7 @@ public class SendMessageService {
 		Message message = new Message();
 		System.out.println("번호 : " + number);
 		// 발신번호 및 수신번호는 반드시 01012345678 형태로 입력되어야 합니다.
-		message.setFrom("01093309892");
+		message.setFrom("01076841581");
 		message.setTo(number);
 		message.setText("[양배추 마켓] 회원님의 재설정된 비밀번호는 " + pw+" 입니다.");
 		try {

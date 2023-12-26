@@ -26,9 +26,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Service
 public class CompareService {
 	
-	@Value("${naver.secret-id}")
-	private String clientId;
 	@Value("${naver.secret-key}")
+	private String clientId;
+	@Value("${naver.secret-secret}")
 	private String clientSecret;
 	
 	// 페이징
