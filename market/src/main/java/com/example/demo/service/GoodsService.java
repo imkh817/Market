@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 import java.util.UUID;
@@ -31,10 +32,8 @@ public class GoodsService {
 		String newfilename = "";
 		String images = "";
 		
+		// 이미지 배열 mf 만큼 반복문 
 		for (MultipartFile MultipartFile : mf) {
-			
-			System.out.println("서비스 받아온 이미지: " + MultipartFile);
-
 			String filename = MultipartFile.getOriginalFilename(); // 첨부파일명
 			int size = (int) MultipartFile.getSize(); // 첨부파일의 크기 (단위:Byte)
 
@@ -80,8 +79,6 @@ public class GoodsService {
 			images += newfilename+",";
 		} // end for문
 		
-		System.out.println("반복문 끝난 newfilename: "+images);
-			
 		return images;
 	}
 	

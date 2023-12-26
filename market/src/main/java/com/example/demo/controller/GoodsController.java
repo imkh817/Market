@@ -1,9 +1,6 @@
 package com.example.demo.controller;
 
-import java.io.File;
 import java.util.List;
-import java.util.StringTokenizer;
-import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -39,6 +36,20 @@ public class GoodsController {
 	@RequestMapping("list")
 	public String list(Model model) {
 		List<Goods> goods_list = GoodsService.select_goods_list();
+		
+		// 이미지 다중 업로드 되었을때 첫 번째 이미지를 썸네일로 설정
+		for(Goods goods: goods_list) {
+			System.out.println("파싱전 이미지: " + goods.getGoods_image());
+			
+			String image = goods.getGoods_image();
+			String[] goods_img = image.split(",");
+			
+			if(goods_img.length>0) {
+				String thum_img = goods_img[0];
+				goods.setGoods_image(thum_img);
+			}
+		}
+				
 		model.addAttribute("goods_list", goods_list);
 		return "goods/goods_list";
 	}

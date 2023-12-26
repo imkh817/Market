@@ -11,7 +11,8 @@ public interface GoodsDao {
 
 	// 판매 글 등록
 	int goods_reg(Goods goods);
-
+	
 	// 글 목록
 	List<Goods> select_goods_list();
+
 }
