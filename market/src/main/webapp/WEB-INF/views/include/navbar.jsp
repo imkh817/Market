@@ -36,6 +36,13 @@
 					style="position: absolute; transform: translate(60%, 70%); color: #21F11C;"></i>
 			</form>
 			<ul class="navbar-nav me-auto mb-2">
+				<li class="nav-item px-2 fs-2 me-3 my-auto"><a class="sell"
+					href="<c:url value='compare_form'/>"
+					style="color: inherit; text-decoration: none;"><div
+							class="hstack gap-2">
+							<i class="fa-solid fa-chart-simple"></i>
+							<p class="my-auto" style="font-size: 0.8rem">최저가 비교</p>
+						</div></a></li>
 				<li class="nav-item px-2 fs-2 me-3 my-auto"><a class="chat"
 					href="<c:url value='${chat_link}'/>"
 					style="color: inherit; text-decoration: none;"><div

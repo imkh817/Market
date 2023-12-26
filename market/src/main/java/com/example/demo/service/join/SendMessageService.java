@@ -3,6 +3,7 @@ package com.example.demo.service.join;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import net.nurigo.sdk.NurigoApp;
@@ -15,11 +16,16 @@ import net.nurigo.sdk.message.service.DefaultMessageService;
 public class SendMessageService {
 
 	DefaultMessageService messageService;
+	
+	@Value("${cool.sms-id}")
+	private String sendMessageId;
+	@Value("${cool.sms-secret}")
+	private String sendMessageSecret;
 
 	@Autowired
 	public SendMessageService() {
 		// 반드시 계정 내 등록된 유효한 API 키, API Secret Key를 입력해주셔야 합니다!
-		this.messageService = NurigoApp.INSTANCE.initialize("NCSFO1ZH7QDBDH1Y", "ZITYU8R306DKUEWXKMGGSNLTFCRZID5M",
+		this.messageService = NurigoApp.INSTANCE.initialize(sendMessageId, sendMessageSecret,
 				"https://api.coolsms.co.kr");
 	}
 
