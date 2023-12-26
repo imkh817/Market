@@ -65,7 +65,7 @@
 							style="position: relative;">
 							<div class="hstack gap-2">
 								<i class="fa-regular fa-user"></i>
-								<p class="my-auto" style="font-size: 0.8rem">${sessionScope.member_id}</p>
+								<p class="my-auto fw-bolder" style="font-size: 0.8rem">${sessionScope.member_nickname}</p>
 							</div>
 						</div>
 						<ul class="dropdown-menu"
