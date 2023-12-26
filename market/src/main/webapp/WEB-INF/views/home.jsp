@@ -9,7 +9,7 @@
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 <link rel="stylesheet" href="./css/banner.css">
 </head>
-<body class="my-5 py-5">
+<body class="my-5 py-1">
 	<%@ include file="/WEB-INF/views/include/navbar.jsp"%>
 	<!-- 각 페이지 변동 부분 시작 -->
 	<%@ include file="/WEB-INF/views/main_list.jsp"%>
