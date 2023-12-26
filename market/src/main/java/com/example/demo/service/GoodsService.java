@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.dao.GoodsDao;
@@ -27,54 +26,63 @@ public class GoodsService {
 	}
 	
 	// 이미지 등록 전처리
-	public String image_upload(MultipartFile mf, HttpServletRequest request, Model model)throws Exception{
-		
-		String filename = mf.getOriginalFilename(); // 첨부파일명
-		int size = (int)mf.getSize(); // 첨부파일의 크기 (단위:Byte)
-		
-		String path = request.getRealPath("upload");
-		System.out.println("mf=" + mf);
-		System.out.println("filename=" + filename);
-		System.out.println("size=" + size);
-		System.out.println("Path=" + path);
-		
-		int result=0;
-		
-		String file[] = new String[2];
+	public String image_upload(MultipartFile[] mf, HttpServletRequest request)throws Exception{
 		
 		String newfilename = "";
+		String images = "";
 		
-		if(size > 0){	 	// 첨부파일이 전송된 경우	
+		for (MultipartFile MultipartFile : mf) {
 			
-			// 파일 중복문제 해결
-			String extension = filename.substring(filename.lastIndexOf("."), filename.length());
-			System.out.println("extension:"+extension);
-			
-			UUID uuid = UUID.randomUUID();
-			
-			newfilename = uuid.toString() + extension;
-			System.out.println("newfilename:"+newfilename);		
-			
-			StringTokenizer st = new StringTokenizer(filename, ".");
-			file[0] = st.nextToken();		// 파일명
-			file[1] = st.nextToken();		// 확장자			
-			
-			// 첨부파일 크기가 클 경우
-			if(size > 1000000){				//976KB
-				return "FileSizeOver";
-			
-			// 확장자가 다를 경우
-			}else if(!file[1].equals("jpg")  && !file[1].equals("jpeg") && 
-					!file[1].equals("gif")  && !file[1].equals("png") ){
-				return "FileNotMatch";
-			}
-		}	
+			System.out.println("서비스 받아온 이미지: " + MultipartFile);
 
-			if (size > 0) { 	// 첨부파일이 전송된 경우
-				mf.transferTo(new File(path + "/" + newfilename));
+			String filename = MultipartFile.getOriginalFilename(); // 첨부파일명
+			int size = (int) MultipartFile.getSize(); // 첨부파일의 크기 (단위:Byte)
+
+			String path = request.getRealPath("upload");
+			
+			System.out.println("filename=" + filename);
+			System.out.println("size=" + size);
+			System.out.println("Path=" + path);
+
+			String file[] = new String[2];
+
+
+			if (size > 0) { // 첨부파일이 전송된 경우
+
+				// 파일 중복문제 해결
+				String extension = filename.substring(filename.lastIndexOf("."), filename.length());
+				System.out.println("extension:" + extension);
+
+				UUID uuid = UUID.randomUUID();
+
+				newfilename = uuid.toString() + extension;
+				System.out.println("newfilename:" + newfilename);
+
+				StringTokenizer st = new StringTokenizer(filename, ".");
+				file[0] = st.nextToken(); // 파일명
+				file[1] = st.nextToken(); // 확장자
+
+				// 첨부파일 크기가 클 경우
+				if (size > 10000000) { // 약 9.5 MB
+					return "FileSizeOver";
+
+					// 확장자가 다를 경우
+				} else if (!file[1].equals("jpg") && !file[1].equals("jpeg") && !file[1].equals("gif")
+						&& !file[1].equals("png")) {
+					return "FileNotMatch";
+				}
+			}
+
+			if (size > 0) { // 첨부파일이 전송된 경우
+				MultipartFile.transferTo(new File(path + "/" + newfilename));
 			}
 			
-		return newfilename;
+			images += newfilename+",";
+		} // end for문
+		
+		System.out.println("반복문 끝난 newfilename: "+images);
+			
+		return images;
 	}
 	
 	// 글 목록
