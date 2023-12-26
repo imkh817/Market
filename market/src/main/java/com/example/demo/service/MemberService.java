@@ -15,9 +15,4 @@ public class MemberService {
 	public int update_member_add(Member member) {
 		return memberDao.update_member_add(member);
 	}
-
-	// 유저 정보
-	public Member get_member(String member_id) {
-		return memberDao.get_member();
-	}
 }

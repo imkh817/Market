@@ -3,10 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <div class="d-flex flex-column align-items-center my-5">
-	<div>
-		<button class="btn btn-secondary btn-lg mb-5 fw-bold"
+	<div class="mb-3" style="position: relative;">
+		<button class="btn btn-secondary btn-lg mb-3 fw-bold"
 			onClick="javascript:ask_geo()">내 위치 인증하기</button>
-		<p>현재 인증 위치는 <span id="centerAddr"></span></p>
+		<p>현재 인증 위치 : <b><span id="centerAddr"></span></b></p>
 	</div>
 	<div class="map_wrap" style="width: 100%; height: 350px;">
 		<div id="map" style="width: 100%; height: 100%; overflow: hidden;"></div>
@@ -64,7 +64,7 @@
 					}
 				}
 				
-				// 행정동 주소로 인증값 저장
+ 				// 행정동 주소로 인증값 저장
    				$.ajax({
 					type : 'POST',
 					url : 'auth',
