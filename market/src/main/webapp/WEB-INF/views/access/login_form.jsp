@@ -23,16 +23,17 @@
     <div class="join-form">
        	<h2>양배추 마켓에 오신 것을</h2>
         <h2>환영합니다.</h2>
+        <br>
         
         <form action="login" method="post">
-            <label for="username">아이디:</label>
-            <input class="col-12" type="text" id="member_id" name="member_id" required>
+            <label for="member_id" class="fw-medium">아이디:</label>
+            <input class="col-12 fw-medium" type="text" id="member_id" name="member_id" required>
 
-            <label for="password">비밀번호:</label>
+            <label for="password" class="fw-medium">비밀번호:</label>
             <input class="col-12" type="password" id="member_pw" name="member_pw" required>
 
-			<div class="password-reset" align="center">
-				<a href="find_id">아이디 찾기</a> | <a href="find_pw">비밀번호 찾기</a>
+			<div class="password-reset" align="center" >
+				<a href="find_id_form" >아이디 찾기</a> | <a href="find_pw_form">비밀번호 찾기</a>
 			</div>
 			<br>
             <button type="submit">로그인하기</button>

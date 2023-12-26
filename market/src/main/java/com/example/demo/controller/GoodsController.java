@@ -29,9 +29,12 @@ public class GoodsController {
 	
 	@Autowired
 	private GoodsService GoodsService;
-	
+
+	// 글 목록
 	@RequestMapping("list")
-	public String test(){
+	public String list(Model model) {
+		List<Goods> goods_list = GoodsService.select_goods_list();
+		model.addAttribute("goods_list", goods_list);
 		return "goods/goods_list";
 	}
 	

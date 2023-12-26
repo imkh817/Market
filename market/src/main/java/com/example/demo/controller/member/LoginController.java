@@ -32,7 +32,6 @@ public class LoginController {
         String referer = (String) session.getAttribute("referer");
         String url = (referer != null) ? referer : "/home";
 		model.addAttribute("url",url);
-		System.out.println("url : " + url);
 		model.addAttribute("result",result);
 		
 		return "access/login_result";

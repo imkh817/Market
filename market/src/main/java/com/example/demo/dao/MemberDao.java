@@ -7,6 +7,12 @@ import com.example.demo.model.Member;
 @Mapper
 public interface MemberDao {
 	
+	// 위치 인증
+	int update_member_add(Member member);
+
+	// 유저 정보
+	Member get_member();	
+	
 	// 회원가입 - 아이디 중복 검사
 	int id_valiable(String member_id);
 	// 회원가입 - 닉네임 중복 검사
@@ -18,6 +24,13 @@ public interface MemberDao {
 	
 	// 로그인 - 유저 확인
 	Member user_check(Member member);
+	
+	// 아이디 찾기 - 유저 확인
+	Member find_id(Member member);
+	
+	// 비밀번호 찾기 - 임시 비밀번호 발송 후 임시 비밀번호 디비 저장
+	int update_pw(Member member);
+	
 
 
 

@@ -18,12 +18,6 @@ public class JoinController {
 	@Autowired
 	SendMessageService smsService;
 	
-	
-	@RequestMapping("home")
-	public String test(){
-		return "home";
-	}
-	
 	@RequestMapping("join_form")
 	public String join_form(){
 		return "access/join_form";

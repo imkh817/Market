@@ -62,6 +62,21 @@ function phone_authorization1() {
     })
 }
 
+function phone_autorization_pw1(){
+	var number = document.getElementById('member_phone_num').value
+	 $.ajax({
+    	url : "phone_autorization_pw",
+    	type : "POST",
+    	data : {"number" : number},
+    		success : function(data){
+    		document.getElementById('phone_authorization_value').value = data;
+    		document.getElementById('phone_authorization').style.display = 'block';
+    		 console.log(data);
+    		}
+    	})    
+}
+
+
 function check_phone_authorization1(){
 	var server_num = document.getElementById('phone_authorization_value').value;
 	var client_num = document.getElementById('client_num').value;
