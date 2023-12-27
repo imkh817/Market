@@ -11,15 +11,10 @@
 		<c:forEach var="gd" items="${goods_list}" varStatus="status">
 			<div class="col">
 				<div class="card" style="border: none;">
-<<<<<<< HEAD:market/src/main/webapp/WEB-INF/views/goods/goods_list.jsp
-					<img src="upload/${gd.goods_image}" class="card-img-top mx-auto my-2"
-						alt="" style="width: 200px; height: 200px;">
-=======
 					<p class="card-text lh-1 mx-auto fw-bold">TOP ${status.count}</p>
 					<img src="./upload/${gd.goods_image}"
 						class="card-img-top mx-auto my-2" alt=""
 						style="width: 200px; height: 200px;">
->>>>>>> seungyeon:market/src/main/webapp/WEB-INF/views/best.jsp
 					<div class="card-body mx-1">
 						<p class="card-text lh-1">${gd.goods_name}</p>
 						<p class="card-text lh-1 fw-bold">${gd.goods_price}</p>
