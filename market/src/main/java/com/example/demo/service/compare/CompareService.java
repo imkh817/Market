@@ -64,7 +64,13 @@ public class CompareService {
 		tmp.setGoods_name(compare_product);
 		tmp.setStart_list(paging.getStartRow());
 		
-		List<Goods> list = dao.get_compare_list(tmp);
+		List<Goods> list = new ArrayList<Goods>();
+		try {
+			list = dao.get_compare_list(tmp);
+		}catch(Exception e) {
+			
+			return list;
+		}
 //		for(int i=0; i<list.size(); i++) {
 //			list.get(i).setGoods_price(Integer.parseInt(format_number(list.get(i).getGoods_price()+"")));
 //		}
@@ -76,26 +82,28 @@ public class CompareService {
 	// 양배추 마켓 최저가 비교 리스트 가격 최고가 , 평균가, 최저가 구하기
 	public ComparePrice get_Compare_price(List<Goods> list) {
 		ComparePrice price = new ComparePrice();
-		int max=0;
-		int min=list.get(0).getGoods_price();
-		int total=0;
-		
-		for(int i=0; i<list.size(); i++) {
-			if(list.get(i).getGoods_price() > max) {
-				max = list.get(i).getGoods_price();
-			}
-			if(list.get(i).getGoods_price()<min) {
-				min = list.get(i).getGoods_price();
+		if(list.size()>0) { // 검색된 결과가 1개라도 있을때
+			int max=0;
+			int min=list.get(0).getGoods_price();
+			int total=0;
+			
+			for(int i=0; i<list.size(); i++) {
+				if(list.get(i).getGoods_price() > max) {
+					max = list.get(i).getGoods_price();
+				}
+				if(list.get(i).getGoods_price()<min) {
+					min = list.get(i).getGoods_price();
+				}
+				
+				total += list.get(i).getGoods_price();
 			}
 			
-			total += list.get(i).getGoods_price();
+			int avg = total/list.size();
+			
+			price.setLow_price(min);
+			price.setHigh_price(max);
+			price.setAvg_price(avg);
 		}
-		
-		int avg = total/list.size();
-		
-		price.setLow_price(min);
-		price.setHigh_price(max);
-		price.setAvg_price(avg);
 		
 		return price;
 	}
