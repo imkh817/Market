@@ -28,8 +28,9 @@
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse ms-5" id="navbar_toggler">
-			<form class="d-flex me-auto w-40" role="search" id="search">
-				<input class="form-control me-2 px-5" type="search"
+			<form class="d-flex me-auto w-40" action="${path}/board?page=${page_current}" 
+			role="search">
+				<input class="form-control me-2 px-5" name="keyword" type="search"
 					placeholder="어떤 상품을 찾으시나요?" aria-label="Search"
 					style="position: relative; border-color: #21F11C;"><i
 					class="fa-solid fa-magnifying-glass"

@@ -10,10 +10,9 @@ public class HomeController {
 	public String home(){
 		return "home";
 	}
-	
+
 	@RequestMapping("auth_location")
 	public String auth_location(){
 		return "auth_location";
 	}
-	
 }

@@ -8,9 +8,18 @@
 								 #{goods_price},#{goods_place}, 0, sysdate(), '1', #{goods_image})
 	</insert>
 
-	<!-- 글 목록 -->
-	<select id="select_goods_list" resultType="goods">
-		SELECT * FROM goods ORDER BY goods_regdate DESC LIMIT 0, 15
+	<!-- 글 갯수 -->
+	<select id="goods_listcount" parameterType="int" resultType="int">
+		SELECT COUNT(*) FROM goods
 	</select>
 
+	<!-- 글 목록 -->
+	<select id="goods_list" parameterType="int" resultType="goods">
+		SELECT * FROM goods ORDER BY goods_regdate DESC LIMIT #{start}, 12
+	</select>
+
+	<!-- 인기글 목록 -->
+	<select id="best_list" resultType="goods">
+		SELECT * FROM goods ORDER BY goods_readcount DESC LIMIT 0, 12
+	</select>
 </mapper>
