@@ -4,7 +4,7 @@
 <%@ page import="com.example.demo.model.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-
+<c:set var="path" value="${pageContext.request.contextPath}"></c:set>
 <!DOCTYPE html>
 <html>
 <head>
@@ -91,7 +91,7 @@
 		<ul class="pagination">
 			<c:if test="${page>1}">
 				<li class="page-item"><a class="page-link"
-					href="board?page=${page-1}">이전</a></li>
+					href="${path}/board?page=${page-1}">이전</a></li>
 			</c:if>
 			<c:forEach var="i" begin="${startpage}" end="${endpage}">
 				<li class="page-item <c:if test="${page==i}">active</c:if>"><a
@@ -99,7 +99,7 @@
 			</c:forEach>
 			<c:if test="${page<maxpage}">
 				<li class="page-item"><a class="page-link"
-					href="board?page=${page+1}">다음</a></li>
+					href="${path}/board?page=${page+1}">다음</a></li>
 			</c:if>
 		</ul>
 	</div>
