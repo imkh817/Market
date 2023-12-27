@@ -26,6 +26,7 @@
     <div class="join-form">
        	<h2>양배추 마켓에 오신 것을</h2>
         <h2>환영합니다.</h2>
+        <br>
         
         <form action="join_member" method="post">
             <label for="username" class="fw-medium">아이디:</label>
@@ -35,6 +36,9 @@
             <label for="password" class="fw-medium">비밀번호:</label>
             <input class="col-11" type="password" id="password" name="member_pw" required placeholder="비밀번호를 입력해주세요" onfocus="id_valiable1()">
 
+			<label for="name" class="fw-medium">이름:</label>
+            <input class="col-11 fw-medium" type="text" id="member_name" name="member_name" placeholder="이름을 입력해주세요" required>
+            
             <label for="nickname" class="fw-medium">별명:</label>
             <input class="col-11 fw-medium" type="text" id="member_nickname" name="member_nickname" placeholder="별명을 입력해주세요" required>
             <input type="text" class="rounded-pill text-danger fw-bold" id="nickname_valiable" value="" style="display:none">

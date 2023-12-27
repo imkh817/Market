@@ -6,7 +6,7 @@
 <html>
 <head>
 <title>위치인증</title>
-<style>
+<!-- <style>
 .map_wrap {
 	position: relative;
 	width: 100%;
@@ -41,7 +41,7 @@
 	overflow: hidden;
 	white-space: nowrap;
 }
-</style>
+</style> -->
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 </head>
 <body class="my-5 py-5">

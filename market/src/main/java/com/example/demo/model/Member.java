@@ -13,6 +13,7 @@ public class Member {
 	private int member_no;
 	private String member_id;
 	private String member_pw;
+	private String member_name;
 	private String member_nickname;
 	private String member_state; // -> n: y
 	private Date member_regdate;
