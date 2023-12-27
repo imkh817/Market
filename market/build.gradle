@@ -38,6 +38,12 @@ dependencies {
 	// JWT Token
 	implementation 'io.jsonwebtoken:jjwt:0.9.1'
 	
+	// Cool Sms 전송
+	implementation 'net.nurigo:sdk:4.3.0'
+	
+	// Security
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.3.1'
 	compileOnly 'org.projectlombok:lombok'

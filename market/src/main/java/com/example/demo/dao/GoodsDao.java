@@ -14,4 +14,10 @@ public interface GoodsDao {
 
 	// 글 목록
 	List<Goods> select_goods_list();
+
+	// 최저가 비교 -> 검색한 매물 판매 완료된 갯수 가지고 오기 조건: 날짜 
+	int compare_list_count(String compare_prodcut);
+
+	// 양배추 마켓 최저가 비교 리스트
+	List<Goods> get_compare_list(Goods tmp);
 }
