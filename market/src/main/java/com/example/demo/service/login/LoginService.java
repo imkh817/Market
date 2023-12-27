@@ -31,8 +31,9 @@ public class LoginService {
 			return -1;
 		}else {
 			if(joinService.match_password(member.getMember_pw(), user.getMember_pw())) { // 로그인 성공!
-				session.setAttribute("member_id", member.getMember_id());
-				session.setAttribute("member_nickname", member.getMember_nickname());
+				session.setAttribute("member_id", user.getMember_id());
+				session.setAttribute("member_nickname", user.getMember_nickname());
+				session.setAttribute("member_no", user.getMember_no());
 				return 1;
 			}
 		}

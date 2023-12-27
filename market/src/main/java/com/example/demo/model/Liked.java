@@ -12,9 +12,5 @@ public class Liked {
 	private int liked_no;
 	private int member_no;
 	private int goods_no;
-	private Date liked_reg_date;
-	
-	// 페이징
-	private int startRow;
-	private int endRow;
+	private Date liked_regdate;
 }

@@ -7,7 +7,7 @@
 		<c:forEach var="gd" items="${goods_list}">
 			<div class="col">
 				<div class="card" style="border: none;">
-					<img src="../images/example.png" class="card-img-top mx-auto my-2"
+					<img src="upload/${gd.goods_image}" class="card-img-top mx-auto my-2"
 						alt="" style="width: 200px; height: 200px;">
 					<div class="card-body mx-1">
 						<p class="card-text lh-1">${gd.goods_name}</p>

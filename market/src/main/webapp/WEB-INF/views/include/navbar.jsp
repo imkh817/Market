@@ -3,9 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="chat" value="${sessionScope.member_id==null ? '5' : ''}" />
 <c:set var="chat_link"
-	value="${sessionScope.member_id==null ? 'login' : 'chat'}" />
+	value="${sessionScope.member_id==null ? 'login_form' : 'chat'}" />
 <c:set var="sell_link"
-	value="${sessionScope.member_id==null ? 'login' : 'sell'}" />
+	value="${sessionScope.member_id==null ? 'login_form' : 'sell_form'}" />
 <c:set var="join"
 	value="${sessionScope.member_id==null ? '회원가입' : '마이페이지'}" />
 <c:set var="join_link"
@@ -36,6 +36,13 @@
 					style="position: absolute; transform: translate(60%, 70%); color: #21F11C;"></i>
 			</form>
 			<ul class="navbar-nav me-auto mb-2">
+				<li class="nav-item px-2 fs-2 me-3 my-auto"><a class="sell"
+					href="<c:url value='compare_form'/>"
+					style="color: inherit; text-decoration: none;"><div
+							class="hstack gap-2">
+							<i class="fa-solid fa-chart-simple"></i>
+							<p class="my-auto" style="font-size: 0.8rem">최저가 비교</p>
+						</div></a></li>
 				<li class="nav-item px-2 fs-2 me-3 my-auto"><a class="chat"
 					href="<c:url value='${chat_link}'/>"
 					style="color: inherit; text-decoration: none;"><div
@@ -58,7 +65,7 @@
 							style="position: relative;">
 							<div class="hstack gap-2">
 								<i class="fa-regular fa-user"></i>
-								<p class="my-auto" style="font-size: 0.8rem">${sessionScope.member_id}</p>
+								<p class="my-auto fw-bolder" style="font-size: 0.8rem">${sessionScope.member_nickname}</p>
 							</div>
 						</div>
 						<ul class="dropdown-menu"
