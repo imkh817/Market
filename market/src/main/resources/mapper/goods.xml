@@ -4,9 +4,32 @@
 <mapper namespace="com.example.demo.dao.GoodsDao">
 	<!-- 상품 판매 글 등록 -->
 	<insert id="goods_reg" parameterType="goods">
-		insert into goods values (null, #{member_no}, #{category_no}, #{goods_name},#{goods_content},
-								 #{goods_price},#{goods_place}, 0, sysdate(), '1', #{goods_image})
+		insert into goods values
+		(null, #{member_no}, #{category_no}, #{goods_name},#{goods_content},
+		#{goods_price},null, 0, sysdate(), '1', #{goods_image})
 	</insert>
+
+	<!-- 글 목록 -->
+	<select id="select_goods_list" resultType="goods">
+		SELECT * FROM goods
+		ORDER BY goods_regdate DESC LIMIT 0, 15
+	</select>
+
+	<!-- 최저가 비교 상품 갯수 -->
+	<select id="compare_list_count" parameterType="String"
+		resultType="int">
+	<![CDATA[
+    select count(*) from goods where goods_name LIKE CONCAT('%', #{goods_name}, '%') and goods_state='3' and goods_regdate >= DATE_SUB(sysdate(), INTERVAL 30 DAY) AND goods_regdate < sysdate();
+	]]>
+
+	</select>
+	
+	<!-- 최저가 비교 상품 리스트 -->
+	<select id="get_compare_list" parameterType="goods" resultType="goods">
+		<![CDATA[
+		select * from goods where goods_name LIKE CONCAT('%', #{goods_name}, '%')  and goods_state='3' and goods_regdate >= DATE_SUB(sysdate(), INTERVAL 30 DAY) AND goods_regdate < sysdate() order by goods_regdate desc;
+	]]>
+	</select>
 
 	<!-- 글 갯수 -->
 	<select id="goods_listcount" parameterType="int" resultType="int">

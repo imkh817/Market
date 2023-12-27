@@ -38,7 +38,7 @@
 			</form>
 			<ul class="navbar-nav me-auto mb-2">
 				<li class="nav-item px-2 fs-2 me-3 my-auto"><a class="sell"
-					href="<c:url value='compare_form'/>"
+					href="<c:url value='lowest_baechu_form'/>"
 					style="color: inherit; text-decoration: none;"><div
 							class="hstack gap-2">
 							<i class="fa-solid fa-chart-simple"></i>

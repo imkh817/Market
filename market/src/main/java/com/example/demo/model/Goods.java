@@ -30,6 +30,9 @@ public class Goods {
 	// search
 	private String keyword;
 	
+	private int start_list;
+	private int end_list;
+	
 	@Override
     public String toString() {
         return "Goods{" +
