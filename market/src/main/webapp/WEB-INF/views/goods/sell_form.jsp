@@ -23,13 +23,6 @@
 		<!-- 상품 등록 작성 폼 -->
 		<form action="goods_reg" method="post" enctype="multipart/form-data">
 
-			<div class="form-group row mt-3">
-				<label for="images" class="col-sm-2 col-form-label fw-bold">상품 이미지</label>
-				<div class="col-sm-10 input_container my-auto">
-					<input type="file" class="form-control-file" id="images" name="images">
-				</div>
-			</div>
-
 			<div class="form-group row mt-1">
 				<label for="title" class="col-sm-2 col-form-label fw-bold">상품 제목</label>
 				<div class="col-sm-10">
@@ -65,6 +58,14 @@
 					<button type="button" class="btn btn-primary btn-sm" onClick="#">AI 글 작성</button>
 				</div>
 			</div>
+			
+			<div class="form-group row mt-3">
+				<label for="images" class="col-sm-2 col-form-label fw-bold">상품 이미지</label>
+				<div class="col-sm-10 input_container my-auto">
+					<input type="file" class="form-control-file" id="images" name="images" multiple>
+				</div>
+			</div>
+			
 			<div class="text-center mt-3">
 				<button type="submit" class="btn btn-primary">상품 등록</button>
 			</div>

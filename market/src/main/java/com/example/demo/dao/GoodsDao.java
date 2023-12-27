@@ -20,4 +20,12 @@ public interface GoodsDao {
 
 	// 양배추 마켓 최저가 비교 리스트
 	List<Goods> get_compare_list(Goods tmp);
+	// 글 갯수
+	int goods_listcount();
+	
+	// 글 목록
+	List<Goods> goods_list(int start);
+	
+	// 인기글 목록
+	List<Goods> best_list();
 }

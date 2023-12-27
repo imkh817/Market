@@ -12,5 +12,5 @@ public class Liked {
 	private int liked_no;
 	private int member_no;
 	private int goods_no;
-	private Date liked_reg_date;
+	private Date liked_regdate;
 }
