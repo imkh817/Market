@@ -49,17 +49,17 @@
 							alt="프로필 이미지">
 					</div>
 					<div class="col-4">
-						<h5 class="mb-0 ml-3">#광진총각</h5>
+						<h5 class="mb-0 ml-3">#${member_nickname}</h5>
 					</div>
 					<div class="col-3">
 						<i class="fa-solid fa-gift fa-2x " style="color: #5ba95d;"></i>
 						<p></p>
-						<h6  >판매 10</h6>
+						<h6  >판매 ${sell_count }</h6>
 					</div>
 					<div class="col-3">
 						<i class="fa-solid fa-heart fa-2x" style="color: #e84a62;"></i>
 						<p></p>
-						<h6>좋아요 20</h6>
+						<h6>좋아요 ${liked_count }</h6>
 					</div>
 				</div>
 			</div>

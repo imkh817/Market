@@ -9,7 +9,6 @@
 <link rel="stylesheet" href="./css/banner.css">
 </head>
 <body class="pt-5">
-
 	<%@ include file="/WEB-INF/views/include/navbar.jsp"%>
 	<section class="banner my-5 py-5">
 		<div class="title">

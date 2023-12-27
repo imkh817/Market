@@ -34,8 +34,15 @@ public class MypageController {
 		List<Goods> mypage_list = mypageSerive.getList(pp, (int)session.getAttribute("member_no"));
 		System.out.println("list : " + mypage_list);
 		
+		int sell_count = pp.getTotal();
+		int liked_count = mypageSerive.paging_liked(page,(int)session.getAttribute("member_no")).getTotal();
+		
+		model.addAttribute("member_nickname", session.getAttribute("member_nickname"));
+		model.addAttribute("sell_count", sell_count);
+		model.addAttribute("liked_count", liked_count);
 		model.addAttribute("list", mypage_list);
 		model.addAttribute("page", pp);
+		
 		return "mypage/mypage_form";
 	}
 	
@@ -63,6 +70,11 @@ public class MypageController {
 		List<Map<String, Object>> liked_list = mypageSerive.liked_list(pp, (int)session.getAttribute("member_no"));
 		System.out.println("liked_list : " + liked_list);
 		
+		int sell_count = mypageSerive.paging(page,(int)session.getAttribute("member_no")).getTotal();;
+		int liked_count = pp.getTotal();
+		
+		model.addAttribute("sell_count", sell_count);
+		model.addAttribute("liked_count", liked_count);
 		model.addAttribute("list", liked_list);
 		model.addAttribute("page", pp);
 		

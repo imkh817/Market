@@ -28,7 +28,7 @@
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse ms-5" id="navbar_toggler">
-			<form class="d-flex me-auto w-50" role="search" id="search">
+			<form class="d-flex me-auto w-40" role="search" id="search">
 				<input class="form-control me-2 px-5" type="search"
 					placeholder="어떤 상품을 찾으시나요?" aria-label="Search"
 					style="position: relative; border-color: #21F11C;"><i
@@ -42,6 +42,13 @@
 							class="hstack gap-2">
 							<i class="fa-solid fa-chart-simple"></i>
 							<p class="my-auto" style="font-size: 0.8rem">최저가 비교</p>
+						</div></a></li>
+				<li class="nav-item px-2 fs-2 me-3 my-auto"><a class="sell"
+					href="<c:url value='alba_main'/>"
+					style="color: inherit; text-decoration: none;"><div
+							class="hstack gap-2">
+							<i class="fa-solid fa-person-running" style="color: #000000;"></i>
+							<p class="my-auto" style="font-size: 0.8rem">알바</p>
 						</div></a></li>
 				<li class="nav-item px-2 fs-2 me-3 my-auto"><a class="chat"
 					href="<c:url value='${chat_link}'/>"
