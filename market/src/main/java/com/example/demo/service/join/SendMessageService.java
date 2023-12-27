@@ -17,8 +17,8 @@ public class SendMessageService {
 
 	DefaultMessageService messageService;
 	
-	private String sendMessageId;
-	private String sendMessageSecret;
+	private String sendMessageId="NCSIG1FRC0ARBTNI";
+	private String sendMessageSecret="YSO3D2MDNESAY2SBOOPPYUQRSHYZ7LXN";
 
 	@Autowired
 	public SendMessageService() {

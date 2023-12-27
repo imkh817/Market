@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.dao.MypageDao">
+
+<!-- 판매 내역 리스트 불러오기 -->
+<select id="getList" parameterType="goods" resultType="goods">
+	SELECT * FROM goods WHERE member_no = #{member_no} 
+	LIMIT #{start_list}, 6
+</select>
+
+<!-- 페이징하기 위한 총 글 수 구하기 -->
+<select id="getTotal" parameterType="int" resultType="int">
+	select count(*) from goods where member_no = #{member_no}
+</select>
+
+<!-- 관심 상품 페이징 위해 총 글 수 구하기 -->
+<select id="get_liked_total" parameterType="int" resultType="int">
+	select count(*) FROM goods
+	JOIN liked ON goods.goods_no = liked.goods_no
+	where liked.member_no = #{member_no}
+</select>
+
+<!-- 회원 삭제 (서비스파일에서 이미 비교해서 걍 절차상 pw만 비교해도 돼)-->
+<delete id="member_delete" parameterType="String">
+	delete from member where member_pw = #{member_pw}
+</delete>
+
+<!-- 찜한 상품 리스트 불러오기 -->
+<select id="liked_list" parameterType="liked" resultType="java.util.Map">
+	SELECT *
+	FROM goods
+	JOIN liked ON goods.goods_no = liked.goods_no
+	where liked.member_no = #{member_no}
+	limit #{start_list}, 6
+</select>
+
+</mapper>
