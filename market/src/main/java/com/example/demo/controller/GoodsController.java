@@ -75,7 +75,7 @@ public class GoodsController {
 			String image = gd.getGoods_image();
 			String[] goods_img = image.split(",");
 
-			if (goods_img.length > 0) {
+			if (goods_img.length > 1) {
 				String thum_img = goods_img[0];
 				gd.setGoods_image(thum_img);
 			}
