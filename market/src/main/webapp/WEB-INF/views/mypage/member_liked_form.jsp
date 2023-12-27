@@ -29,7 +29,7 @@
 		</div>
 		<div class="col-9">
 
-			<%@ include file="/WEB-INF/views/mypage/mypage_list.jsp"%>
+			<%@ include file="/WEB-INF/views/mypage/member_liked_list.jsp"%>
 
 		</div>
 	</div>
