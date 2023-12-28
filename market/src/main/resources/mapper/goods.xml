@@ -2,6 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.demo.dao.GoodsDao">
+
+	<resultMap type="liked" id="liked">
+		<result column="LIKED_NO" property="liked_no" />		
+	</resultMap>
+
+	<resultMap type="goods" id="goods">
+		<result column="GOODS_NO" property="goods_no" />
+		<result column="MEMBER_NO" property="member_no" />
+		<result column="CATEGORY_NO" property="category_no" />
+		<result column="GOODS_NAME" property="goods_name" />
+		<result column="GOODS_CONTENT" property="goods_content" />
+		<result column="GOODS_PRICE" property="goods_price" />
+		<result column="GOODS_PLACE" property="goods_place" />
+		<result column="GOODS_READCOUNT" property="goods_readcount" />
+		<result column="GOODS_REGDATE" property="goods_regdate" />
+		<result column="GOODS_STATE" property="goods_state" />
+		<result column="GOODS_IMAGE" property="goods_image" />
+		<collection resultMap="liked" property="liked" />
+	</resultMap>
+
 	<!-- 상품 판매 글 등록 -->
 	<insert id="goods_reg" parameterType="goods">
 		insert into goods values
@@ -31,12 +51,16 @@
 	</select>
 
 	<!-- 글 목록 -->
-	<select id="goods_list" parameterType="int" resultType="goods">
-		SELECT * FROM goods ORDER BY goods_regdate DESC LIMIT #{start}, 12
+	<select id="goods_list" parameterType="int" resultMap="goods">
+		SELECT goods.*, IFNULL(liked.liked_no,0) AS liked_no FROM goods LEFT JOIN liked 
+		ON goods.goods_no = liked.goods_no 
+		ORDER BY goods.goods_regdate DESC LIMIT #{start}, 12
 	</select>
 
 	<!-- 인기글 목록 -->
-	<select id="best_list" resultType="goods">
-		SELECT * FROM goods ORDER BY goods_readcount DESC LIMIT 0, 12
+	<select id="best_list" resultMap="goods">
+		SELECT goods.*, IFNULL(liked.liked_no,0) AS liked_no FROM goods LEFT JOIN liked 
+		ON goods.goods_no = liked.goods_no 
+		ORDER BY goods.goods_readcount DESC LIMIT 0, 12
 	</select>
 </mapper>

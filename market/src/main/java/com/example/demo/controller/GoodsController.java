@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -43,7 +44,7 @@ public class GoodsController {
 
 	// 글 목록
 	@RequestMapping("board")
-	public String board(HttpServletRequest request, MultipartFile[] mf, Goods goods, Model model) {
+	public String board(HttpServletRequest request, Goods goods, Model model) {
 
 		List<Goods> goods_list = new ArrayList<Goods>();
 
