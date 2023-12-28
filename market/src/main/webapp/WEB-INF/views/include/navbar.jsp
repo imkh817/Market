@@ -45,7 +45,7 @@
 							<p class="my-auto" style="font-size: 0.8rem">최저가 비교</p>
 						</div></a></li>
 				<li class="nav-item px-2 fs-2 me-3 my-auto"><a class="sell"
-					href="<c:url value='alba_main'/>"
+					href="<c:url value='job_main'/>"
 					style="color: inherit; text-decoration: none;"><div
 							class="hstack gap-2">
 							<i class="fa-solid fa-person-running" style="color: #000000;"></i>
