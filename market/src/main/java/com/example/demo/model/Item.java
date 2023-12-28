@@ -1,20 +1,18 @@
 package com.example.demo.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 
 @Data
-@Getter
+@AllArgsConstructor
 public class Item {
-	 	private String title;
-	    private String link;
-	    private String image;
-	    private String lprice;
+	 	private final String title;
+	    private final String link;
+	    private final String image;
+	    private final String lprice;
+	    private final String brand;
+	    private final String maker;
+	    private final String category1;
 
-	    public Item(String title, String link, String image, String lprice) {
-	        this.title = title;
-	        this.link = link;
-	        this.image = image;
-	        this.lprice = lprice;
-	    }
 }

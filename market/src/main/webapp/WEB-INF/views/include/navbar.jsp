@@ -32,13 +32,13 @@
 			role="search">
 				<input class="form-control me-2 px-5" name="keyword" type="search"
 					placeholder="어떤 상품을 찾으시나요?" aria-label="Search"
-					style="position: relative; border-color: #21F11C;"><i
+					style="position: relative; border-color: #47C83E;"><i
 					class="fa-solid fa-magnifying-glass"
-					style="position: absolute; transform: translate(60%, 70%); color: #21F11C;"></i>
+					style="position: absolute; transform: translate(60%, 70%); color: #47C83E;"></i>
 			</form>
 			<ul class="navbar-nav me-auto mb-2">
 				<li class="nav-item px-2 fs-2 me-3 my-auto"><a class="sell"
-					href="<c:url value='compare_form'/>"
+					href="<c:url value='lowest_baechu_form'/>"
 					style="color: inherit; text-decoration: none;"><div
 							class="hstack gap-2">
 							<i class="fa-solid fa-chart-simple"></i>
