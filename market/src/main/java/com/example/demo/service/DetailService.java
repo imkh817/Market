@@ -18,9 +18,9 @@ public class DetailService {
 //	상세페이지 이동 및 데이터 불러오기
 	public List<Map<String, Object>> detail_goods(Goods goods) {
 
-		List<Map<String, Object>> detail_result = dao.detail_goods(goods);
-		System.out.println("상세 goods_no 기반 데이터 = " + detail_result);
-
+		goods.setGoods_no(goods.getGoods_no());
+		System.out.println("세션으로 가져온 goods_no = " + goods.getGoods_no());
+		
 		return dao.detail_goods(goods);
 	}
 	
@@ -39,6 +39,17 @@ public class DetailService {
 	public int read_count_up(Goods goods) {
 		return dao.read_count_up(goods);
 	}
+
+//	상품 삭제
+	public int detail_delete(int goods_no) {
+		return dao.detail_delete(goods_no);
+	}
+
+//	회원 별명 가져오기
+//	public String member_nick_load(int goods_no) {
+//		return dao.member_nick_load(goods_no);
+//	}
+
 
 
 

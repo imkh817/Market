@@ -26,6 +26,13 @@ public interface DetailDao {
 //	인기상품 이동
 	List<Map<String, Object>> best_detail(int goods_no);
 
+//	상품 삭제
+	int detail_delete(int goods_no);
+
+//	회원 별명 가져오기
+//	String member_nick_load(int goods_no);
+
+
 
 
 

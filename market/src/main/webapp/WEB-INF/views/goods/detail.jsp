@@ -18,8 +18,7 @@
 <script>
 	document.addEventListener('DOMContentLoaded', function() {
 		var heartIcon = document.getElementById('heartIcon');
-		// name 값이 like_state인 첫번째 input을 구해옴
-		var heartValue = document.querySelector('input[name="like_state"]');
+		var heartValue = document.querySelector('input[name="liked_no"]');
 
 		if (heartValue.value == '1') {
 			heartIcon.classList.add('fas', 'text-danger');
@@ -48,8 +47,8 @@
 					type : "POST",
 					url : "heartClick",
 					data : {
-						cafe_no : '<c:out value="${goods.goods_no}" />',
-						like_state : heartValue.value
+						goods_no : '<c:out value="${goods.goods_no}" />',
+						liked_no : heartValue.value
 					},
 					success : function(response) {
 					}
@@ -112,7 +111,7 @@
 					</div>
 
 					<!-- 상품명, 가격 등등 -->
-					<input type="hidden" name="like_state" value="${liked }">
+					<input type="hidden" name="liked_state" value="${liked }">
 					<div class="col-7">
 
 						<div class="row">
@@ -125,15 +124,45 @@
 								<div class="btn-group btn-group-sm" role="group"
 									aria-label="Small button group" id="edit">
 									<button type="button" class="btn btn-outline-primary">수정</button>
-									<button type="button" class="btn btn-outline-danger">삭제</button>
+									<button type="button" class="btn btn-outline-danger"
+										data-bs-toggle="modal" data-bs-target="#staticBackdrop">삭제</button>
 								</div>
+								<div class="modal fade" id="staticBackdrop"
+									data-bs-backdrop="static" data-bs-keyboard="false"
+									tabindex="-1" aria-labelledby="staticBackdropLabel"
+									aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h1 class="modal-title fs-5" id="staticBackdropLabel">상품 삭제</h1>
+												<button type="button" class="btn-close"
+													data-bs-dismiss="modal" aria-label="Close"></button>
+											</div>
+											<div class="modal-body">${dl.goods_name }을 삭제하시겠습니까?</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary"
+													data-bs-dismiss="modal">닫기</button>
+												<button type="button" class="btn btn-danger" onclick="location.href='detail_delete?goods_no=${dl.goods_no}'">삭제</button>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<script>
+								const myModal = document.getElementById('myModal') const myInput
+								= document.getElementById('myInput')
+
+								myModal.addEventListener('shown.bs.modal', () => {
+								myInput.focus() })
+								</script>
 
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-7">
-								<h5>${dl.goods_price }원&nbsp;<a href="#" id="recent_price">최근
-										가격 확인하기</a>
+								<h5>${dl.goods_price }원&nbsp;
+									<a href="lowest_baechu?compare_product=${dl.goods_name }"
+										id="recent_price">최근 가격 확인하기</a>
 								</h5>
 							</div>
 							<div class="col-5" id="time_div">
@@ -161,8 +190,8 @@
 						<!-- 조회수, 관심, 내용 -->
 						<div class="row">
 							<div class="col-8">
-								<i class="fa-regular fa-user" id="user_img"></i> <a href="#"
-									id="member_nick">&nbsp;member_nickname${member.member_nickname }&nbsp;</a>
+								<a href="mypage_list?member_no=${dl.member_no }"
+									id="member_nick"><i class="fa-regular fa-user" id="user_img"></i></a>
 							</div>
 							<div class="col-4" id="view_div">
 								<p>조회&nbsp;${dl.goods_readcount }&nbsp;·&nbsp;관심&nbsp;00</p>
@@ -171,7 +200,7 @@
 
 						<div class="row">
 							<div>
-								<textarea id="goods_content">${dl.goods_content }</textarea>
+								<textarea id="goods_content" readonly>${dl.goods_content }</textarea>
 							</div>
 						</div>
 
@@ -183,7 +212,7 @@
 								<div id="map"></div>
 							</div>
 							<div class="col-2 text-end">
-								<button class="btn btn-outline-dark mt-2" id="chat">채팅하기</button>
+								<button class="btn btn-outline-dark mt-2" id="chat" onclick="location.href='chat?goods_no=${dl.goods_no}&member_no=${dl.member_no }&session_member_no=${session_member_no }'">채팅하기</button>
 							</div>
 						</div>
 

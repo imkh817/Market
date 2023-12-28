@@ -31,6 +31,22 @@
 		#{goods_no}) AS best ORDER BY goods_readcount DESC LIMIT 5
 	</select>
 
+	<!-- 상품 삭제 -->
+	<delete id="detail_delete" parameterType="int">
+		DELETE FROM goods WHERE
+		goods_no = #{goods_no}
+	</delete>
+
+	<!-- 회원 별명 가져오기 -->
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 
 </mapper>
