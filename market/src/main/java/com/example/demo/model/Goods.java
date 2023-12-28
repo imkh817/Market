@@ -20,6 +20,8 @@ public class Goods {
 	private Date goods_regdate;
 	private String goods_state; //-> 1 : 판매중 , 2: 예약중 3: 판매완료 4: 삭제
 	private String goods_image;
+	private int start_list;
+	private int end_list;
 	
 	// sort
 	private String order;
@@ -43,6 +45,7 @@ public class Goods {
                 ", goods_image='" + goods_image + '\'' +
                 '}';
     }
+
 
 	
 

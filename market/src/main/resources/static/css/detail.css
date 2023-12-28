@@ -1,0 +1,110 @@
+@charset "UTF-8";
+
+#goods_image {
+	max-width: 600px;
+	max-height: 600px;
+	height: auto;
+}
+
+#detail_indicator {
+	font-size: 14px;
+}
+
+#heartIcon {
+	font-size: 30px;
+}
+
+#edit {
+	float: right;
+}
+
+#time_div {
+	text-align: right;
+}
+
+#recent_price {
+	font-size: 12px;
+}
+
+#user_img {
+	font-size: 20px;
+	color: #21F11C;
+	cursor: pointer;
+}
+
+#view_div {
+	text-align: right;
+	font-size: 14px;
+}
+
+#goods_state {
+	border: none;
+	resize: none;
+	outline: none;
+	pointer-events: none;
+	font-size: 16px;
+	font-style: bold;
+}
+
+#member_nick {
+	color: #47C83E;
+	text-decoration: none;
+}
+
+#store_info {
+	margin-top: 150px;
+}
+
+#goods_content {
+	width: 750px;
+	height: 160px;
+	border: none;
+	border-radius: 10px;
+	resize: none;
+	outline: none;
+	spellcheck: false;	/* textarea 내부 빨간줄 없애기 */
+}
+
+#trade_here {
+	font-size: 14px;
+}
+
+#map {
+	width: 600px;
+	height: 200px;
+	border: 1px solid #47C83E;
+	border-radius: 10px;
+	outline: 2px #47C83E;
+}
+
+#trade_marker {
+	color: #47C83E;
+}
+
+#chat {
+	position: relative;
+	bottom: -175px;
+	border-color: #47C83E;
+}
+
+#chat:hover {
+	border-color: #47C83E;
+	color: #47C83E; /* 텍스트 색상 변경 (선택 사항) */
+	background-color: transparent; /* 배경색 투명으로 설정 */
+}
+
+#hit_goods {
+	margin-top: -100px;
+}
+
+#hit_image {
+	margin: 10px;
+	margin-top: -30px;
+	padding-right: 10px;
+}
+
+#hit_name {
+	color: inherit;
+	text-decoration: none;
+	font-style: bold;
+}

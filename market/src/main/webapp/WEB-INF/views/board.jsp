@@ -61,9 +61,10 @@
 						</a>
 						<div class="card-body mx-1">
 							<p class="card-text lh-1">
-								<c:set var="truncated_sub"
-									value="${fn:substring(gd.goods_name, 0, 12)}" />${truncated_sub}<c:if
-									test="${fn:length(gd.goods_name)>12}">...</c:if>
+								<c:set var="truncated_sub" 
+									value="${fn:substring(gd.goods_name, 0, 12)}" />
+								<a href="detail?goods_no=${gd.goods_no }" style="text-decoration: none; color: black;">${truncated_sub}</a>
+								<c:if test="${fn:length(gd.goods_name)>12}">...</c:if>
 							</p>
 							<p class="card-text lh-1 fw-bold">${gd.goods_price}</p>
 							<p class="card-text lh-1" style="font-size: 0.8rem;">
