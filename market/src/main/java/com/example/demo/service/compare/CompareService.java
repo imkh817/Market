@@ -15,10 +15,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.plaf.multi.MultiListUI;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.dao.GoodsDao;
+import com.example.demo.model.ComparePrice;
+import com.example.demo.model.Goods;
 import com.example.demo.model.Item;
+import com.example.demo.model.PagingPgm;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -31,7 +38,78 @@ public class CompareService {
 	@Value("${naver.secret-secret}")
 	private String clientSecret;
 	
-	// 페이징
+	@Autowired
+	private GoodsDao dao;
+	
+	// 양배추 마켓 페이징
+	public PagingPgm paing(String page,String compare_product) {
+		if (page == null || page.equals("")) {
+			page = "1";
+		}
+		int currentPage = Integer.parseInt(page);
+		int rowPerPage = 12;
+		int startRow = (currentPage - 1) * rowPerPage + 1;
+		int endRow = startRow + rowPerPage - 1;
+		int total = dao.compare_list_count(compare_product);
+		System.out.println("total:"+total);
+		
+		PagingPgm paging = new PagingPgm(total, rowPerPage, currentPage, startRow, endRow);
+		return paging;
+	}
+	
+	// 양배추 마켓 최저가 비교 리스트
+	public List<Goods> getList(PagingPgm paging,String compare_product){
+		
+		Goods tmp = new Goods();
+		tmp.setGoods_name(compare_product);
+		tmp.setStart_list(paging.getStartRow());
+		
+		List<Goods> list = new ArrayList<Goods>();
+		try {
+			list = dao.get_compare_list(tmp);
+		}catch(Exception e) {
+			
+			return list;
+		}
+//		for(int i=0; i<list.size(); i++) {
+//			list.get(i).setGoods_price(Integer.parseInt(format_number(list.get(i).getGoods_price()+"")));
+//		}
+		System.out.println("list : " + list);
+		return list;
+		
+	}
+	
+	// 양배추 마켓 최저가 비교 리스트 가격 최고가 , 평균가, 최저가 구하기
+	public ComparePrice get_Compare_price(List<Goods> list) {
+		ComparePrice price = new ComparePrice();
+		if(list.size()>0) { // 검색된 결과가 1개라도 있을때
+			int max=0;
+			int min=list.get(0).getGoods_price();
+			int total=0;
+			
+			for(int i=0; i<list.size(); i++) {
+				if(list.get(i).getGoods_price() > max) {
+					max = list.get(i).getGoods_price();
+				}
+				if(list.get(i).getGoods_price()<min) {
+					min = list.get(i).getGoods_price();
+				}
+				
+				total += list.get(i).getGoods_price();
+			}
+			
+			int avg = total/list.size();
+			
+			price.setLow_price(min);
+			price.setHigh_price(max);
+			price.setAvg_price(avg);
+		}
+		
+		return price;
+	}
+	
+	
+	// 네이버 최저가 페이징
 	public ComparePaging paging(String page) {
 		if (page == null || page.equals("")) {
 			page = "1";
@@ -47,7 +125,7 @@ public class CompareService {
 
 	}
 
-	// 검색
+	// 네이버 검색
 	public String search(String text, ComparePaging paging) {
 		
 		String display = String.valueOf(paging.getRowPerPage());
@@ -73,7 +151,7 @@ public class CompareService {
 
 	}
 
-	// 검색 결과 total 갯수 구하기
+	// 네이버 검색 결과 total 갯수 구하기
 	public int getTotal(String responseBody) {
 		ObjectMapper objectMapper = new ObjectMapper();
 		int total;
@@ -103,7 +181,7 @@ public class CompareService {
 		}
 	}
 
-	// 검색 결과 데이터 파싱 후 배열로 만들기
+	// 네이버 검색 결과 데이터 파싱 후 배열로 만들기
 	public List<Item> getList(String responseBody) {
 		ObjectMapper objectMapper = new ObjectMapper();
 		List<Item> list = new ArrayList<Item>();
@@ -127,8 +205,11 @@ public class CompareService {
 					String link = itemNode.get("link").asText();
 					String image = itemNode.get("image").asText();
 					String lprice = format_number(itemNode.get("lprice").asText());
-
-					Item item = new Item(title, link, image, lprice);
+					String brand = itemNode.get("brand").asText();
+					String maker = itemNode.get("maker").asText();
+					String category1 = itemNode.get("category1").asText();
+					
+					Item item = new Item(title, link, image, lprice, brand, maker, category1);
 					list.add(item);
 				}
 				return list;
@@ -142,6 +223,7 @@ public class CompareService {
 		return list;
 	}
 
+	// 네이버 API 연결
 	private static String get(String apiUrl, Map<String, String> requestHeaders) {
 		HttpURLConnection con = connect(apiUrl);
 		try {
@@ -162,7 +244,8 @@ public class CompareService {
 			con.disconnect();
 		}
 	}
-
+	
+	// 네이버 API 연결
 	private static HttpURLConnection connect(String apiUrl) {
 		try {
 			URL url = new URL(apiUrl);
@@ -173,7 +256,8 @@ public class CompareService {
 			throw new RuntimeException("연결이 실패했습니다. : " + apiUrl, e);
 		}
 	}
-
+	
+	// 네이버 API 연결
 	private static String readBody(InputStream body) {
 		InputStreamReader streamReader = new InputStreamReader(body);
 

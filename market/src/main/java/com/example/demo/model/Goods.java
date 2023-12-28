@@ -23,6 +23,10 @@ public class Goods {
 	private int start_list;
 	private int end_list;
 	
+	// mypage paging
+	private int start_list;
+	private int end_list;
+	
 	// sort
 	private String order;
 	
