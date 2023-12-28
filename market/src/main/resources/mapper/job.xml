@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.dao.JobDao">
+
+<!-- 알바 글 수 구하기 -->
+<select id="getTotal">
+	select count(*) from job
+</select>
+
+<!-- 알바 글 목록 리스트 불러오기 -->
+<select id="get_job_list" parameterType="job" resultType="job">
+	select * from job limit #{startRow}, 6
+</select>
+
+</mapper>

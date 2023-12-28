@@ -8,10 +8,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.dao.MemberDao;
 import com.example.demo.dao.MypageDao;
 import com.example.demo.model.Goods;
-import com.example.demo.model.Liked;
 import com.example.demo.model.Member;
 import com.example.demo.model.PagingPgm;
 import com.example.demo.service.join.JoinService;
