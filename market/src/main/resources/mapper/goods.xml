@@ -21,7 +21,8 @@
 	<!-- 최저가 비교 상품 리스트 -->
 	<select id="get_compare_list" parameterType="goods" resultType="goods">
 		<![CDATA[
-		select * from goods where goods_name LIKE CONCAT('%', #{goods_name}, '%')  and goods_state='3' and goods_regdate >= DATE_SUB(sysdate(), INTERVAL 30 DAY) AND goods_regdate < sysdate() order by goods_regdate desc;
+		select * from goods where goods_name LIKE CONCAT('%', #{goods_name}, '%')  and goods_state='3' and goods_regdate >= DATE_SUB(sysdate(), INTERVAL 30 DAY) AND goods_regdate < sysdate() order by goods_regdate desc
+		limit #{start_list},12;
 	]]>
 	</select>
 
