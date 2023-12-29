@@ -7,6 +7,9 @@ import com.example.demo.model.Member;
 @Mapper
 public interface MemberDao {
 	
+	// 유저 확인
+	Member get_member(String member_id);
+	
 	// 위치 인증
 	int update_member_add(Member member);
 

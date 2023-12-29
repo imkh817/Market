@@ -14,13 +14,15 @@
 	value="${sessionScope.member_id==null ? '로그인' : '로그아웃'}" />
 <c:set var="loginout_link"
 	value="${sessionScope.member_id==null ? 'login_form' : '/logout'}" />
+<c:set var="auth_link"
+	value="${sessionScope.member_id==null ? 'login_form' : '/auth_location'}" />	
 
 <nav class="navbar navbar-expand-lg fixed-top"
 	style="background-color: #fff">
 	<div class="container-fluid ms-5 my-auto">
 		<a class="navbar-brand fs-2" href="home"><div class="hstack gap-3">
 				<img src="./images/cabbage.png" width="60px" height="60px">
-				<p class="fw-bold">양배추마켓</p>
+				<p class="fw-bold my-auto">양배추마켓</p>
 			</div></a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
 			data-bs-target="#navbar_toggler" aria-controls="navbar_toggler"
@@ -30,59 +32,59 @@
 		<div class="collapse navbar-collapse ms-5" id="navbar_toggler">
 			<form class="d-flex me-auto w-40" action="${path}/board?page=${page_current}" 
 			role="search">
-				<input class="form-control me-2 px-5" name="keyword" type="search"
+				<input class="form-control me-2 px-5 my-auto" name="keyword" type="search"
 					placeholder="어떤 상품을 찾으시나요?" aria-label="Search"
-					style="position: relative; border-color: #47C83E;"><i
+					style="position: relative; border: 2px solid #47C83E; font-size: 0.8rem; width: 330px;"><i
 					class="fa-solid fa-magnifying-glass"
 					style="position: absolute; transform: translate(60%, 70%); color: #47C83E;"></i>
 			</form>
 			<ul class="navbar-nav me-auto mb-2">
-				<li class="nav-item px-2 fs-2 me-3 my-auto"><a class="sell"
+				<li class="nav-item px-2 fs-2 me-4 my-auto"><a class="sell"
 					href="<c:url value='lowest_baechu_form'/>"
 					style="color: inherit; text-decoration: none;"><div
 							class="hstack gap-2">
 							<i class="fa-solid fa-chart-simple"></i>
 							<p class="my-auto" style="font-size: 0.8rem">최저가 비교</p>
 						</div></a></li>
-				<li class="nav-item px-2 fs-2 me-3 my-auto"><a class="sell"
+				<li class="nav-item px-2 fs-2 me-4 my-auto"><a class="sell"
 					href="<c:url value='alba_main'/>"
 					style="color: inherit; text-decoration: none;"><div
 							class="hstack gap-2">
-							<i class="fa-solid fa-person-running" style="color: #000000;"></i>
+							<i class="fa-solid fa-person-running"></i>
 							<p class="my-auto" style="font-size: 0.8rem">알바</p>
 						</div></a></li>
-				<li class="nav-item px-2 fs-2 me-3 my-auto"><a class="chat"
+				<li class="nav-item px-2 fs-2 me-4 my-auto"><a class="chat"
 					href="<c:url value='${chat_link}'/>"
 					style="color: inherit; text-decoration: none;"><div
 							class="hstack gap-2">
 							<i class="fa-regular fa-comment-dots" style="position: relative;"></i>
 							<span class="badge"
-								style="background-color: #21F11C; font-size: 0.6rem; position: absolute; transform: translate(100%, -70%);">${chat}</span>
+								style="background-color: #47C83E; font-size: 0.6rem; position: absolute; transform: translate(100%, -70%);">${chat}</span>
 							<p class="my-auto" style="font-size: 0.8rem">채팅하기</p>
 						</div></a></li>
-				<li class="nav-item px-2 fs-2 me-3 my-auto"><a class="sell"
+				<li class="nav-item px-2 fs-2 me-4 my-auto"><a class="sell"
 					href="<c:url value='${sell_link}'/>"
 					style="color: inherit; text-decoration: none;"><div
 							class="hstack gap-2">
 							<i class="fa-solid fa-money-check-dollar"></i>
 							<p class="my-auto" style="font-size: 0.8rem">판매하기</p>
 						</div></a></li>
-				<li class="nav-item px-2 me-3 fs-2">
+				<li class="nav-item px-2 me-2 fs-2 my-auto">
 					<div class="dropdown">
 						<div data-bs-toggle="dropdown" aria-expanded="false"
 							style="position: relative;">
 							<div class="hstack gap-2">
-								<i class="fa-regular fa-user"></i>
+								<i class="fa-solid fa-user"></i>
 								<p class="my-auto fw-bolder" style="font-size: 0.8rem">${sessionScope.member_nickname}</p>
 							</div>
 						</div>
 						<ul class="dropdown-menu"
-							style="font-size: 0.8rem; position: absolute; transform: translate(-10%, -10%);">
+							style="font-size: 0.8rem; position: absolute; transform: translate(-20%, -20%);">
 							<li><a class="dropdown-item border-bottom pt-0"
 								href="<c:url value='${join_link}'/>">${join}</a></li>
 							<li><a class="dropdown-item border-bottom"
 								href="<c:url value='${loginout_link}'/>">${loginout}</a></li>
-							<li><a class="dropdown-item pb-0" href="auth_location">내
+							<li><a class="dropdown-item pb-0" href="<c:url value='${auth_link}'/>">내
 									위치 인증</a></li>
 						</ul>
 					</div>
