@@ -1,13 +1,16 @@
 package com.example.demo.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.demo.model.Goods;
 import com.example.demo.model.Member;
 import com.example.demo.service.MemberService;
 import com.example.demo.service.login.LoginService;
@@ -16,9 +19,26 @@ import com.example.demo.service.login.LoginService;
 public class MemberController {
 
 	@Autowired
-	private MemberService memberService;
+	private MemberService MemberService;
 
-	// 위치 인증
+	// 위치 인증 폼
+	@RequestMapping("auth_location")
+	public String auth_form(HttpServletRequest request, Model model) {
+		HttpSession session = request.getSession();
+		String member_id = (String)session.getAttribute("member_id");
+		
+		
+		if(member_id == null)
+			return "redirect:/login";
+			
+		Member member = MemberService.get_member(member_id);
+		
+		model.addAttribute("mem", member);
+		
+		return "auth_location";
+	}
+	
+	// 위치 인증 실행
 	@RequestMapping("auth")
 	@ResponseBody
 	public int auth(HttpSession session, @RequestParam("member_auth_add") String member_auth_add, Member member){
@@ -29,7 +49,7 @@ public class MemberController {
 		// 위치정보 부여
 		member.setMember_auth_add(member_auth_add);
 
-		int result = memberService.update_member_add(member);
+		int result = MemberService.update_member_add(member);
 		return result;
 	}	
 }

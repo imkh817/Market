@@ -12,6 +12,15 @@
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 <link rel="stylesheet" href="./css/banner.css">
 <link rel="stylesheet" href="./css/pagination.css">
+<link rel="stylesheet" href="./css/navbar.css">
+
+<!-- 게시판 정렬 -->
+<script>
+	function sort() {
+		var order = $("#order").val();
+		location.href = "${path}/board?order="+order;
+	}
+</script>
 </head>
 <body class="my-5 py-1">
 	<%@ include file="/WEB-INF/views/include/navbar.jsp"%>
@@ -33,12 +42,13 @@
 			<div class="col-auto me-5">
 				<div class="row">
 					<i class="col p-2 fs-4 fa-solid fa-bars"></i> <select
-						class="col form-select mx-auto my-auto" id="order"
+						class="col form-select mx-auto my-auto" id="order" name="order"
 						onchange="sort()"
-						style="border: none; font-size: 15px; font-weight: bold;">
-						<option selected></option>
-						<option value="regdate">최신순</option>
-						<option value="readcount">인기순</option>
+						style="border: none; font-size: 15px; font-weight: bold; width: 100px;">
+						<option value="regdate"
+							<c:if test="${order == 'regdate'}">${'selected'}</c:if>>최신순</option>
+						<option value="readcount"
+							<c:if test="${order == 'readcount'}">${'selected'}</c:if>>인기순</option>
 					</select>
 				</div>
 			</div>
@@ -46,9 +56,8 @@
 	</div>
 
 	<!-- 글 목록 -->
-	<div class="container d-flex justify-content-center mb-3">
-		<div class="row justify-content-center row-cols-md-3"
-			style="max-width: 768px;">
+	<div class="d-flex justify-content-center mb-3">
+		<div class="row row-cols-1 row-cols-md-3" style="max-width: 768px;">
 			<c:set var="no" value="${listcount-(page-1)*12}" />
 			<c:forEach var="gd" items="${goods_list}">
 				<div class="col">
@@ -59,11 +68,13 @@
 							class="card-img-top mx-auto my-2" alt=""
 							style="width: 200px; height: 200px;">
 						</a>
-						<div class="card-body mx-1">
+						<div class="card-body mx-1 px-0">
 							<p class="card-text lh-1">
 								<c:set var="truncated_sub"
-									value="${fn:substring(gd.goods_name, 0, 12)}" />${truncated_sub}<c:if
-									test="${fn:length(gd.goods_name)>12}">...</c:if>
+									value="${fn:substring(gd.goods_name, 0, 12)}" />
+								<a href="detail?goods_no=${gd.goods_no }"
+									style="text-decoration: none; color: black;">${truncated_sub}</a>
+								<c:if test="${fn:length(gd.goods_name)>12}">...</c:if>
 							</p>
 							<p class="card-text lh-1 fw-bold">${gd.goods_price}</p>
 							<p class="card-text lh-1" style="font-size: 0.8rem;">
@@ -89,17 +100,33 @@
 	<!-- 페이지네이션 -->
 	<div class="container d-flex justify-content-center my-3">
 		<ul class="pagination">
-			<c:if test="${page>1}">
-				<li class="page-item"><a class="page-link"
-					href="${path}/board?page=${page-1}">이전</a></li>
+			<c:if test="${order == null}">
+				<c:if test="${page>1}">
+					<li class="page-item"><a class="page-link"
+						href="${path}/board?page=${page-1}">이전</a></li>
+				</c:if>
+				<c:forEach var="i" begin="${startpage}" end="${endpage}">
+					<li class="page-item <c:if test="${page==i}">active</c:if>"><a
+						class="page-link" href="${path}/board?page=${i}">${i}</a></li>
+				</c:forEach>
+				<c:if test="${page<maxpage}">
+					<li class="page-item"><a class="page-link"
+						href="${path}/board?page=${page+1}">다음</a></li>
+				</c:if>
 			</c:if>
-			<c:forEach var="i" begin="${startpage}" end="${endpage}">
-				<li class="page-item <c:if test="${page==i}">active</c:if>"><a
-					class="page-link" href="${path}/board?page=${i}">${i}</a></li>
-			</c:forEach>
-			<c:if test="${page<maxpage}">
-				<li class="page-item"><a class="page-link"
-					href="${path}/board?page=${page+1}">다음</a></li>
+			<c:if test="${order != null}">
+				<c:if test="${page>1}">
+					<li class="page-item"><a class="page-link"
+						href="${path}/board?order=${order}&page=${page-1}">이전</a></li>
+				</c:if>
+				<c:forEach var="i" begin="${startpage}" end="${endpage}">
+					<li class="page-item <c:if test="${page==i}">active</c:if>"><a
+						class="page-link" href="${path}/board?order=${order}&page=${i}">${i}</a></li>
+				</c:forEach>
+				<c:if test="${page<maxpage}">
+					<li class="page-item"><a class="page-link"
+						href="${path}/board?order=${order}&page=${page+1}">다음</a></li>
+				</c:if>
 			</c:if>
 		</ul>
 	</div>

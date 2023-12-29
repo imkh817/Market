@@ -8,6 +8,7 @@
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 <link rel="stylesheet" href="./css/banner.css">
 <link rel="stylesheet" href="./css/join.css"> 
+<link rel="stylesheet" href="./css/navbar.css">
 </head>
 <script src="./js/join/join_function.js"></script>
 <body>

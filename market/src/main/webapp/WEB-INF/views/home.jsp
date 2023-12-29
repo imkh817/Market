@@ -11,8 +11,9 @@
 <title>홈</title>
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 <link rel="stylesheet" href="./css/banner.css">
+<link rel="stylesheet" href="./css/navbar.css">
 </head>
-<body class="my-5 py-1">
+<body style="padding-top:40px;">
 	<%@ include file="/WEB-INF/views/include/navbar.jsp"%>
 	<!-- 각 페이지 변동 부분 시작 -->
 	<!-- 배너 -->

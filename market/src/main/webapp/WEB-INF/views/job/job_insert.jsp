@@ -19,6 +19,7 @@
 </script>
 
 <link rel="stylesheet" href="./css/goods.css">
+<link rel="stylesheet" href="./css/navbar.css">
 </head>
 
 <body class="pt-5">

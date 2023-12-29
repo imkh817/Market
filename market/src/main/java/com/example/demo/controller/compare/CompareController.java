@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.model.ComparePrice;
@@ -14,8 +13,6 @@ import com.example.demo.model.Item;
 import com.example.demo.model.PagingPgm;
 import com.example.demo.service.compare.ComparePaging;
 import com.example.demo.service.compare.CompareService;
-
-import lombok.Value;
 
 @Controller
 public class CompareController {
@@ -37,7 +34,7 @@ public class CompareController {
 		PagingPgm paging = compareService.paing(page, compare_product);
 		List<Goods> list = compareService.getList(paging, compare_product);
 		ComparePrice compare_price = compareService.get_Compare_price(list);
-		
+		System.out.println("list의 사이즈 : " + list.size());
 		model.addAttribute("list",list);
 		model.addAttribute("page",paging);
 		model.addAttribute("compare_product",compare_product);
