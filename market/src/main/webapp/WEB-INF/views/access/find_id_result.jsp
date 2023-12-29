@@ -9,6 +9,7 @@
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 <link rel="stylesheet" href="./css/banner.css">
 <link rel="stylesheet" href="./css/join.css"> 
+<link rel="stylesheet" href="./css/navbar.css">
 </head>
 <c:if test="${member == null}">
 	<script>

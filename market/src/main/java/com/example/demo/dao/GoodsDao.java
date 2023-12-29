@@ -1,6 +1,7 @@
 package com.example.demo.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -22,7 +23,7 @@ public interface GoodsDao {
 	int goods_listcount();
 	
 	// 글 목록
-	List<Goods> goods_list(int start);
+	List<Goods> goods_list(Map<String, Object> map);
 	
 	// 인기글 목록
 	List<Goods> best_list();

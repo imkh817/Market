@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.dao.DetailDao">
+
+	<!-- 상세페이지 이동 및 데이터 불러오기 -->
+	<select id="detail_goods" parameterType="List"
+		resultType="java.util.Map">
+		select * from goods WHERE goods_no = #{goods_no}
+	</select>
+
+	<!-- 시간 분단위 출력 -->
+	<select id="goods_reg_minute" parameterType="int"
+		resultType="int">
+		SELECT TIMESTAMPDIFF(MINUTE, goods_regdate, NOW()) AS
+		minutes
+		FROM goods WHERE goods_no = #{goods_no}
+	</select>
+
+	<!-- 조회수 증가 -->
+	<update id="read_count_up" parameterType="int">
+		UPDATE goods SET
+		goods_readcount = goods_readcount + 1 WHERE goods_no = ${goods_no}
+	</update>
+
+	<!-- 인기상품 5개 -->
+	<select id="best_detail" parameterType="List"
+		resultType="java.util.Map">
+		SELECT *
+		FROM (SELECT * FROM goods WHERE goods_no !=
+		#{goods_no}) AS best ORDER BY goods_readcount DESC LIMIT 5
+	</select>
+
+	<!-- 상품 삭제 -->
+	<delete id="detail_delete" parameterType="int">
+		DELETE FROM goods WHERE
+		goods_no = #{goods_no}
+	</delete>
+
+	<!-- 회원 별명 가져오기 -->
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+</mapper>

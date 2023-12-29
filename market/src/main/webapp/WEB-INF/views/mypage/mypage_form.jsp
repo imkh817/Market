@@ -14,6 +14,7 @@ $('.nav-item').find('a').each(function(){
 });
 </script>
 <link rel="stylesheet" href="./css/pagination.css">
+<link rel="stylesheet" href="./css/navbar.css">
 </head>
 <body class="my-5 py-5">
 	<!-- 상단 내비바 -->

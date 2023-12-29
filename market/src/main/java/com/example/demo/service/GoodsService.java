@@ -3,6 +3,7 @@ package com.example.demo.service;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.UUID;
 
@@ -88,8 +89,8 @@ public class GoodsService {
 	}
 
 	// 글 목록
-	public List<Goods> goods_list(int start) {
-		return GoodsDao.goods_list(start);
+	public List<Goods> goods_list(Map<String, Object> map) {
+		return GoodsDao.goods_list(map);
 	}
 
 	// 인기글 목록
