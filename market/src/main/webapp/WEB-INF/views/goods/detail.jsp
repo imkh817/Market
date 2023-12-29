@@ -14,6 +14,7 @@
 <title>Product Detail</title>
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 <link rel="stylesheet" href="./css/detail.css">
+<link rel="stylesheet" href="./css/navbar.css">
 
 <script>
 	document.addEventListener('DOMContentLoaded', function() {

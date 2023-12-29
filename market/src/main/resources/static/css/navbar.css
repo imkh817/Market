@@ -1,0 +1,16 @@
+.nav-item {
+	color: #555;
+}
+
+.nav-item:hover {
+ 	z-index: 1;
+	color: #47C83E;
+ 	font-weight:bold;
+ 	cursor: pointer;
+}
+
+.btn_up:hover {
+ 	z-index: 1;
+	color: #47C83E;
+ 	cursor: pointer;
+}

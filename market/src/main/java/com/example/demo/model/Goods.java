@@ -20,19 +20,22 @@ public class Goods {
 	private Date goods_regdate;
 	private String goods_state; //-> 1 : 판매중 , 2: 예약중 3: 판매완료 4: 삭제
 	private String goods_image;
-	
-	// liked
-	private Liked liked;
-	
+
 	// mypage paging
 	private int start_list;
 	private int end_list;
 	
+	// liked
+	private Liked liked;
+	
+	// board paging
+//	private int start;
+	
 	// sort
-	private String order;
+//	private String order;
 	
 	// search
-	private String keyword;
+//	private String keyword;
 	
 	@Override
     public String toString() {

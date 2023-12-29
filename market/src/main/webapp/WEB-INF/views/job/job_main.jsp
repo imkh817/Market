@@ -9,6 +9,7 @@
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 <link rel="stylesheet" href="./css/alba_banner.css">
 <link rel="stylesheet" href="./css/job_button.css">
+<link rel="stylesheet" href="./css/navbar.css">
 </head>
 <body>
 

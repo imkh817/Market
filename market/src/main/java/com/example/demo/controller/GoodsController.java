@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -47,29 +48,56 @@ public class GoodsController {
 	public String board(HttpServletRequest request, Goods goods, Model model) {
 
 		List<Goods> goods_list = new ArrayList<Goods>();
-
-		int page = 1;
+		
+		// Goods 객체에 없는 컬럼값 넘기기 위해 Map 사용
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		int page;
+		if(request.getParameter("page") != null) {
+			page = Integer.parseInt(request.getParameter("page"));
+		}else {
+			page = 1;
+		}
+		
+		String order = request.getParameter("order");
+		if(order == null)
+			order = "regdate";
+		
+		String keyword = request.getParameter("keyword");
+		
+		// 페이징 처리
+		int listcount = GoodsService.goods_listcount();
 		int limit = 12; // 화면당 출력수
 		int paging = 10; // 페이지 분할수
-
-		if (request.getParameter("page") != null) {
-			page = Integer.parseInt(request.getParameter("page"));
-		}
-
-		int listcount = GoodsService.goods_listcount();
-
-		int start = (page - 1) * paging;
-
-		goods_list = GoodsService.goods_list(start);
-
+		
 		int maxpage = listcount / limit + ((listcount % limit == 0) ? 0 : 1);
 		int startpage = ((page - 1) / paging) * limit + 1;
 		int endpage = startpage + paging - 1;
-
 		if (endpage > maxpage)
 			endpage = maxpage;
-
-		// 이미지 다중 업로드 되었을때 첫 번째 이미지를 썸네일로 설정
+		
+		System.out.println("listcount="+listcount);
+		
+		int start = (page - 1) * paging;
+		
+		// Goods 객체에 없는 컬럼 입력
+		map.put("order", order);
+		map.put("keyword", keyword);
+		map.put("start", start);
+		
+		// Goods 객체 컬럼 입력
+		map.put("goods_no", goods.getGoods_no());
+		map.put("member_no", goods.getMember_no());
+		map.put("category_no", goods.getCategory_no());
+		map.put("goods_name", goods.getGoods_name());
+		map.put("goods_content", goods.getGoods_content());
+		map.put("goods_price", goods.getGoods_price());
+		map.put("goods_place", goods.getGoods_place());
+		map.put("goods_readcount", goods.getGoods_readcount());
+		map.put("goods_regdate", goods.getGoods_regdate());
+		map.put("goods_state", goods.getGoods_state());
+		
+		// 이미지 다중 업로드 되었을때 첫번째 이미지를 썸네일로 설정
 		for (Goods gd : goods_list) {
 			System.out.println("파싱전 이미지: " + gd.getGoods_image());
 
@@ -81,18 +109,20 @@ public class GoodsController {
 				gd.setGoods_image(thum_img);
 			}
 		}
+		map.put("goods_image", goods.getGoods_image());
+		
+		// 글 목록 select 실행
+		goods_list = GoodsService.goods_list(map);
 
+		// 페이지에 값 전달
 		model.addAttribute("page", page);
+		model.addAttribute("order", order);
+		model.addAttribute("keyword", keyword);
 		model.addAttribute("startpage", startpage);
 		model.addAttribute("endpage", endpage);
 		model.addAttribute("maxpage", maxpage);
 		model.addAttribute("listcount", listcount);
 		model.addAttribute("goods_list", goods_list);
-
-		// 정렬
-		model.addAttribute("order", goods.getOrder());
-		// 검색
-		model.addAttribute("keyword", goods.getKeyword());
 
 		return "board";
 	}

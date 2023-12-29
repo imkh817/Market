@@ -7,6 +7,7 @@
 <head>
 <title>알바 글 작성</title>
 <link rel="stylesheet" href="./css/goods.css">
+<link rel="stylesheet" href="./css/navbar.css">
 </head>
 
 <style>

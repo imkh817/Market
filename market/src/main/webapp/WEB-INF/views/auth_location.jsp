@@ -7,6 +7,7 @@
 <head>
 <title>위치인증</title>
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
+<link rel="stylesheet" href="./css/navbar.css">
 <style>
 .btn:not(:hover) {
 	background-color: #47C83E;
