@@ -46,8 +46,8 @@
 	</div>
 
 	<!-- 글 목록 -->
-	<div class="container d-flex justify-content-center mb-3">
-		<div class="row justify-content-center row-cols-md-3"
+	<div class="d-flex justify-content-center mb-3">
+		<div class="row row-cols-1 row-cols-md-3"
 			style="max-width: 768px;">
 			<c:set var="no" value="${listcount-(page-1)*12}" />
 			<c:forEach var="gd" items="${goods_list}">
@@ -59,7 +59,7 @@
 							class="card-img-top mx-auto my-2" alt=""
 							style="width: 200px; height: 200px;">
 						</a>
-						<div class="card-body mx-1">
+						<div class="card-body mx-1 px-0">
 							<p class="card-text lh-1">
 								<c:set var="truncated_sub" 
 									value="${fn:substring(gd.goods_name, 0, 12)}" />
