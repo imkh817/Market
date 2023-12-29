@@ -26,7 +26,9 @@
 </div>
 
 <div class="position-relative"> <!-- 부모 요소에 position: relative; 추가 -->
-	<button class="green-border-button write-button" onClick="location.href='job_insert_form'">글 작성</button>
+<c:if test="${member_id != null }">
+	<button class="green-border-button write-button" style="margin-left: 1020px;" onClick="location.href='job_insert_form'">글 작성</button>
+</c:if>
 
 <div class="row row-cols-1 row-cols-md-3 d-flex justify-content-center" style="max-width: 768px; position: relative; margin: 0 auto;">
 				<c:forEach var="list" items="${list}">
@@ -41,7 +43,7 @@
 								<p class="card-text lh-1" style="font-size: 0.8rem;">
 									<i class="fa-solid fa-location-dot"></i> <span>&nbsp;${list.job_place}</span>
 								</p>
-								<div class="row">
+								<%-- <div class="row">
 									<p class="col card-text text-body-tertiary lh-1"
 										style="font-size: 0.8rem;">
 										<i class="fa-solid fa-eye"></i> <span>&nbsp;${list.member_no}</span>
@@ -50,7 +52,7 @@
 										style="font-size: 0.8rem;">
 										<i class="fa-solid fa-heart"></i> <span>&nbsp;관심</span>
 									</p>
-								</div>
+								</div> --%>
 							</div>
 						</div>
 					</div>

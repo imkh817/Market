@@ -16,7 +16,7 @@
 
 	<!-- 프로필 정보 및 통계 영역 -->
 	<div class="mx-auto my-3 py-3" style="max-width: 768px;">
-		<div
+		<%-- <div
 			class="container p-4 mb-3 bg-body-tertiary shadow rounded rounded-4">
 			<div class="row">
 				<div class="col my-auto text-center">
@@ -33,7 +33,7 @@
 					<p class="fs-5">좋아요 ${liked_count}</p>
 				</div>
 			</div>
-		</div>
+		</div> --%>
 
 		<div class="d-flex justify-content-center my-3 py-3">
 			<ul class="nav nav-underline gap-5">
@@ -43,6 +43,8 @@
 					href="member_liked_form" style="color: #47C83E;">관심 상품</a></li>
 				<li class="nav-item"><a class="nav-link"
 					href="member_delete_form" style="color: #47C83E;">회원 탈퇴</a></li>
+				<li class="nav-item"><a class="nav-link"
+					href="member_delete_form" style="color: #47C83E;">정보 수정</a></li>	
 			</ul>
 		</div>
 	</div>

@@ -13,4 +13,6 @@ public interface JobDao {
 
 	List<Job> get_job_list(Job job);
 
+	int job_insert(Job job);
+
 }

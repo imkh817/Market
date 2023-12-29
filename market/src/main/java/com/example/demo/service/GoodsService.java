@@ -79,7 +79,7 @@ public class GoodsService {
 			
 			images += newfilename+",";
 		} // end for문
-		
+		System.out.println("images : " + images);
 		return images;
 	}
 
