@@ -24,11 +24,11 @@ public class MypageController {
 	@Autowired
 	LoginService loginService;
 
-	// 마이페이지 홈화면
-	@RequestMapping("mypage_form")
-	public String mypage() {
-		return "mypage/mypage_form";
-	}
+//	// 마이페이지 홈화면
+//	@RequestMapping("mypage_form")
+//	public String mypage() {
+//		return "mypage/mypage_form";
+//	}
 	
 	// 판매 내역
 	@RequestMapping("mypage_list")

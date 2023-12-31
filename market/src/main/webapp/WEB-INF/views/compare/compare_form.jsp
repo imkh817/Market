@@ -8,6 +8,7 @@
 <title>최저가 비교</title>
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 <link rel="stylesheet" href="./css/banner.css">
+<link rel="stylesheet" href="./css/navbar.css">
 <style>
 .lowest_price a {
 	text-decoration: none; /* 밑줄 없애기 */
@@ -16,7 +17,7 @@
 }
 
 .lowest_price a:hover {
-	color: #21F11C; /* 호버 시 텍스트 색상 변경 */
+	color: #47C83E; /* 호버 시 텍스트 색상 변경 */
 }
 </style>
 </head>
@@ -40,13 +41,12 @@
 		<input class="form-control me-2 px-2" type="search"
 			id="compare_product" name="compare_product"
 			placeholder="최저가 비교할 물품명을 입력해주세요" aria-label="Search"
-			style="border-color: #21F11C; width: 100%;"> <i
-			class="fa-solid fa-magnifying-glass" style="color: #21F11C;"></i>
+			style="border: 2px solid #47C83E; width: 100%;"> <i class="fa-solid fa-magnifying-glass fs-4 my-auto" style="color: #47C83E;"></i>
 	</form>
 	<br>
 	<div class="lowest_price" align="center">
 		<a href="lowest_baechu_form">양배추 마켓 최저가</a>&nbsp; &nbsp;|&nbsp; &nbsp;<a
-			href="lowest_naver_form" style="color: #21F11C;">네이버 신제품 최저가</a>
+			href="lowest_naver_form" style="color: #47C83E;">네이버 신제품 최저가</a>
 	</div>
 
 

@@ -79,7 +79,7 @@ public class GoodsService {
 			
 			images += newfilename+",";
 		} // end for문
-		
+		System.out.println("images : " + images);
 		return images;
 	}
 
@@ -89,8 +89,8 @@ public class GoodsService {
 	}
 
 	// 글 목록
-	public List<Goods> goods_list(int start) {
-		return GoodsDao.goods_list(start);
+	public List<Goods> goods_list(Map<String, Object> map) {
+		return GoodsDao.goods_list(map);
 	}
 
 	// 인기글 목록

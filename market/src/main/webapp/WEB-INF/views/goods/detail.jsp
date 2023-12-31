@@ -14,6 +14,50 @@
 <title>Product Detail</title>
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 <link rel="stylesheet" href="./css/detail.css">
+<link rel="stylesheet" href="./css/navbar.css">
+
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+		var heartIcon = document.getElementById('heartIcon');
+		var heartValue = document.querySelector('input[name="liked_no"]');
+
+		if (heartValue.value == '1') {
+			heartIcon.classList.add('fas', 'text-danger');
+		} else {
+			heartIcon.classList.add('far');
+		}
+
+		heartIcon.addEventListener('click', function() {
+			var no = "<c:out value='${member_no}'/>";
+			if (!no || no === null) {
+				alert("로그인 후 이용해주세요.");
+			} else {
+				// 클래스를 모두 제거
+				heartIcon.classList.remove('far', 'fas', 'text-danger');
+
+				if (heartValue.value == '1') {
+					heartValue.value = '0';
+					heartIcon.classList.add('far');
+				} else {
+					heartValue.value = '1';
+					heartIcon.classList.add('fas', 'text-danger');
+				}
+
+				// 서버에 하트 클릭 이벤트를 전달하는 Ajax 요청
+				$.ajax({
+					type : "POST",
+					url : "heartClick",
+					data : {
+						goods_no : '<c:out value="${goods.goods_no}" />',
+						liked_no : heartValue.value
+					},
+					success : function(response) {
+					}
+				});
+			}
+		});
+	});
+</script>
 </head>
 <body>
 

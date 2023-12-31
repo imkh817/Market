@@ -7,6 +7,7 @@
 <title>마이페이지</title>
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 <link rel="stylesheet" href="./css/pagination.css">
+<link rel="stylesheet" href="./css/navbar.css">
 </head>
 <body class="my-5 py-5">
 	<!-- 상단 내비바 -->
@@ -43,6 +44,8 @@
 					href="member_liked_form" style="color: #47C83E;">관심 상품</a></li>
 				<li class="nav-item"><a class="nav-link"
 					href="member_delete_form" style="color: #47C83E;">회원 탈퇴</a></li>
+				<li class="nav-item"><a class="nav-link"
+					href="member_delete_form" style="color: #47C83E;">정보 수정</a></li>	
 			</ul>
 		</div>
 	</div>
@@ -70,13 +73,29 @@
 									style="font-size: 0.8rem;">
 									<i class="fa-solid fa-heart"></i> <span>&nbsp;관심</span>
 								</p>
+								<div class="btn-group dropup">
+								  <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style=" background-color: #47C83E">
+									<c:if test="${list.goods_state == 1}"><span style="color:white;">판매중</span></c:if>
+									<c:if test="${list.goods_state == 2}"><span style="color:white;">예약중</span></c:if>
+									<c:if test="${list.goods_state == 3}"><span style="color:white;">판매완료</span></c:if>
+								  </button>
+								  <ul class="dropdown-menu">
+								    <li><a class="dropdown-item" href="#">판매중</a></li>
+								    <li><hr class="dropdown-divider"></li>
+								    <li><a class="dropdown-item" href="#">예약중</a></li>
+								    <li><hr class="dropdown-divider"></li>
+								    <li><a class="dropdown-item" href="#">판매완료</a></li>
+								  </ul>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
+				
 			</c:forEach>
 
 			<!-- 페이징 버튼 -->
+		</div>
 			<div class="container d-flex justify-content-center mt-3 pt-3">
 				<ul class="pagination">
 					<c:if test="${page.startPage > page.pagePerBlk }">
@@ -95,7 +114,6 @@
 					</c:if>
 				</ul>
 			</div>
-		</div>
 	</div>
 
 	<!-- 하단 내비바 -->

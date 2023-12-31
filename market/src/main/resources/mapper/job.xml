@@ -10,7 +10,13 @@
 
 <!-- 알바 글 목록 리스트 불러오기 -->
 <select id="get_job_list" parameterType="job" resultType="job">
-	select * from job limit #{startRow}, 6
+	select * from job order by job_regdate desc limit #{startRow}, 6
 </select>
+
+<!-- 글 등록 -->
+<insert id="job_insert" parameterType="job">
+	insert into job values(null, #{member_no}, #{job_title}, #{job_content}, #{job_price}, #{job_place},
+	#{job_time1}, #{job_time2}, #{job_day}, sysdate(), #{job_image})
+</insert>
 
 </mapper>

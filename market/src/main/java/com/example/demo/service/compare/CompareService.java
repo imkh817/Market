@@ -62,7 +62,7 @@ public class CompareService {
 		
 		Goods tmp = new Goods();
 		tmp.setGoods_name(compare_product);
-		tmp.setStart_list(paging.getStartRow());
+		tmp.setStart_list(paging.getStartRow()-1);
 		
 		List<Goods> list = new ArrayList<Goods>();
 		try {

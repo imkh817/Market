@@ -8,6 +8,7 @@
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 <script src="./js/join/join.js"></script>
 <link rel="stylesheet" href="./css/pagination.css">
+<link rel="stylesheet" href="./css/navbar.css">
 </head>
 <body class="my-5 py-5">
 	<!-- 상단 내비바 -->
@@ -42,12 +43,14 @@
 					href="member_liked_form" style="color: #47C83E;">관심 상품</a></li>
 				<li class="nav-item"><a class="nav-link"
 					href="member_delete_form" style="color: #47C83E;">회원 탈퇴</a></li>
+				<li class="nav-item"><a class="nav-link"
+					href="member_delete_form" style="color: #47C83E;">정보 수정</a></li>	
 			</ul>
 		</div>
 	</div>
 
 	<div class="mx-auto my-3 py-3" style="max-width: 768px;">
-		<div class="container row-cols-1 row-cols-md-3"
+		<div class="container row row-cols-1 row-cols-md-3"
 			style="max-width: 768px; position: relative;">
 			<c:forEach var="list" items="${list}">
 				<div class="col">

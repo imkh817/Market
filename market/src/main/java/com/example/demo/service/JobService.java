@@ -38,4 +38,8 @@ public class JobService {
 		return jobDao.get_job_list(job);
 	}
 
+	public int job_insert(Job job) {
+		return jobDao.job_insert(job);
+	}
+
 }

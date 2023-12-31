@@ -34,7 +34,7 @@ public class CompareController {
 		PagingPgm paging = compareService.paing(page, compare_product);
 		List<Goods> list = compareService.getList(paging, compare_product);
 		ComparePrice compare_price = compareService.get_Compare_price(list);
-		
+		System.out.println("list의 사이즈 : " + list.size());
 		model.addAttribute("list",list);
 		model.addAttribute("page",paging);
 		model.addAttribute("compare_product",compare_product);
