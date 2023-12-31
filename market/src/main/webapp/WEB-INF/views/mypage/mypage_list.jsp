@@ -45,7 +45,7 @@
 				<li class="nav-item"><a class="nav-link"
 					href="member_delete_form" style="color: #47C83E;">회원 탈퇴</a></li>
 				<li class="nav-item"><a class="nav-link"
-					href="member_delete_form" style="color: #47C83E;">정보 수정</a></li>	
+					href="practice" style="color: #47C83E;">정보 수정</a></li>	
 			</ul>
 		</div>
 	</div>
