@@ -10,8 +10,9 @@
 	font-size: 14px;
 }
 
-#heartIcon {
+#heart_icon {
 	font-size: 30px;
+	cursor: pointer;
 }
 
 #edit {

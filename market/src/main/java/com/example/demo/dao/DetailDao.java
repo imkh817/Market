@@ -29,9 +29,6 @@ public interface DetailDao {
 //	상품 삭제
 	int detail_delete(int goods_no);
 
-//	회원 별명 가져오기
-//	String member_nick_load(int goods_no);
-
 
 
 

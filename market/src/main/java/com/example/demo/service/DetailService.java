@@ -45,10 +45,6 @@ public class DetailService {
 		return dao.detail_delete(goods_no);
 	}
 
-//	회원 별명 가져오기
-//	public String member_nick_load(int goods_no) {
-//		return dao.member_nick_load(goods_no);
-//	}
 
 
 
