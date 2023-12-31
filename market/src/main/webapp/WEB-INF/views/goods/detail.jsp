@@ -61,6 +61,8 @@
 </head>
 <body>
 
+	<c:set var="chat_link"
+		value="${sessionScope.member_no == null ? 'login_form' : 'chat?goods_no=${dl.goods_no}&member_no=${dl.member_no }&session_member_no=${session_member_no }'}" />
 	<!-- header -->
 	<%@ include file="/WEB-INF/views/include/navbar.jsp"%>
 
@@ -112,22 +114,69 @@
 					</div>
 
 					<!-- 상품명, 가격 등등 -->
-					<input type="hidden" name="liked_state" value="${liked }">
 					<div class="col-7">
-
 						<div class="row">
 							<div class="col-9">
-								<h3 class="mb-3" id="goods_name">${dl.goods_name }&nbsp;<i
-										id="heartIcon" class="far fa-heart" style="cursor: pointer;"></i>
+								<h3 class="mb-3" id="goods_name">${dl.goods_name }&nbsp;
+
+									<!-- 하트 클릭 -->
+									<input type="hidden" name="liked_state" value="${heart_result}">
+									<i id="heart_icon" class="far fa-heart"></i>
+
+									<script>
+	document.addEventListener('DOMContentLoaded', function() {
+	    var heart_icon = document.getElementById('heart_icon');
+	    var heart_value = document.querySelector('input[name="liked_state"]');
+	    
+	    if (heart_value.value == '1') {
+	    	heart_icon.classList.add('fas', 'text-danger');
+	    } else {
+	    	heart_icon.classList.add('far');
+	    }
+
+	    heart_icon.addEventListener('click', function() {
+	        var session_member_no = "<c:out value='${sessionScope.member_no}'/>";	
+	        if (!session_member_no || session_member_no === "null" || session_member_no === "undefined") {
+	        	
+	            alert("로그인 후 이용해주세요.");
+	        } else {
+	        	// 클래스를 모두 제거
+	            heart_icon.classList.remove('far', 'fas', 'text-danger');
+	            
+	            if (heart_value.value == '1') {
+	            	heart_value.value = '0'; 
+	                heart_icon.classList.add('far');
+	            } else {
+	            	heart_value.value = '1'; 
+	                heart_icon.classList.add('fas', 'text-danger');
+	            }
+	        
+	            // 서버에 하트 클릭 이벤트를 전달하는 Ajax 요청
+	            $.ajax({
+	                type: "GET",
+	                url: "heart_click",
+	                data: { 'goods_no': '<c:out value="${dl.goods_no}" />', 'liked_state': heart_value.value },
+	                success: function(response) {
+	                }
+	            });
+	        }
+	    });
+	});
+	</script>
+
 								</h3>
 							</div>
 							<div class="col-3">
-								<div class="btn-group btn-group-sm" role="group"
-									aria-label="Small button group" id="edit">
-									<button type="button" class="btn btn-outline-primary">수정</button>
-									<button type="button" class="btn btn-outline-danger"
-										data-bs-toggle="modal" data-bs-target="#staticBackdrop">삭제</button>
-								</div>
+								<c:if test="${dl.member_no == session_member_no }">
+									<div class="btn-group btn-group-sm" role="group"
+										aria-label="Small button group" id="edit">
+										<button type="button" class="btn btn-outline-primary">수정</button>
+										<button type="button" class="btn btn-outline-danger"
+											data-bs-toggle="modal" data-bs-target="#staticBackdrop">삭제</button>
+									</div>
+								</c:if>
+
+								<!-- 삭제 확인 모달창 -->
 								<div class="modal fade" id="staticBackdrop"
 									data-bs-backdrop="static" data-bs-keyboard="false"
 									tabindex="-1" aria-labelledby="staticBackdropLabel"
@@ -135,15 +184,17 @@
 									<div class="modal-dialog">
 										<div class="modal-content">
 											<div class="modal-header">
-												<h1 class="modal-title fs-5" id="staticBackdropLabel">상품 삭제</h1>
+												<h1 class="modal-title fs-5" id="staticBackdropLabel">상품
+													삭제</h1>
 												<button type="button" class="btn-close"
 													data-bs-dismiss="modal" aria-label="Close"></button>
 											</div>
-											<div class="modal-body">${dl.goods_name }을 삭제하시겠습니까?</div>
+											<div class="modal-body">${dl.goods_name }을삭제하시겠습니까?</div>
 											<div class="modal-footer">
 												<button type="button" class="btn btn-secondary"
 													data-bs-dismiss="modal">닫기</button>
-												<button type="button" class="btn btn-danger" onclick="location.href='detail_delete?goods_no=${dl.goods_no}'">삭제</button>
+												<button type="button" class="btn btn-danger"
+													onclick="location.href='detail_delete?goods_no=${dl.goods_no}'">삭제</button>
 											</div>
 										</div>
 									</div>
@@ -192,7 +243,8 @@
 						<div class="row">
 							<div class="col-8">
 								<a href="mypage_list?member_no=${dl.member_no }"
-									id="member_nick"><i class="fa-regular fa-user" id="user_img"></i></a>
+									id="member_nick"><i class="fa-regular fa-user"
+									id="user_img"></i></a>
 							</div>
 							<div class="col-4" id="view_div">
 								<p>조회&nbsp;${dl.goods_readcount }&nbsp;·&nbsp;관심&nbsp;00</p>
@@ -213,7 +265,8 @@
 								<div id="map"></div>
 							</div>
 							<div class="col-2 text-end">
-								<button class="btn btn-outline-dark mt-2" id="chat" onclick="location.href='chat?goods_no=${dl.goods_no}&member_no=${dl.member_no }&session_member_no=${session_member_no }'">채팅하기</button>
+								<button class="btn btn-outline-dark mt-2" id="chat"
+									onclick="location.href='<c:url value='${chat_link}'/>'">채팅하기</button>
 							</div>
 						</div>
 
@@ -249,7 +302,6 @@
 	<!-- detail_container end -->
 
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
-
 
 
 	<script type="text/javascript"
