@@ -13,13 +13,27 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.dao.GoodsDao;
+import com.example.demo.dao.MemberDao;
 import com.example.demo.model.Goods;
+import com.example.demo.model.Member;
 
 @Service
 public class GoodsService {
 	
 	@Autowired
 	private GoodsDao GoodsDao;
+	
+	@Autowired
+	private MemberDao memberdao;
+	
+	// 로그인 유저 확인
+	public String user_check(Member member) {
+		System.out.println("서비스 들어옴");
+		Member auth_check = memberdao.user_check(member);
+		String result = auth_check.getMember_auth_check();
+		System.out.println("주소인증값 확인"+result);
+		return result;
+	}
 
 	// 판매 글 등록
 	public int goods_reg(Goods goods) {
