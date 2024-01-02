@@ -91,18 +91,24 @@
 										goods_content:goods_content}), // 데이터를 JSON 문자열로 변환
 				contentType: "application/json", // 서버에게 전송하는 데이터 유형을 알려줌
 				success:function(result){
-					alert("아작스 성공 !");
 					console.log(result);
+					$("#goods_content").val(result);
 				}, // end success
 				error: function (xhr, status, error) {
-			        console.error("아작스 실패: ", status, error);
+					console.log(data)
+			        console.error("API 호출 실패: ", status, error);
 			    } //  end error
 			});// end ajax 
 			
 		}// end if
 	}
 	
-	
+
+	/* if(content.value.length > 200){
+		alert("내용을 200자 이내로 입력 하세요.");
+		content.focus();
+		return false;
+	} */
 	
 	
 </script>
