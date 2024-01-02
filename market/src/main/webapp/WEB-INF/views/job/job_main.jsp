@@ -34,26 +34,19 @@
 <div class="row row-cols-1 row-cols-md-3 d-flex justify-content-center" style="max-width: 768px; position: relative; margin: 0 auto;">
 				<c:forEach var="list" items="${list}">
 					<div class="col">
-						<div class="card" style="border: none;">
-							<img src="../images/example.png"
+						<div class="card text-center" style="border: none;">
+						 	<a href="job_detail?job_no=${list.job_no}">
+							<img src="./upload/${list.job_image}" 
 								class="card-img-top mx-auto my-2" alt=""
 								style="width: 200px; height: 200px;">
+							</a> 
 							<div class="card-body mx-1">
-								<p class="card-text lh-1">${list.job_title}</p>
-								<p class="card-text lh-1 fw-bold">${list.job_price}</p>
+								<p class="card-text lh-1"><a href="job_detail?job_no=${list.job_no}" style="text-decoration: none; color: black;">${list.job_title}</a>
+								</p>
+								<p class="card-text lh-1 fw-bold">시급 ${list.job_price}원</p>
 								<p class="card-text lh-1" style="font-size: 0.8rem;">
 									<i class="fa-solid fa-location-dot"></i> <span>&nbsp;${list.job_place}</span>
 								</p>
-								<%-- <div class="row">
-									<p class="col card-text text-body-tertiary lh-1"
-										style="font-size: 0.8rem;">
-										<i class="fa-solid fa-eye"></i> <span>&nbsp;${list.member_no}</span>
-									</p>
-									<p class="col card-text text-body-tertiary lh-1"
-										style="font-size: 0.8rem;">
-										<i class="fa-solid fa-heart"></i> <span>&nbsp;관심</span>
-									</p>
-								</div> --%>
 							</div>
 						</div>
 					</div>
@@ -61,7 +54,7 @@
 
 <div style="margin-bottom: 80px;"></div>
 		<!-- 페이징 버튼 -->
-		<nav aria-label="Page navigation example" style="position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); background-color: white; z-index: 100;">
+		<nav aria-label="Page navigation example" style="position: relative; margin-top: 20px; text-align: center; bottom: 0; transform: translateX(-50%); background-color: white; z-index: 100;">
     <ul class="pagination justify-content-center">
         <c:if test="${page.startPage > page.pagePerBlk }">
             <li class="page-item"><a class="page-link" style="color: #47C83E;" href="job_main?page=${page.startPage-1}">Previous</a></li>
