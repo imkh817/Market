@@ -29,7 +29,7 @@ public class GoodsService {
 	
 	// 로그인 유저 확인
 	public String user_check(Member member) {
-		System.out.println("서비스 들어옴");
+		System.out.println("goods서비스 user_check메서드");
 		Member auth_check = memberdao.user_check(member);
 		String result = auth_check.getMember_auth_check();
 		System.out.println("주소인증값 확인"+result);

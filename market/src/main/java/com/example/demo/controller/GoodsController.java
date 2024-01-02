@@ -47,8 +47,6 @@ public class GoodsController {
 	@RequestMapping("board")
 	public String board(HttpServletRequest request, Goods goods, Model model) {
 
-		List<Goods> goods_list = new ArrayList<Goods>();
-		
 		// Goods 객체에 없는 컬럼값 넘기기 위해 Map 사용
 		Map<String, Object> map = new HashMap<String, Object>();
 		
@@ -97,6 +95,8 @@ public class GoodsController {
 		map.put("goods_regdate", goods.getGoods_regdate());
 		map.put("goods_state", goods.getGoods_state());
 		
+		List<Goods> goods_list = new ArrayList<Goods>();
+		
 		// 이미지 다중 업로드 되었을때 첫번째 이미지를 썸네일로 설정
 		for (Goods gd : goods_list) {
 			System.out.println("파싱전 이미지: " + gd.getGoods_image());
@@ -104,11 +104,12 @@ public class GoodsController {
 			String image = gd.getGoods_image();
 			String[] goods_img = image.split(",");
 
-			if (goods_img.length > 1) {
+			if (goods_img.length > 0) {
 				String thum_img = goods_img[0];
 				gd.setGoods_image(thum_img);
 			}
 		}
+		System.out.println();
 		map.put("goods_image", goods.getGoods_image());
 		
 		// 글 목록 select 실행
@@ -178,12 +179,16 @@ public class GoodsController {
 
 		// 세션에 저장된 member_no를 goods객체 member_no에 저장
 		goods.setMember_no((int) session.getAttribute("member_no"));
-
+		System.out.println("세션에서 구하고, 객체에 저장된 member_no: "+goods.getMember_no());
+		
 		// 세션에 저장된 member_id로 member 위치정보를 조회
 		member.setMember_id((String) session.getAttribute("member_id"));
+		System.out.println("세션에서 구하고, 객체에 저장된 member_id: "+member.getMember_id());
 
 		// 사용자 위치 인증받은 주소를 goods_place에 저장
 		goods.setGoods_place(MemberDao.user_check(member).getMember_auth_add());
+		System.out.println("검색한 member 출력: "+MemberDao.user_check(member));
+		System.out.println("검색한 auth_add 출력: "+MemberDao.user_check(member).getMember_auth_add());
 
 		System.out.println(goods.toString());
 
