@@ -77,4 +77,9 @@
 		SELECT goods.*, count(liked.liked_no) AS liked_no FROM goods LEFT JOIN liked ON goods.goods_no = liked.goods_no GROUP BY goods.goods_no 
 		ORDER BY goods.goods_readcount DESC LIMIT 0, 12
 	</select>
+	
+	<!-- 특정게시글 정보 불러오기 -->
+	<select id="get_goods" parameterType="goods" resultType="goods">
+		select * from goods where goods_no=#{goods_no}
+	</select>
 </mapper>

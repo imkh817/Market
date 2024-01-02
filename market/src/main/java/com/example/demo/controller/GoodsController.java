@@ -192,13 +192,11 @@ public class GoodsController {
 			// 카테고리 불러오기
 			List<Category> Category = CategoryService.get_category();
 			
-			goods.setGoods_no(130); // board_no를 130이라 가정
-			System.out.println("글 수정 굿즈 no: " + goods.getGoods_no() );
+			// 특정게시글 정보 불러오기
+			Goods get_goods = GoodsService.get_goods(goods);
 			
-			// 게시글 정보 불러오기
-//			List<Goods> get_goods = GoodsService.get_goods(goods);
-
 			model.addAttribute("Category", Category);
+			model.addAttribute("goods", get_goods);
 			return "goods/update_sell_form";
 		}
 }

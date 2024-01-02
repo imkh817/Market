@@ -122,12 +122,12 @@
 
 	<div class="container my-5 goods_form">
 		<br>
-		<!-- 상품 등록 작성 폼 -->
-		<form action="goods_reg" method="post" enctype="multipart/form-data">
+		<!-- 상품 수정 폼 -->
+		<form action="#" method="post" enctype="multipart/form-data">
 			<div class="form-group row mt-1">
 				<label for="title" class="col-sm-2 col-form-label fw-bold">상품 제목</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control" id="goods_name" name="goods_name" placeholder="상품 제목">
+					<input type="text" class="form-control" id="goods_name" name="goods_name" placeholder="상품 제목" value="${goods.goods_name }">
 				</div>
 			</div>
 
@@ -146,14 +146,16 @@
 			<div class="form-group row mt-3">
 				<label for="goods_price" class="col-sm-2 col-form-label fw-bold">가격</label>
 				<div class="col-sm-4">
-					<input type="number" class="form-control" id="goods_price" name="goods_price" placeholder="숫자만 입력해주세요.">
+					<input type="number" class="form-control" id="goods_price" name="goods_price" 
+					placeholder="숫자만 입력해주세요." value="${goods.goods_price }">
 				</div>
 			</div>
 
 			<div class="form-group row mt-3">
 				<label for="goods_content" class="col-sm-2 col-form-label fw-bold">상품 설명</label>
 				<div class="col-sm-8">
-					<textarea class="form-control" id="goods_content" name="goods_content" rows="5" placeholder="AI가 작성한 글을 검토해드려요!"></textarea>
+					<textarea class="form-control" id="goods_content" name="goods_content" rows="5" 
+					placeholder="AI가 작성한 글을 검토해드려요!">${goods.goods_content }</textarea>
 				</div>
 				<div class="col-sm-2">
 					<button type="button" class="btn btn-primary btn-sm" onClick="gpt_write()">AI 글 검토</button>
