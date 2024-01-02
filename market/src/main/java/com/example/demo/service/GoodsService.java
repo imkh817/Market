@@ -98,8 +98,8 @@ public class GoodsService {
 	}
 
 	// 글 갯수
-	public int goods_listcount() {
-		return GoodsDao.goods_listcount();
+	public int goods_listcount(String keyword) {
+		return GoodsDao.goods_listcount(keyword);
 	}
 
 	// 글 목록

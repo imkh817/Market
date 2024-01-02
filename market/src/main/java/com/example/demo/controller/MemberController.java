@@ -27,7 +27,6 @@ public class MemberController {
 		HttpSession session = request.getSession();
 		String member_id = (String)session.getAttribute("member_id");
 		
-		
 		if(member_id == null)
 			return "redirect:/login";
 			
