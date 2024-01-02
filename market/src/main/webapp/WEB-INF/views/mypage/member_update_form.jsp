@@ -55,12 +55,28 @@
         <h2>프로필</h2>
         <hr style="border: none; border-top: 1px solid #000; margin-top: 10px;">
         <br>
-		<img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='currentColor'%3E%3Cpath d='M8 0a8 8 0 1 0 8 8A8 8 0 0 0 8 0zm-.5 12h1V5h-1zm0-6h1v1h-1z'/%3E%3C/svg%3E" class="rounded" alt="..." style="width: 50px; height: 50px;">
-
-        <form action="member_delete" method="post">
+        <div align="center">
+			<img src="./images/user.png" class="rounded-circle opacity-75" style="width:100px; height:100px; border:1px solid #BDBDBD;">
+		</div>
+<!-- 		<div align="center">
+			<input class="text-center fw-medium" type="text" value="광진구 불주먹" style="border:none" >
+		</div> -->
+		<br>
+        <form action="member_delete" method="post" >
+        	<div>
+        	<label for="name" class="fw-medium" >이름</label>
+        	<input  type="text" style="border: 0; border-bottom: 1px solid #BDBDBD; outline: none;" placeholder="입력란">
+        	</div>
+        	<label for="name" class="fw-medium">이름</label>
+        	<input type="text" style="border: 0; border-bottom: 1px solid #BDBDBD; outline: none;" placeholder="입력란">
+        	<label for="name" class="fw-medium">이름</label>
+        	<input type="text" style="border: 0; border-bottom: 1px solid #BDBDBD; outline: none;" placeholder="입력란">
+        	<label for="name" class="fw-medium">이름</label>
+        	<input type="text" style="border: 0; border-bottom: 1px solid #BDBDBD; outline: none;" placeholder="입력란">
+        	<label for="name" class="fw-medium">프로필 사진</label>
             <input class="col-12 fw-medium" type="file" id="member_image1" name="member_image1"> <br> <br>
             <button type="submit" id="member_delete_button">탈퇴하기</button>
-        </form>
+        </form> 
     </div>
 </div>
 
