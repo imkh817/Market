@@ -93,7 +93,7 @@
 								<c:if test="${dl.member_no == session_member_no }">
 									<div class="btn-group btn-group-sm" role="group"
 										aria-label="Small button group" id="edit">
-										<button type="button" class="btn btn-outline-primary">수정</button>
+										<button type="button" class="btn btn-outline-primary" onclick="location.href='update_sell_form?goods_no=${dl.goods_no}'">수정</button>
 										<button type="button" class="btn btn-outline-danger"
 											data-bs-toggle="modal" data-bs-target="#staticBackdrop">삭제</button>
 									</div>
@@ -112,7 +112,7 @@
 												<button type="button" class="btn-close"
 													data-bs-dismiss="modal" aria-label="Close"></button>
 											</div>
-											<div class="modal-body">${dl.goods_name }을삭제하시겠습니까?</div>
+											<div class="modal-body">${dl.goods_name }을 삭제하시겠습니까?</div>
 											<div class="modal-footer">
 												<button type="button" class="btn btn-secondary"
 													data-bs-dismiss="modal">닫기</button>
