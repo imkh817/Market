@@ -184,4 +184,21 @@ public class GoodsController {
 		model.addAttribute("result", result);
 		return "goods/reg_result";
 	}
+	
+	// 상품판매 글 수정 폼
+		@RequestMapping("update_sell_form")
+		public String update_sell_form(Goods goods, Model model) {
+
+			// 카테고리 불러오기
+			List<Category> Category = CategoryService.get_category();
+			
+			goods.setGoods_no(130); // board_no를 130이라 가정
+			System.out.println("글 수정 굿즈 no: " + goods.getGoods_no() );
+			
+			// 게시글 정보 불러오기
+//			List<Goods> get_goods = GoodsService.get_goods(goods);
+
+			model.addAttribute("Category", Category);
+			return "goods/update_sell_form";
+		}
 }
