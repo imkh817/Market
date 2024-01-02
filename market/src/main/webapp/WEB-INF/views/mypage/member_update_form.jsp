@@ -45,28 +45,41 @@
 				<li class="nav-item"><a class="nav-link"
 					href="member_delete_form" style="color: #47C83E;">회원 탈퇴</a></li>
 				<li class="nav-item"><a class="nav-link"
-					href="member_update_form" style="color: #47C83E;">정보 수정</a></li>	
+					href="member_delete_form" style="color: #47C83E;">정보 수정</a></li>	
 			</ul>
 		</div>
 	</div>
 
-	<div class="d-flex justify-content-center my-3 py-3">
 		<div class="join-container" style="width: 768px;">
-			<div class="join-form">
-				<h2>회원 탈퇴를 원하시면</h2>
-				<h2>비밀번호를 입력하세요.</h2>
-				<br>
-				<form action="member_delete" method="post">
-					<label for="username" class="fw-medium">비밀번호:</label> <input
-						class="col-12 fw-medium" type="password" id="member_pw"
-						name="member_pw" required placeholder="비밀번호를 입력해주세요."> <br>
-					<br>
-					<button type="submit" id="member_delete_button">탈퇴하기</button>
-				</form>
-			</div>
+    <div class="join-form">
+        <h2>프로필</h2>
+        <hr style="border: none; border-top: 1px solid #000; margin-top: 10px;">
+        <br>
+        <div align="center">
+			<img src="./images/user.png" class="rounded-circle opacity-75" style="width:100px; height:100px; border:1px solid #BDBDBD;">
 		</div>
-	</div>
-	
+<!-- 		<div align="center">
+			<input class="text-center fw-medium" type="text" value="광진구 불주먹" style="border:none" >
+		</div> -->
+		<br>
+        <form action="member_delete" method="post" >
+        	<div>
+        	<label for="name" class="fw-medium" >이름</label>
+        	<input  type="text" style="border: 0; border-bottom: 1px solid #BDBDBD; outline: none;" placeholder="입력란">
+        	</div>
+        	<label for="name" class="fw-medium">이름</label>
+        	<input type="text" style="border: 0; border-bottom: 1px solid #BDBDBD; outline: none;" placeholder="입력란">
+        	<label for="name" class="fw-medium">이름</label>
+        	<input type="text" style="border: 0; border-bottom: 1px solid #BDBDBD; outline: none;" placeholder="입력란">
+        	<label for="name" class="fw-medium">이름</label>
+        	<input type="text" style="border: 0; border-bottom: 1px solid #BDBDBD; outline: none;" placeholder="입력란">
+        	<label for="name" class="fw-medium">프로필 사진</label>
+            <input class="col-12 fw-medium" type="file" id="member_image1" name="member_image1"> <br> <br>
+            <button type="submit" id="member_delete_button">탈퇴하기</button>
+        </form> 
+    </div>
+</div>
+
 		<!-- 하단 내비바 -->
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 </body>

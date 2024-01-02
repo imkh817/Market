@@ -66,20 +66,17 @@ public class GoodsController {
 		String keyword = request.getParameter("keyword");
 		
 		// 페이징 처리
-		int listcount = GoodsService.goods_listcount();
+		int listcount = GoodsService.goods_listcount(keyword);
 		int limit = 12; // 화면당 출력수
 		int paging = 10; // 페이지 분할수
+		int start = (page - 1) * paging;
 		
 		int maxpage = listcount / limit + ((listcount % limit == 0) ? 0 : 1);
 		int startpage = ((page - 1) / paging) * limit + 1;
 		int endpage = startpage + paging - 1;
 		if (endpage > maxpage)
 			endpage = maxpage;
-		
-		System.out.println("listcount="+listcount);
-		
-		int start = (page - 1) * paging;
-		
+
 		// Goods 객체에 없는 컬럼 입력
 		map.put("order", order);
 		map.put("keyword", keyword);
@@ -96,24 +93,24 @@ public class GoodsController {
 		map.put("goods_readcount", goods.getGoods_readcount());
 		map.put("goods_regdate", goods.getGoods_regdate());
 		map.put("goods_state", goods.getGoods_state());
-		
-		// 이미지 다중 업로드 되었을때 첫번째 이미지를 썸네일로 설정
-		for (Goods gd : goods_list) {
-			System.out.println("파싱전 이미지: " + gd.getGoods_image());
-
-			String image = gd.getGoods_image();
-			String[] goods_img = image.split(",");
-
-			if (goods_img.length > 1) {
-				String thum_img = goods_img[0];
-				gd.setGoods_image(thum_img);
-			}
-		}
 		map.put("goods_image", goods.getGoods_image());
 		
 		// 글 목록 select 실행
 		goods_list = GoodsService.goods_list(map);
+		
+		// 이미지 다중 업로드 되었을때 첫번째 이미지를 썸네일로 설정
+		for (Goods gd : goods_list) {
+		
+			String image = gd.getGoods_image();
+			String[] goods_img = image.split(",");
 
+			if (goods_img.length > 0) {
+				String thum_img = goods_img[0];
+				gd.setGoods_image(thum_img);
+			}
+		map.put("goods_image", gd.getGoods_image());
+		}
+		
 		// 페이지에 값 전달
 		model.addAttribute("page", page);
 		model.addAttribute("order", order);
@@ -176,8 +173,10 @@ public class GoodsController {
 		member.setMember_id((String) session.getAttribute("member_id"));
 
 		// 사용자 위치 인증받은 주소를 goods_place에 저장
-		goods.setGoods_place(MemberDao.user_check(member).getMember_auth_add());
-
+		
+		String place = MemberDao.user_check(member).getMember_auth_add();
+		goods.setGoods_place(place);
+		
 		System.out.println(goods.toString());
 
 		int result = GoodsService.goods_reg(goods);
