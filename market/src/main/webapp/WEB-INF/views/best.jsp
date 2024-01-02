@@ -7,12 +7,12 @@
 	<h3 class="fw-bold">중고거래 인기매물</h3>
 </div>
 
-<div class="d-flex justify-content-center my-3 py-3">
-	<div class="row" style="max-width: 768px;">
+<div class="container my-3 py-3" style="max-width: 768px;">
+	<div class="row d-flex row-cols-1 row-cols-md-3">
 		<c:forEach var="gd" items="${goods_list}" varStatus="status">
 			<div class="col">
 				<div class="card text-center" style="border: none;">
-					<p class="card-text lh-1 mx-0 px-0 fw-bold">TOP ${status.count}</p>
+					<p class="fw-bold">TOP ${status.count}</p>
 					<a href="detail?goods_no=${gd.goods_no}&page=${page}&state=cont">
 					<img src="./upload/${gd.goods_image}"
 						class="card-img-top my-2" alt=""

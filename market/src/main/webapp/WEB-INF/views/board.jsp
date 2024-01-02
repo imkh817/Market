@@ -18,11 +18,11 @@
 <script>
 	function sort() {
 		var order = $("#order").val();
-		location.href = "${path}/board?keyword=${keyword}&order="+order;
+		location.href = "${path}/board?keyword=${keyword}&order=" + order;
 	}
 </script>
 </head>
-<body style="padding-top:40px;">
+<body style="padding-top: 40px;">
 	<%@ include file="/WEB-INF/views/include/navbar.jsp"%>
 	<!-- 배너 -->
 	<section class="banner my-5 py-5">
@@ -36,8 +36,9 @@
 	<!-- 정렬 아이콘 -->
 	<div class="container mb-3" style="max-width: 768px">
 		<div class="row d-flex">
-			<a class="col-auto ps-4 me-auto" onClick="location.replace(location.href)">
-				<i class="p-2 fs-4 fa-solid fa-rotate-right" style="color: #21F11C;"></i>
+			<a class="col-auto ps-4 me-auto"
+				onClick="location.replace(location.href)"> <i
+				class="p-2 fs-4 fa-solid fa-rotate-right" style="color: #21F11C;"></i>
 			</a>
 			<div class="col-auto me-5">
 				<div class="row">
@@ -56,17 +57,15 @@
 	</div>
 
 	<!-- 글 목록 -->
-	<div class="d-flex justify-content-center mb-3">
-		<div class="row" style="max-width: 768px;">
+	<div class="container mb-3" style="max-width: 768px">
+		<div class="row d-flex row-cols-1 row-cols-md-3" >
 			<c:set var="no" value="${listcount-(page-1)*12}" />
 			<c:forEach var="gd" items="${goods_list}">
 				<div class="col">
 					<div class="card text-center" style="border: none;">
-						<a
-							href="detail?goods_no=${gd.goods_no}&page=${page}&state=cont">
-							<img src="./upload/${gd.goods_image}"
-							class="card-img-top my-2" alt=""
-							style="width: 200px; height: 200px;">
+						<a href="detail?goods_no=${gd.goods_no}&page=${page}&state=cont">
+							<img src="./upload/${gd.goods_image}" class="card-img-top my-2"
+							alt="" style="width: 200px; height: 200px;">
 						</a>
 						<div class="card-body mx-1 px-0">
 							<p class="card-text text-start mx-3 px-1 lh-1">
@@ -77,7 +76,8 @@
 								<c:if test="${fn:length(gd.goods_name)>12}">...</c:if>
 							</p>
 							<p class="card-text text-start mx-3 px-1 lh-1 fw-bold">${gd.goods_price}</p>
-							<p class="card-text text-start mx-3 px-1 lh-1" style="font-size: 0.8rem;">
+							<p class="card-text text-start mx-3 px-1 lh-1"
+								style="font-size: 0.8rem;">
 								<i class="fa-solid fa-location-dot"></i> <span>&nbsp;${gd.goods_place}</span>
 							</p>
 							<div class="row">
@@ -100,66 +100,68 @@
 	<!-- 페이지네이션 -->
 	<div class="container d-flex justify-content-center my-3">
 		<ul class="pagination">
-		<c:if test="${keyword == null}">
-			<c:if test="${order == null}">
-				<c:if test="${page>1}">
-					<li class="page-item"><a class="page-link"
-						href="${path}/board?page=${page-1}">이전</a></li>
+			<c:if test="${keyword == null}">
+				<c:if test="${order == null}">
+					<c:if test="${page>1}">
+						<li class="page-item"><a class="page-link"
+							href="${path}/board?page=${page-1}">이전</a></li>
+					</c:if>
+					<c:forEach var="i" begin="${startpage}" end="${endpage}">
+						<li class="page-item <c:if test="${page==i}">active</c:if>"><a
+							class="page-link" href="${path}/board?page=${i}">${i}</a></li>
+					</c:forEach>
+					<c:if test="${page<maxpage}">
+						<li class="page-item"><a class="page-link"
+							href="${path}/board?page=${page+1}">다음</a></li>
+					</c:if>
 				</c:if>
-				<c:forEach var="i" begin="${startpage}" end="${endpage}">
-					<li class="page-item <c:if test="${page==i}">active</c:if>"><a
-						class="page-link" href="${path}/board?page=${i}">${i}</a></li>
-				</c:forEach>
-				<c:if test="${page<maxpage}">
-					<li class="page-item"><a class="page-link"
-						href="${path}/board?page=${page+1}">다음</a></li>
-				</c:if>
-			</c:if>
-			<c:if test="${order != null}">
-				<c:if test="${page>1}">
-					<li class="page-item"><a class="page-link"
-						href="${path}/board?order=${order}&page=${page-1}">이전</a></li>
-				</c:if>
-				<c:forEach var="i" begin="${startpage}" end="${endpage}">
-					<li class="page-item <c:if test="${page==i}">active</c:if>"><a
-						class="page-link" href="${path}/board?order=${order}&page=${i}">${i}</a></li>
-				</c:forEach>
-				<c:if test="${page<maxpage}">
-					<li class="page-item"><a class="page-link"
-						href="${path}/board?order=${order}&page=${page+1}">다음</a></li>
-				</c:if>
-			</c:if>
-		</c:if>
-		<c:if test="${keyword != null}">
-			<c:if test="${order == null}">
-				<c:if test="${page>1}">
-					<li class="page-item"><a class="page-link"
-						href="${path}/board?keyword=${keyword}&page=${page-1}">이전</a></li>
-				</c:if>
-				<c:forEach var="i" begin="${startpage}" end="${endpage}">
-					<li class="page-item <c:if test="${page==i}">active</c:if>"><a
-						class="page-link" href="${path}/board?keyword=${keyword}&page=${i}">${i}</a></li>
-				</c:forEach>
-				<c:if test="${page<maxpage}">
-					<li class="page-item"><a class="page-link"
-						href="${path}/board?keyword=${keyword}&page=${page+1}">다음</a></li>
+				<c:if test="${order != null}">
+					<c:if test="${page>1}">
+						<li class="page-item"><a class="page-link"
+							href="${path}/board?order=${order}&page=${page-1}">이전</a></li>
+					</c:if>
+					<c:forEach var="i" begin="${startpage}" end="${endpage}">
+						<li class="page-item <c:if test="${page==i}">active</c:if>"><a
+							class="page-link" href="${path}/board?order=${order}&page=${i}">${i}</a></li>
+					</c:forEach>
+					<c:if test="${page<maxpage}">
+						<li class="page-item"><a class="page-link"
+							href="${path}/board?order=${order}&page=${page+1}">다음</a></li>
+					</c:if>
 				</c:if>
 			</c:if>
-			<c:if test="${order != null}">
-				<c:if test="${page>1}">
-					<li class="page-item"><a class="page-link"
-						href="${path}/board?keyword=${keyword}&order=${order}&page=${page-1}">이전</a></li>
+			<c:if test="${keyword != null}">
+				<c:if test="${order == null}">
+					<c:if test="${page>1}">
+						<li class="page-item"><a class="page-link"
+							href="${path}/board?keyword=${keyword}&page=${page-1}">이전</a></li>
+					</c:if>
+					<c:forEach var="i" begin="${startpage}" end="${endpage}">
+						<li class="page-item <c:if test="${page==i}">active</c:if>"><a
+							class="page-link"
+							href="${path}/board?keyword=${keyword}&page=${i}">${i}</a></li>
+					</c:forEach>
+					<c:if test="${page<maxpage}">
+						<li class="page-item"><a class="page-link"
+							href="${path}/board?keyword=${keyword}&page=${page+1}">다음</a></li>
+					</c:if>
 				</c:if>
-				<c:forEach var="i" begin="${startpage}" end="${endpage}">
-					<li class="page-item <c:if test="${page==i}">active</c:if>"><a
-						class="page-link" href="${path}/board?keyword=${keyword}&order=${order}&page=${i}">${i}</a></li>
-				</c:forEach>
-				<c:if test="${page<maxpage}">
-					<li class="page-item"><a class="page-link"
-						href="${path}/board?keyword=${keyword}&order=${order}&page=${page+1}">다음</a></li>
+				<c:if test="${order != null}">
+					<c:if test="${page>1}">
+						<li class="page-item"><a class="page-link"
+							href="${path}/board?keyword=${keyword}&order=${order}&page=${page-1}">이전</a></li>
+					</c:if>
+					<c:forEach var="i" begin="${startpage}" end="${endpage}">
+						<li class="page-item <c:if test="${page==i}">active</c:if>"><a
+							class="page-link"
+							href="${path}/board?keyword=${keyword}&order=${order}&page=${i}">${i}</a></li>
+					</c:forEach>
+					<c:if test="${page<maxpage}">
+						<li class="page-item"><a class="page-link"
+							href="${path}/board?keyword=${keyword}&order=${order}&page=${page+1}">다음</a></li>
+					</c:if>
 				</c:if>
 			</c:if>
-		</c:if>		
 		</ul>
 	</div>
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
