@@ -12,6 +12,7 @@
 
 #heart_icon {
 	font-size: 30px;
+	
 	cursor: pointer;
 }
 
@@ -29,7 +30,13 @@
 
 #user_img {
 	font-size: 20px;
-	color: #21F11C;
+	color: #47C83E;
+	cursor: pointer;
+}
+
+#kakaotalk-sharing-img {
+	font-size: 20px;
+	color: #47C83E;
 	cursor: pointer;
 }
 
@@ -100,7 +107,7 @@
 
 #hit_image {
 	margin: 10px;
-	margin-top: -30px;
+	margin-top: -50px;
 	padding-right: 10px;
 }
 
@@ -109,3 +116,11 @@
 	text-decoration: none;
 	font-style: bold;
 }
+
+#place_info {
+	width:150px;
+	font-size: 12px;
+	text-align:center;
+	padding:6px 0;
+}
+

@@ -16,5 +16,8 @@ public interface LikedDao {
 //	상세페이지 하트 취소
 	int delete_heart(Liked liked);
 
+//	상세페이지 하트 개수
+	int heart_count(int goods_no);
+
 
 }
