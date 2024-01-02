@@ -5,14 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.demo.model.ComparePrice;
+import com.example.demo.model.Goods;
 import com.example.demo.model.Item;
+import com.example.demo.model.PagingPgm;
 import com.example.demo.service.compare.ComparePaging;
 import com.example.demo.service.compare.CompareService;
-
-import lombok.Value;
 
 @Controller
 public class CompareController {
@@ -20,12 +20,30 @@ public class CompareController {
 	@Autowired
 	CompareService compareService;
 	
-	@RequestMapping("compare_form")
+	@RequestMapping("lowest_naver_form")
 	public String compare_form(String page) {
 		return "compare/compare_form";
 	}
+	@RequestMapping("lowest_baechu_form")
+	public String lowest_price_form(String page) {
+		return "compare/lowest_price_form";
+	}
 	
-	@RequestMapping("compare")
+	@RequestMapping("lowest_baechu")
+	public String lowest_baechu(String page,String compare_product,Model model) {
+		PagingPgm paging = compareService.paing(page, compare_product);
+		List<Goods> list = compareService.getList(paging, compare_product);
+		ComparePrice compare_price = compareService.get_Compare_price(list);
+		System.out.println("list의 사이즈 : " + list.size());
+		model.addAttribute("list",list);
+		model.addAttribute("page",paging);
+		model.addAttribute("compare_product",compare_product);
+		model.addAttribute("compare_price",compare_price);
+		return"compare/lowest_price_form";
+	}
+	
+	
+	@RequestMapping("lowest_naver")
 	public String compare(String compare_product,String page,Model model) {
 		ComparePaging paging = compareService.paging(page); // 페이징 객체 생성
 		String response = compareService.search(compare_product,paging); // 검색API 사용

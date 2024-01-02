@@ -7,6 +7,7 @@
 <head>
 <title>상품 판매 등록</title>
 <link rel="stylesheet" href="./css/goods.css">
+<link rel="stylesheet" href="./css/navbar.css">
 </head>
 
 <script type="text/javascript">

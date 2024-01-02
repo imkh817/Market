@@ -7,7 +7,8 @@
 <title>Insert title here</title>
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 <link rel="stylesheet" href="./css/banner.css">
-<link rel="stylesheet" href="./css/join.css"> 
+<link rel="stylesheet" href="./css/join.css">
+<link rel="stylesheet" href="./css/navbar.css">
 </head>
 <body>
 <section class="banner my-5 py-5">

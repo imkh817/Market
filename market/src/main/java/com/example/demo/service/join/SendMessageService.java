@@ -3,7 +3,6 @@ package com.example.demo.service.join;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import net.nurigo.sdk.NurigoApp;
