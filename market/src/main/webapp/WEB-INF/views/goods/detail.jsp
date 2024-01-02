@@ -4,6 +4,7 @@
 <%@ page import="java.time.LocalDateTime"%>
 <%@ page import="java.time.temporal.ChronoUnit"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <!DOCTYPE html>
 <html>
@@ -15,61 +16,19 @@
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 <link rel="stylesheet" href="./css/detail.css">
 <link rel="stylesheet" href="./css/navbar.css">
-
-<script>
-	document.addEventListener('DOMContentLoaded', function() {
-		var heartIcon = document.getElementById('heartIcon');
-		var heartValue = document.querySelector('input[name="liked_no"]');
-
-		if (heartValue.value == '1') {
-			heartIcon.classList.add('fas', 'text-danger');
-		} else {
-			heartIcon.classList.add('far');
-		}
-
-		heartIcon.addEventListener('click', function() {
-			var no = "<c:out value='${member_no}'/>";
-			if (!no || no === null) {
-				alert("로그인 후 이용해주세요.");
-			} else {
-				// 클래스를 모두 제거
-				heartIcon.classList.remove('far', 'fas', 'text-danger');
-
-				if (heartValue.value == '1') {
-					heartValue.value = '0';
-					heartIcon.classList.add('far');
-				} else {
-					heartValue.value = '1';
-					heartIcon.classList.add('fas', 'text-danger');
-				}
-
-				// 서버에 하트 클릭 이벤트를 전달하는 Ajax 요청
-				$.ajax({
-					type : "POST",
-					url : "heartClick",
-					data : {
-						goods_no : '<c:out value="${goods.goods_no}" />',
-						liked_no : heartValue.value
-					},
-					success : function(response) {
-					}
-				});
-			}
-		});
-	});
-</script>
 </head>
 <body>
+	<c:forEach var="dl" items="${detail_result }">
+		<c:set var="member_goods_link"
+			value="${sessionScope.member_no == null ? 'login_form' : 'member_goods'}" />
+		<c:set var="chat_link"
+			value="${sessionScope.member_no == null ? 'login_form' : 'chat?goods_no=${dl.goods_no}&member_no=${dl.member_no }&session_member_no=${session_member_no }'}" />
+		<!-- header -->
+		<%@ include file="/WEB-INF/views/include/navbar.jsp"%>
 
-	<c:set var="chat_link"
-		value="${sessionScope.member_no == null ? 'login_form' : 'chat?goods_no=${dl.goods_no}&member_no=${dl.member_no }&session_member_no=${session_member_no }'}" />
-	<!-- header -->
-	<%@ include file="/WEB-INF/views/include/navbar.jsp"%>
-
-	<div
-		class="d-flex flex-column justify-content-center mx-auto px-3 my-5 py-5"
-		id="detail">
-		<c:forEach var="dl" items="${detail_result }">
+		<div
+			class="d-flex flex-column justify-content-center mx-auto px-3 my-5 py-5"
+			id="detail">
 
 			<div class="container" id="detail_goods">
 				<div class="row">
@@ -88,16 +47,19 @@
 
 						<div class="carousel-inner">
 							<div class="carousel-item active">
-								<img id="goods_image" src="https://via.placeholder.com/600x600"
-									class="d-block w-100" alt="...">
+								<img id="goods_image" src="${dl.goods_image }"
+									class="d-block w-100" alt="상품 이미지1"
+									onerror="this.src='https://via.placeholder.com/600x600'">
 							</div>
 							<div class="carousel-item">
-								<img id="goods_image" src="https://via.placeholder.com/600x600"
-									class="d-block w-100" alt="...">
+								<img id="goods_image" src="${dl.goods_image }"
+									class="d-block w-100" alt="상품 이미지2"
+									onerror="this.src='https://via.placeholder.com/600x600'">
 							</div>
 							<div class="carousel-item">
-								<img id="goods_image" src="https://via.placeholder.com/600x600"
-									class="d-block w-100" alt="...">
+								<img id="goods_image" src="${dl.goods_image }"
+									class="d-block w-100" alt="상품 이미지3"
+									onerror="this.src='https://via.placeholder.com/600x600'">
 							</div>
 						</div>
 
@@ -123,46 +85,7 @@
 									<input type="hidden" name="liked_state" value="${heart_result}">
 									<i id="heart_icon" class="far fa-heart"></i>
 
-									<script>
-	document.addEventListener('DOMContentLoaded', function() {
-	    var heart_icon = document.getElementById('heart_icon');
-	    var heart_value = document.querySelector('input[name="liked_state"]');
-	    
-	    if (heart_value.value == '1') {
-	    	heart_icon.classList.add('fas', 'text-danger');
-	    } else {
-	    	heart_icon.classList.add('far');
-	    }
 
-	    heart_icon.addEventListener('click', function() {
-	        var session_member_no = "<c:out value='${sessionScope.member_no}'/>";	
-	        if (!session_member_no || session_member_no === "null" || session_member_no === "undefined") {
-	        	
-	            alert("로그인 후 이용해주세요.");
-	        } else {
-	        	// 클래스를 모두 제거
-	            heart_icon.classList.remove('far', 'fas', 'text-danger');
-	            
-	            if (heart_value.value == '1') {
-	            	heart_value.value = '0'; 
-	                heart_icon.classList.add('far');
-	            } else {
-	            	heart_value.value = '1'; 
-	                heart_icon.classList.add('fas', 'text-danger');
-	            }
-	        
-	            // 서버에 하트 클릭 이벤트를 전달하는 Ajax 요청
-	            $.ajax({
-	                type: "GET",
-	                url: "heart_click",
-	                data: { 'goods_no': '<c:out value="${dl.goods_no}" />', 'liked_state': heart_value.value },
-	                success: function(response) {
-	                }
-	            });
-	        }
-	    });
-	});
-	</script>
 
 								</h3>
 							</div>
@@ -170,7 +93,7 @@
 								<c:if test="${dl.member_no == session_member_no }">
 									<div class="btn-group btn-group-sm" role="group"
 										aria-label="Small button group" id="edit">
-										<button type="button" class="btn btn-outline-primary">수정</button>
+										<button type="button" class="btn btn-outline-primary" onclick="location.href='update_sell_form?goods_no=${dl.goods_no}'">수정</button>
 										<button type="button" class="btn btn-outline-danger"
 											data-bs-toggle="modal" data-bs-target="#staticBackdrop">삭제</button>
 									</div>
@@ -189,7 +112,7 @@
 												<button type="button" class="btn-close"
 													data-bs-dismiss="modal" aria-label="Close"></button>
 											</div>
-											<div class="modal-body">${dl.goods_name }을삭제하시겠습니까?</div>
+											<div class="modal-body">${dl.goods_name }을 삭제하시겠습니까?</div>
 											<div class="modal-footer">
 												<button type="button" class="btn btn-secondary"
 													data-bs-dismiss="modal">닫기</button>
@@ -242,12 +165,15 @@
 						<!-- 조회수, 관심, 내용 -->
 						<div class="row">
 							<div class="col-8">
-								<a href="mypage_list?member_no=${dl.member_no }"
-									id="member_nick"><i class="fa-regular fa-user"
-									id="user_img"></i></a>
+								<a href="<c:url value='${member_goods_link}'/>" id="member_nick"><i
+									class="fa-regular fa-user" id="user_img"></i></a>
+
+								<!-- 카카오톡 공유하기 -->
+								<a id="kakaotalk-sharing-btn" href="javascript:;"> <i
+									class="fa-solid fa-share" id="kakaotalk-sharing-img"></i></a>
 							</div>
 							<div class="col-4" id="view_div">
-								<p>조회&nbsp;${dl.goods_readcount }&nbsp;·&nbsp;관심&nbsp;00</p>
+								<p>조회&nbsp;${dl.goods_readcount }&nbsp;·&nbsp;관심&nbsp;${heart_count }</p>
 							</div>
 						</div>
 
@@ -277,70 +203,150 @@
 				<hr>
 
 			</div>
-		</c:forEach>
-	</div>
-	<!-- detail_store_container end -->
-
-	<!-- 인기상품 목록 -->
-	<div class="container" id="detail_hit">
-
-
-		<div class="row mx-auto">
-			<h5 id="hit_goods">인기상품 보고가세요!</h5>
-			<c:forEach var="best" items="${best_detail }">
-				<div class="col-2 mx-auto" id="hit_image">
-					<img alt=""
-						src="https://via.placeholder.com/200x200<%-- ${best.goods_image } --%>">
-					<p>
-						<a href="detail?goods_no=${best.goods_no }" id="hit_name">${best.goods_name }</a>
-					</p>
-					<p>${best.goods_price}원</p>
-				</div>
-			</c:forEach>
 		</div>
-	</div>
-	<!-- detail_container end -->
+		<!-- detail_store_container end -->
 
-	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
+		<!-- 인기상품 목록 -->
+		<div class="container" id="detail_hit">
+			<div class="row mx-auto">
+				<h5 id="hit_goods">인기상품 보고가세요!</h5>
+				<c:forEach var="best" items="${best_detail }">
+					<div class="col-2 mx-auto" id="hit_image">
+						<a href="detail?goods_no=${best.goods_no }" id="hit_name"> <img
+							alt="인기상품" src=""
+							onerror="this.src='https://via.placeholder.com/200x200'">
+							<p>${best.goods_name }</p></a>
+						<p>${best.goods_price}원</p>
+					</div>
+				</c:forEach>
+			</div>
+		</div>
+		<!-- detail_container end -->
 
+		<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 
-	<script type="text/javascript"
-		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=977ee17ba59e7721767fe0fdf92b13a5"></script>
+		<!-- 하트 -->
+		<script>
+		document.addEventListener('DOMContentLoaded', function() {
+	    var heart_icon = document.getElementById('heart_icon');
+	    var heart_value = document.querySelector('input[name="liked_state"]');
+	    
+	    if (heart_value.value == '1') {
+	    	heart_icon.classList.add('fas', 'text-danger');
+	    } else {
+	    	heart_icon.classList.add('far');
+	    }
 
-	<script>
-		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-		mapOption = {
-			center : new kakao.maps.LatLng(37.499593, 127.030474), // 지도의 중심좌표
-			level : 3
-		// 지도의 확대 레벨
-		};
-
-		// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
-		var map = new kakao.maps.Map(mapContainer, mapOption);
-
-		// 마커가 표시될 위치입니다 
-		var markerPosition = new kakao.maps.LatLng(37.499593, 127.030474);
-
-		// 마커를 생성합니다
-		var marker = new kakao.maps.Marker({
-			position : markerPosition
-		});
-
-		// 마커가 지도 위에 표시되도록 설정합니다
-		marker.setMap(map);
-
-		var iwContent = '<div style="padding:5px;">양배추마켓 <br><a href="https://map.kakao.com/link/map/양배추마켓,37.499593,127.030474" style="color:#47C83E; font-size:14px;" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/양배추마켓,37.499593,127.030474" style="color:#47C83E; font-size:14px;" target="_blank">길찾기</a></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-
-		iwPosition = new kakao.maps.LatLng(37.499593, 127.030474); //인포윈도우 표시 위치입니다
-
-		// 인포윈도우를 생성합니다
-		var infowindow = new kakao.maps.InfoWindow({
-			position : iwPosition,
-			content : iwContent
-		});
-
-		// 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
-		infowindow.open(map, marker);
+	    heart_icon.addEventListener('click', function() {
+	        var session_member_no = "<c:out value='${sessionScope.member_no}'/>";	
+	        if (!session_member_no || session_member_no === "null" || session_member_no === "undefined") {
+	        	
+	            alert("로그인 후 이용해주세요.");
+	        } else {
+	        	// 클래스를 모두 제거
+	            heart_icon.classList.remove('far', 'fas', 'text-danger');
+	            
+	            if (heart_value.value == '1') {
+	            	heart_value.value = '0'; 
+	                heart_icon.classList.add('far');
+	            } else {
+	            	heart_value.value = '1'; 
+	                heart_icon.classList.add('fas', 'text-danger');
+	            }
+	        
+	            // 서버에 하트 클릭 이벤트를 전달하는 Ajax 요청
+	            $.ajax({
+	                type: "GET",
+	                url: "heart_click",
+	                data: { 'goods_no': '<c:out value="${dl.goods_no}" />', 'liked_state': heart_value.value },
+	                success: function(response) {
+	                }
+	            });
+	        }
+	    });
+	});
 	</script>
+
+		<!-- 카카오맵 api -->
+		<script type="text/javascript"
+			src="//dapi.kakao.com/v2/maps/sdk.js?appkey=977ee17ba59e7721767fe0fdf92b13a5&libraries=services"></script>
+
+		<script>
+		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+	    mapOption = {
+	        center: new kakao.maps.LatLng(37.499593, 127.030474), // 지도의 중심좌표
+	        level: 3 // 지도의 확대 레벨
+	    };  
+
+		// 지도를 생성합니다    
+		var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+		// 주소-좌표 변환 객체를 생성합니다
+		var geocoder = new kakao.maps.services.Geocoder();
+
+		// 주소로 좌표를 검색합니다
+		geocoder.addressSearch('${dl.goods_place}', function(result, status) {
+
+	    // 정상적으로 검색이 완료됐으면 
+	     if (status === kakao.maps.services.Status.OK) {
+
+	        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+	        // 결과값으로 받은 위치를 마커로 표시합니다
+	        var marker = new kakao.maps.Marker({
+	            map: map,
+	            position: coords
+	        });
+	        
+	        // 인포윈도우로 장소에 대한 설명을 표시합니다
+	        var infowindow = new kakao.maps.InfoWindow({
+            	content : '<div id="place_info">${dl.goods_place}</div>'
+       		 });
+	        infowindow.open(map, marker);
+
+	        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+	        map.setCenter(coords);
+	   		 } 
+			});    
+			</script>
+
+		<!-- 카카오톡 공유하기 -->
+		<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.6.0/kakao.min.js"></script>
+		<script> Kakao.init('977ee17ba59e7721767fe0fdf92b13a5'); </script>
+
+		<script>
+  		Kakao.Share.createDefaultButton({
+  		container: '#kakaotalk-sharing-btn',
+   		objectType: 'commerce',
+    	content: {
+      	title: '가장 가까운 플리마켓, 양배추마켓',
+      	imageUrl:
+        'https://ifh.cc/g/MLlxfz.png',
+      	link: {
+        webUrl: 'http://localhost/market/detail?goods_no=${dl.goods_no}',
+      	},
+    	},
+    	commerce: {
+      	productName: '${dl.goods_name}',
+      	regularPrice: ${dl.goods_price},
+    	},
+    	buttons: [
+      	{
+        title: '구매하기',
+        link: {
+          webUrl: 'http://localhost/market/detail?goods_no=${dl.goods_no}',
+        },
+      	},
+      	{
+        title: '공유하기',
+        link: {
+         webUrl: 'http://localhost/market/detail?goods_no=${dl.goods_no}',
+        },
+      	},
+    	],
+  		});
+	</script>
+
+	</c:forEach>
 </body>
 </html>

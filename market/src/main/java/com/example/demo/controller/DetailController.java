@@ -46,6 +46,17 @@ public class DetailController {
 //		조회수 증가
 		int read_count_up = detailService.read_count_up(goods);
 
+//		하트 개수
+		int heart_count = likedService.heart_count(goods.getGoods_no());
+
+		
+		model.addAttribute("detail_result", detail_result);
+		model.addAttribute("minute", minute);
+		model.addAttribute("read_count_up", read_count_up);
+		model.addAttribute("best_detail", best_detail);
+		model.addAttribute("heart_count", heart_count);
+		
+
 //		하트
 		if (session.getAttribute("member_no") != null) {
 			int session_member_no = (int) session.getAttribute("member_no");
@@ -70,11 +81,6 @@ public class DetailController {
 			System.out.println("member_no가 없어요! 로그인이 필요해요!");
 		}
 
-		model.addAttribute("detail_result", detail_result);
-		model.addAttribute("minute", minute);
-		model.addAttribute("read_count_up", read_count_up);
-		model.addAttribute("best_detail", best_detail);
-
 		return "goods/detail";
 	}
 
@@ -89,7 +95,7 @@ public class DetailController {
 		return "goods/detail_delete";
 	}
 
-//	하트 
+//	하트 클릭
 	@RequestMapping("/heart_click")
 	public void heart_click(int goods_no, int liked_state, HttpSession session, Model model) {
 		int session_member_no = (int) session.getAttribute("member_no");

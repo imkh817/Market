@@ -27,6 +27,11 @@ public class LikedService {
 		return dao.delete_heart(liked);
 	}
 
+//	상세페이지 하트 개수
+	public int heart_count(int goods_no) {
+		return dao.heart_count(goods_no);
+	}
+
 
 
 }
