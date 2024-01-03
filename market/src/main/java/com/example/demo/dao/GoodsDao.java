@@ -20,11 +20,14 @@ public interface GoodsDao {
 	List<Goods> get_compare_list(Goods tmp);
 	
 	// 글 갯수
-	int goods_listcount();
+	int goods_listcount(String keyword);
 	
 	// 글 목록
 	List<Goods> goods_list(Map<String, Object> map);
 	
 	// 인기글 목록
 	List<Goods> best_list();
+
+	// 특정게시글 정보 불러오기
+	Goods get_goods(Goods goods);
 }

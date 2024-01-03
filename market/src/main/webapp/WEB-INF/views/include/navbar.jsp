@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="chat" value="${sessionScope.member_id==null ? '5' : ''}" />
 <c:set var="chat_link"
-	value="${sessionScope.member_id==null ? 'login_form' : 'chat'}" />
+	value="${sessionScope.member_id==null ? 'login_form' : 'message_list'}" />
 <c:set var="sell_link"
 	value="${sessionScope.member_id==null ? 'login_form' : 'sell_form'}" />
 <c:set var="join"
@@ -15,7 +15,7 @@
 <c:set var="loginout_link"
 	value="${sessionScope.member_id==null ? 'login_form' : '/logout'}" />
 <c:set var="auth_link"
-	value="${sessionScope.member_id==null ? 'login_form' : '/auth_location'}" />	
+	value="${sessionScope.member_id==null ? 'login_form' : '/auth_location'}" />
 
 <nav class="navbar navbar-expand-lg fixed-top"
 	style="background-color: #fff">
@@ -30,10 +30,11 @@
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse ms-5" id="navbar_toggler">
-			<form class="d-flex me-auto w-40" action="${path}/board?page=${page_current}" 
-			role="search">
-				<input class="form-control me-2 px-5 my-auto" name="keyword" type="search"
-					placeholder="어떤 상품을 찾으시나요?" aria-label="Search"
+			<form class="d-flex me-auto w-40"
+				action="${path}/board?keyword=${keyword}" role="search">
+				<input class="form-control me-2 px-5 my-auto" id="keyword"
+					name="keyword" type="search" placeholder="어떤 상품을 찾으시나요?"
+					aria-label="Search"
 					style="position: relative; border: 2px solid #47C83E; font-size: 0.8rem; width: 330px;"><i
 					class="fa-solid fa-magnifying-glass"
 					style="position: absolute; transform: translate(60%, 70%); color: #47C83E;"></i>
@@ -84,8 +85,8 @@
 								href="<c:url value='${join_link}'/>">${join}</a></li>
 							<li><a class="dropdown-item border-bottom"
 								href="<c:url value='${loginout_link}'/>">${loginout}</a></li>
-							<li><a class="dropdown-item pb-0" href="<c:url value='${auth_link}'/>">내
-									위치 인증</a></li>
+							<li><a class="dropdown-item pb-0"
+								href="<c:url value='${auth_link}'/>">내 위치 인증</a></li>
 						</ul>
 					</div>
 				</li>

@@ -28,15 +28,6 @@ public class Goods {
 	// liked
 	private Liked liked;
 	
-	// board paging
-//	private int start;
-	
-	// sort
-//	private String order;
-	
-	// search
-//	private String keyword;
-	
 	@Override
     public String toString() {
         return "Goods{" +
@@ -53,8 +44,4 @@ public class Goods {
                 ", goods_image='" + goods_image + '\'' +
                 '}';
     }
-
-
-	
-
 }

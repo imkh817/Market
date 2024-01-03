@@ -37,9 +37,6 @@
 		goods_no = #{goods_no}
 	</delete>
 
-	<!-- 회원 별명 가져오기 -->
-	
-	
 	
 	
 	

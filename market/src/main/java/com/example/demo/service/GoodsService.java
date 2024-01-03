@@ -14,13 +14,27 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.dao.GoodsDao;
+import com.example.demo.dao.MemberDao;
 import com.example.demo.model.Goods;
+import com.example.demo.model.Member;
 
 @Service
 public class GoodsService {
 
 	@Autowired
 	private GoodsDao GoodsDao;
+	
+	@Autowired
+	private MemberDao memberdao;
+	
+	// 로그인 유저 확인
+	public String user_check(Member member) {
+		System.out.println("goods서비스 user_check메서드");
+		Member auth_check = memberdao.user_check(member);
+		String result = auth_check.getMember_auth_check();
+		System.out.println("주소인증값 확인"+result);
+		return result;
+	}
 
 	// 판매 글 등록
 	public int goods_reg(Goods goods) {
@@ -84,8 +98,8 @@ public class GoodsService {
 	}
 
 	// 글 갯수
-	public int goods_listcount() {
-		return GoodsDao.goods_listcount();
+	public int goods_listcount(String keyword) {
+		return GoodsDao.goods_listcount(keyword);
 	}
 
 	// 글 목록
@@ -96,6 +110,11 @@ public class GoodsService {
 	// 인기글 목록
 	public List<Goods> best_list(){
 		return GoodsDao.best_list();
+	}
+
+	// 특정게시글 정보 불러오기
+	public Goods get_goods(Goods goods) {
+		return GoodsDao.get_goods(goods);
 	}
 
 }

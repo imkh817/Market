@@ -8,7 +8,6 @@
 <title></title>
 </head>
 <body>
-<input type="hidden" id="goods_no" value="${goods_no }">
 	<c:choose>
 		<c:when test="${detail_delete == 1}">
 			<script>

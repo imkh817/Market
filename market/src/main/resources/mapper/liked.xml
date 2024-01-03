@@ -2,4 +2,32 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.demo.dao.LikedDao">
+
+	<!-- 상세페이지 하트 확인 -->
+	<select id="liked_heart" parameterType="liked"
+		resultType="liked">
+		SELECT * FROM liked WHERE member_no = #{member_no} AND
+		goods_no = #{goods_no}
+	</select>
+
+
+	<!-- 상세페이지 하트 클릭 -->
+	<insert id="insert_heart" parameterType="liked">
+		INSERT INTO
+		liked(member_no,goods_no,liked_regdate)
+		VALUE(#{member_no},#{goods_no},SYSDATE())
+	</insert>
+
+	<!-- 상세페이지 하트 취소 -->
+	<delete id="delete_heart" parameterType="int">
+		DELETE FROM liked WHERE
+		member_no=#{member_no} AND goods_no=#{goods_no}
+	</delete>
+
+	<!-- 상세페이지 하트 개수 -->
+	<select id="heart_count" parameterType="int" resultType="int">
+		SELECT COUNT(*) FROM liked WHERE goods_no = #{goods_no}
+	</select>
+	
+
 </mapper>

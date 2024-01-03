@@ -3,18 +3,23 @@ package com.example.demo.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.model.Goods;
 import com.example.demo.model.Member;
 import com.example.demo.model.PagingPgm;
+import com.example.demo.model.Translation;
 import com.example.demo.service.login.LoginService;
+import com.example.demo.service.mypage.CreateImageService;
 import com.example.demo.service.mypage.MypageService;
+import com.example.demo.service.mypage.TranslationService;
 
 @Controller
 public class MypageController {
@@ -23,6 +28,12 @@ public class MypageController {
 	MypageService mypageService;
 	@Autowired
 	LoginService loginService;
+	
+	@Autowired
+	TranslationService translationService;
+	
+	@Autowired
+	CreateImageService imageService;
 
 //	// 마이페이지 홈화면
 //	@RequestMapping("mypage_form")
@@ -93,8 +104,38 @@ public class MypageController {
 		
 		model.addAttribute("result", result);
 		return"mypage/goods_state_update_result";
+		
+	// 마이페이지 정보 수정
+	@RequestMapping("member_update_form")
+	public String member_update_form(HttpSession session) {
+		
+		return "mypage/member_update_form";
 	}
 	
+	// 마이페이지 프로필 이미지 생성
+	@RequestMapping("image_ai")
+	@ResponseBody
+	public String image_ai(String prompt,HttpServletRequest requset,HttpSession session) {
+		if(prompt == "" || prompt == null) {
+			return "생성하고싶은 이미지의 설명을 적어주세요.";
+		}
+		
+		// 번역기 api 호출 및 결과 받아오기
+		String responseBody = translationService.tanslation(prompt);
+		// 번역된 결과 파싱해서 원하는 결과(텍스트 문장) 뽑아오기
+		String result = translationService.result(responseBody);
+		
+		System.out.println("번역 : " + result);
+		
+		String imageResult = imageService.request(result,requset,session);
+		
+		return imageResult;
+	}
+	
+	@RequestMapping("practice")
+	public String practice() {
+		return "mypage/practice";
+	}
 }
 
 
