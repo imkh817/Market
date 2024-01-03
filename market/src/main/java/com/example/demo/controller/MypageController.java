@@ -104,6 +104,7 @@ public class MypageController {
 		
 		model.addAttribute("result", result);
 		return"mypage/goods_state_update_result";
+	}
 		
 	// 마이페이지 정보 수정
 	@RequestMapping("member_update_form")
