@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="chat" value="${sessionScope.member_id==null ? '5' : ''}" />
 <c:set var="chat_link"
-	value="${sessionScope.member_id==null ? 'login_form' : 'chat'}" />
+	value="${sessionScope.member_id==null ? 'login_form' : 'message_list'}" />
 <c:set var="sell_link"
 	value="${sessionScope.member_id==null ? 'login_form' : 'sell_form'}" />
 <c:set var="join"
