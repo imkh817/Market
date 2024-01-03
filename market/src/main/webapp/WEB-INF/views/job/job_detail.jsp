@@ -211,8 +211,8 @@
 			<h5 id="hit_goods">주변 공고 보고가세요!</h5>
 			<c:forEach var="job_place" items="${job_place}">
 				<div class="col-2 mx-auto" id="hit_image">
-					<img alt=""
-						src="https://via.placeholder.com/200x200<%-- ${best.goods_image } --%>">
+					<img alt="" style="width: 200px; height: 200px;"
+						src="./upload/${job_place.job_image}"<%-- ${best.goods_image } --%>>
 					<p>
 						<a href="detail?goods_no=${job_place.job_no }" id="hit_name">${job_place.job_title}</a>
 					</p>
