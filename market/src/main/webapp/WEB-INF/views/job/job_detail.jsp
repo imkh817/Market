@@ -82,7 +82,6 @@
 					</div>
 
 					<!-- 상품명, 가격 등등 -->
-					<input type="hidden" name="liked_state" value="${liked }">
 					<div class="col-7">
 
 						<div class="row">
@@ -210,14 +209,14 @@
 
 		<div class="row mx-auto">
 			<h5 id="hit_goods">주변 공고 보고가세요!</h5>
-			<c:forEach var="best" items="${best_detail }">
+			<c:forEach var="job_place" items="${job_place}">
 				<div class="col-2 mx-auto" id="hit_image">
 					<img alt=""
 						src="https://via.placeholder.com/200x200<%-- ${best.goods_image } --%>">
 					<p>
-						<a href="detail?goods_no=${best.goods_no }" id="hit_name">${best.goods_name }</a>
+						<a href="detail?goods_no=${job_place.job_no }" id="hit_name">${job_place.job_title}</a>
 					</p>
-					<p>${best.goods_price}원</p>
+					<p>${job_place.job_price}원</p>
 				</div>
 			</c:forEach>
 		</div>

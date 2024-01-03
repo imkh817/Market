@@ -56,6 +56,11 @@
 	delete from job where job_no = #{job_no}
 </delete>
 
+<!-- 주변 공고 뿌리기 위한 주소 스플릿 -->
+<select id="get_job_place" parameterType="String" resultType="job">
+	select * from job
+	where job_place like '%${job_place}%'
+</select>
 </mapper>
 
 

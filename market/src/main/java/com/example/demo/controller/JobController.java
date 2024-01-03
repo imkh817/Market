@@ -158,6 +158,10 @@ public class JobController {
 		Job job = jobService.get_all_job(job_no);
 		jobService.add_readcount(job_no);
 		
+		// 주변 공고 추천하기
+		List<Job> job_palce = jobService.get_job_place(job.getJob_place());
+		
+		model.addAttribute("job_palce", job_palce);
 		model.addAttribute("list", list);
 		model.addAttribute("member_no", session.getAttribute("member_no"));
 		return "job/job_detail";

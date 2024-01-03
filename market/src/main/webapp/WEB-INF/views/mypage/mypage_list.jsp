@@ -81,11 +81,11 @@
 									<c:if test="${list.goods_state == 3}"><span style="color:white;">판매완료</span></c:if>
 								  </button>
 								  <ul class="dropdown-menu">
-								    <li><a class="dropdown-item" href="#">판매중</a></li>
+								    <li><a class="dropdown-item" href="goods_state_update?goods_state=1&goods_no=${list.goods_no}">판매중</a></li>
 								    <li><hr class="dropdown-divider"></li>
-								    <li><a class="dropdown-item" href="#">예약중</a></li>
+								    <li><a class="dropdown-item" href="goods_state_update?goods_state=2&goods_no=${list.goods_no}">예약중</a></li>
 								    <li><hr class="dropdown-divider"></li>
-								    <li><a class="dropdown-item" href="#">판매완료</a></li>
+								    <li><a class="dropdown-item" href="goods_state_update?goods_state=3&goods_no=${list.goods_no}">판매완료</a></li>
 								  </ul>
 								</div>
 							</div>

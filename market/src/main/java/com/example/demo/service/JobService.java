@@ -63,4 +63,10 @@ public class JobService {
 		return jobDao.job_delete(job_no);
 	}
 
+	public List<Job> get_job_place(String job_place) {
+		String[] array_place = job_place.split(" ");
+		System.out.println("주소 자른 거 : " + array_place[1]);
+		return jobDao.get_job_place(array_place[1]);
+	}
+
 }

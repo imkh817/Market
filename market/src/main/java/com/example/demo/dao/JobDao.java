@@ -26,5 +26,7 @@ public interface JobDao {
 
 	int job_delete(int job_no);
 
+	List<Job> get_job_place(String job_place);
+
 
 }
