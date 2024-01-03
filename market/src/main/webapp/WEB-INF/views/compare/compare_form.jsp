@@ -21,7 +21,7 @@
 }
 </style>
 </head>
-<body>
+<body style="padding-top:40px;">
 	<section class="banner my-5 py-5">
 		<div class="title">
 			<h1>

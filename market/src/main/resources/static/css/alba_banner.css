@@ -4,7 +4,7 @@
 	background-size: cover;
 	height: 250px;
 	display: flex;
-	justify-content: right;
+	justify-content: left;
 	align-items: center;
 	left: 0;
 	right: 0;
@@ -12,8 +12,8 @@
 }
 
 .banner .title{
-	text-align: right;
-	margin-right: 100px;
+	text-align: left;
+	margin-left: 100px;
 }
 
 .banner .title h1{
