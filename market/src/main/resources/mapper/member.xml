@@ -48,5 +48,10 @@
 	update member set member_pw=#{member_pw} where member_id=#{member_id}
 </update>
 
+<!-- 상세페이지 회원명 가져오기 -->
+<select id="detail_nick" parameterType="int" resultType="String">
+	SELECT member_nickname FROM member m JOIN goods g ON m.member_no = g.member_no WHERE goods_no = #{goods_no}
+</select>
+
 
 </mapper>
