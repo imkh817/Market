@@ -1,0 +1,38 @@
+.ai-text {
+	padding: 10px 20px;
+	background-color: #444444;
+	border-radius: 5px;
+	color: #ffffff;
+	position: absolute;
+	translate: 80% -75%;
+	display: none;
+}
+
+.ai-title:hover+.ai-text {
+	display: block;
+}
+
+.wrapper {
+	text-align: center;
+	flex-grow: 1;
+}
+
+.wrapper .img_preview {
+	width: 150px;
+	height: 150px;
+	object-fit: cover;
+	display: block;
+	margin: 20px auto;
+	border: 1px solid #BDBDBD;
+}
+
+.wrapper .img_upload {
+	border: none;
+	padding: 6px 12px;
+	display: inline-block;
+	cursor: pointer;
+}
+
+.wrapper input[type=file] {
+	display: none;
+}
