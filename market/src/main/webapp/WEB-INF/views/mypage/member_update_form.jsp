@@ -11,32 +11,44 @@
 <link rel="stylesheet" href="./css/pagination.css">
 <link rel="stylesheet" href="./css/navbar.css">
 <style>
-.logo {
-	background: url('../images/user.png');
-	background-position: center;
-	background-size: cover;
-	width: 100px;
-	height: 100px;
-	align-items: center;
-	border: 1px solid #BDBDBD;
-}
-
-#file {
-	display: none;
-}
-
 .ai-text {
-	padding: 5px 20px;
+	padding: 10px 20px;
 	background-color: #444444;
 	border-radius: 5px;
 	color: #ffffff;
 	position: absolute;
+	translate: 80% -75%;
 	display: none;
 	
 }
 
 .ai-title:hover+.ai-text {
 	display: block;
+}
+
+.wrapper {
+	text-align: center;
+	flex-grow: 1;
+}
+
+.wrapper .img_preview {
+	width: 150px;
+	height: 150px;
+	object-fit: cover;
+	display: block;
+	margin: 20px auto;
+	border: 1px solid #BDBDBD;
+}
+
+.wrapper .img_upload {
+	border: none;
+	padding: 6px 12px;
+	display: inline-block;
+	cursor: pointer;
+}
+
+.wrapper input[type=file] {
+	display: none;
 }
 </style>
 <script>
@@ -112,40 +124,49 @@ function phone_authorization1() {
 
 	<div class="join-container" style="width: 768px;">
 		<div class="join-form">
-			<p class="fs-2 fw-medium mb-3">프로필</p>
+			<p class="fs-2 fw-medium">프로필</p>
 			<hr>
-			<div>
-				<div class="logo rounded-circle opacity-75 my-4 mx-auto"
-					style="position: relative">
-					<label for="file" style="cursor: pointer;"> <i
-						class="fa-solid fa-camera text-light opacity-75"
-						style="position: absolute; transform: translate(350%, 450%);"></i>
-					</label> <input type="file" name="file" id="file">
+			<div class="container d-flex">
+				<div class="wrapper" style="position: relative;">
+					<img src="../images/user.png" class="img_preview rounded-circle" />
+					<label for="file" class="img_upload"> <input id="file"
+						type="file" accept="image/*"> <i
+						class="fa-solid fa-camera text-light"
+						style="position: absolute; translate: -50% -350%;"></i>
+					</label>
 				</div>
 			</div>
-			<div class="d-flex justify-content-center mb-3">
-				<a class="ai-title text-dark" href="#">
-					<i class="fs-4 fa-solid fa-wand-magic-sparkles opacity-75"></i>
-				</a>
-				<div class="ai-text">원하는 이미지를 간단한 글로 설명하면 AI가 생성해줘요</div>
+			<div class="d-flex justify-content-center mx-auto mb-3">
+				<button class="ai-title btn rounded-pill fw-bold" 
+					data-bs-toggle="modal" data-bs-target="#ai_modal" style="width:220px;">
+					<i class="fs-5 fa-solid fa-wand-magic-sparkles text-light"
+					style="translate: -50% 0%;"></i>
+					AI이미지생성
+					</button>
+				<div class="ai-text opacity-75">
+					원하는 이미지를 간단하게<br>글로 설명하면 AI가 생성해줘요
+				</div>
+				<div class="modal fade" id="ai_modal" tabindex="-1"
+					aria-labelledby="ai_modal_label" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-body">
+								<form>
+									<div class="mb-3">
+										<label for="message-text" class="col-form-label">내용:</label>
+										<textarea class="form-control" id="message-text"></textarea>
+									</div>
+								</form>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn col" data-bs-dismiss="modal">닫기</button>
+								<button type="button" class="btn col" onclick="">생성</button>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
-			<form action="member_update" method="post" onsubmit="phone_authorization1()">
-				<div class="input-group mb-2">
-					<label class="form-label fw-medium">아이디</label>
-					<div class="input-group">
-						<input
-							class="form-control border-bottom border-dark-subtle rounded-0"
-							type="text" style="border: none;" readonly value="${member_id}">
-					</div>
-				</div>
-				<div class="input-group mb-2">
-					<label class="form-label fw-medium">비밀번호</label>
-					<div class="input-group">
-						<input
-							class="form-control border-bottom border-dark-subtle rounded-0"
-							type="password" style="border: none;" name="member_pw" value="${member.member_pw}">
-					</div>
-				</div>
+			<form action="member_update" method="post">
 				<div class="input-group mb-2">
 					<label class="form-label fw-medium">이름</label>
 					<div class="input-group">
@@ -183,5 +204,23 @@ function phone_authorization1() {
 
 	<!-- 하단 내비바 -->
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
+
+	<!-- 이미지 프리뷰 -->
+	<script>
+	const fileDOM = document.querySelector('#file');
+	const preview = document.querySelector('.img_preview');
+			
+	fileDOM.addEventListener('change', () => {
+		if(!fileDOM.files[0].type.match("image/.*")){
+			alert('이미지 파일만 업로드 가능합니다.');
+			return;
+		}
+		const reader = new FileReader();
+		reader.onload = ({target}) => {
+			preview.src = target.result;
+		};
+		reader.readAsDataURL(fileDOM.files[0]);
+	});
+	</script>
 </body>
 </html>

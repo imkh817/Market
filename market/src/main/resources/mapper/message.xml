@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.dao.MessageDao">
+	<!-- 메세지 리스트 가져오기 -->
+	<select id="message_list"
+		parameterType="message"
+		resultType="message">
+		select message_no, message_room, message_send_nick, message_recv_nick, date_format(message_send_time, '%Y-%m-%d
+		%H:%i') message_send_time, message_read_time, message_content, message_read_chk
+		from message
+		where message_no in (select max(message_no) from message group by message_room) and (message_send_nick =
+		#{nick} or message_recv_nick=#{nick})
+		order by message_no desc;
+	</select>
+
+	<!-- 메세지 list에서 상대방 profile 가져오기 -->
+	<select id="get_other_profile"
+		parameterType="message" resultType="String">
+		select member_image from member
+		<choose>
+			<when test="message_send_nick == nick">
+				where member_nickname = #{message_recv_nick}
+			</when>
+			<otherwise>
+				where member_nickname = #{message_send_nick}
+			</otherwise>
+		</choose>
+	</select>
+
+	<!-- 안읽은 메세지 갯수 가져오기 -->
+	<select id="count_unread"
+		parameterType="message" resultType="Int">
+		select count(message_no) from message
+		where message_recv_nick=#{message_recv_nick} and message_read_chk=0 and message_room=#{message_room}
+	</select>
+
+	<!-- 메세지 내용 가져오기 -->
+	<select id="room_content_list"
+		parameterType="message"
+		resultType="message">
+		select m.message_no, m.message_room, m.message_send_nick, m.message_recv_nick,
+		date_format(m.message_send_time, '%Y-%m-%d %H:%i') message_send_time, m.message_read_time,
+		m.message_content, m.message_read_chk, u.member_image
+		from message m left outer join member u
+		on m.message_send_nick = u.member_nickname
+		<choose>
+			<when test="message_room != 0">
+				where message_room=#{message_room}
+			</when>
+			<otherwise>
+				where (message_recv_nick = #{message_recv_nick} and message_send_nick = #{nick}) or (message_send_nick =
+				#{message_recv_nick} and message_recv_nick = #{nick})
+			</otherwise>
+		</choose>
+
+	</select>
+
+	<!-- 메세지 읽음 처리 -->
+	<update id="message_read_chk"
+		parameterType="message">
+		update message set message_read_chk=1
+		<choose>
+			<when test="message_room != 0">
+				where message_room=#{message_room} and message_read_chk=0 and message_recv_nick=#{nick}
+			</when>
+			<otherwise>
+				where message_send_nick=#{message_recv_nick} and message_read_chk=0 and message_recv_nick=#{nick}
+			</otherwise>
+		</choose>
+
+	</update>
+
+	<!-- 메세지리스트에서 메세지 보내기 -->
+	<insert id="messageSendInlist"
+		parameterType="message">
+		<choose>
+			<when test="message_room != 0">
+				insert into message values(0, #{message_room}, #{message_send_nick}, #{message_recv_nick}, now(),
+				now(), #{message_content}, 0);
+			</when>
+			<otherwise>
+				insert into message values(0, #{message_room}, #{message_send_nick}, #{message_recv_nick}, now(),
+				now(), #{message_content}, 0);
+			</otherwise>
+		</choose>
+	</insert>
+
+	<!-- room 번호 최댓값 구하기 -->
+	<select id="max_room"
+		parameterType="message" resultType="Int">
+		select max(message_room) from message
+	</select>
+
+	<!-- 메세지 이력이 있는지 검색 -->
+	<select id="exist_chat"
+		parameterType="message" resultType="Int">
+		select count(message_no) from message
+		where (message_recv_nick = #{message_recv_nick} and message_send_nick=#{message_send_nick}) or (message_send_nick =
+		#{message_recv_nick} and message_recv_nick=#{message_send_nick})
+	</select>
+
+	<!-- 기존 메세지 내역의 room 번호를 가져옴 -->
+	<select id="select_room"
+		parameterType="message" resultType="String">
+		select message_room from message
+		where (message_recv_nick = #{message_recv_nick} and message_send_nick=#{message_send_nick}) or (message_send_nick =
+		#{message_recv_nick} and message_recv_nick=#{message_send_nick})
+		limit 0,1
+	</select>
+</mapper>

@@ -108,4 +108,9 @@ public class MypageService {
 		return member;
 	}
 
+	// 상품 상태 업데이트
+	public int goods_state_update(Goods goods) {
+		return mypageDao.goods_state_update(goods);
+	}
+
 }

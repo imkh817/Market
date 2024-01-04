@@ -97,6 +97,17 @@ public class MypageController {
 		return "mypage/member_liked_form";
 	}
 	
+	// 상품 상태 업데이트
+	@RequestMapping("goods_state_update")
+	public String goods_state_update(Goods goods, Model model) {
+		System.out.println("goods_state_update 입성");
+		int result = mypageService.goods_state_update(goods);
+		System.out.println("goods_state_update 실행 완료");
+		
+		model.addAttribute("result", result);
+		return"mypage/goods_state_update_result";
+	}
+		
 	// 마이페이지 정보 수정
 	@RequestMapping("member_update_form")
 	public String member_update_form(HttpSession session,Model model) {

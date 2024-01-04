@@ -39,6 +39,17 @@ public class GoodsController {
 	@RequestMapping("best")
 	public String best(Model model) {
 		List<Goods> goods_list = GoodsService.best_list();
+		for (Goods goods : goods_list) {
+			
+			String image = goods.getGoods_image();
+			String[] goods_img = image.split(",");
+
+			if (goods_img.length > 0) {
+				String thum_img = goods_img[0];
+				goods.setGoods_image(thum_img);
+			}
+		model.addAttribute("goods_image", goods.getGoods_image());
+		}
 		model.addAttribute("goods_list", goods_list);
 		return "best";
 	}
