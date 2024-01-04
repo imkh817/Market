@@ -20,7 +20,7 @@ public interface GoodsDao {
 	List<Goods> get_compare_list(Goods tmp);
 	
 	// 글 갯수
-	int goods_listcount(String keyword);
+	int goods_listcount(Map<String, Object> find_map);
 	
 	// 글 목록
 	List<Goods> goods_list(Map<String, Object> map);

@@ -119,4 +119,8 @@
 	<!-- 하단 내비바 -->
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 </body>
+<!-- load 함수로 동적 교체 -->
+<script>
+	$(".category").load("<c:url value='navbar' />");
+</script>
 </html>
