@@ -7,52 +7,22 @@
 <title>마이페이지</title>
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 <script src="./js/join/join.js"></script>
+<!-- 로더 표시 -->
+<script>
+	function loader_show(){
+		$("#load_bf").hide();
+		$("#load_ing").show();
+	//	setTimeout("loader_hide()", 10000);	// 10초
+	}
+	function loader_hide(){
+		$("#load_ing").hide();
+	}
+</script>
 <link rel="stylesheet" href="./css/join.css">
 <link rel="stylesheet" href="./css/pagination.css">
 <link rel="stylesheet" href="./css/navbar.css">
-<style>
-.ai-text {
-	padding: 10px 20px;
-	background-color: #444444;
-	border-radius: 5px;
-	color: #ffffff;
-	position: absolute;
-	translate: 80% -75%;
-	display: none;
-	
-}
-
-.ai-title:hover+.ai-text {
-	display: block;
-}
-
-.wrapper {
-	text-align: center;
-	flex-grow: 1;
-}
-
-.wrapper .img_preview {
-	width: 150px;
-	height: 150px;
-	object-fit: cover;
-	display: block;
-	margin: 20px auto;
-	border: 1px solid #BDBDBD;
-}
-
-.wrapper .img_upload {
-	border: none;
-	padding: 6px 12px;
-	display: inline-block;
-	cursor: pointer;
-}
-
-.wrapper input[type=file] {
-	display: none;
-}
-</style>
+<link rel="stylesheet" href="./css/update.css">
 <script>
-
 $(document).ready(function () {
     $("#ai_modal_button").click(function () {
         $("#ai_modal").modal("show");
@@ -132,6 +102,9 @@ function phone_authorization1(event) {
 		</div>
 	</div>
 
+	<div id="mask"
+		style="position: absolute; z-index: 100; background-color: #555;"></div>
+
 	<div class="join-container" style="width: 768px;">
 		<div class="join-form">
 			<form action="image_ai">
@@ -140,31 +113,38 @@ function phone_authorization1(event) {
 					<div class="modal-dialog">
 						<div class="modal-content">
 							<div class="modal-body">
-									<div class="mb-3">
-										<label for="message-text" class="col-form-label">내용:</label>
-										<textarea class="form-control" id="message-text" name="prompt"></textarea>
-									</div>
+								<div class="mb-3">
+									<label for="message-text" class="col-form-label">내용:</label>
+									<textarea class="form-control" id="message-text" name="prompt"></textarea>
+								</div>
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn col" data-bs-dismiss="modal">닫기</button>
-								<button type="submit" class="btn col">생성</button>
+								<button type="submit" class="btn col" id="load_bf" onclick="loader_show()">생성</button>
+								<button type="button" class="btn col" id="load_ing" style="display:none;" disabled>
+									<span class="spinner-border spinner-border-sm"></span>
+									<span role="status">생성 중...</span>
+								</button>
 							</div>
 						</div>
 					</div>
 				</div>
 			</form>
-			<form action="member_update" method="post" onsubmit="return phone_authorization1(event)" enctype="multipart/form-data">
+			<form action="member_update" method="post"
+				onsubmit="return phone_authorization1(event)"
+				enctype="multipart/form-data">
 				<p class="fs-2 fw-medium">프로필</p>
 				<hr>
 				<div class="container d-flex">
 					<div class="wrapper" style="position: relative;">
 						<c:if test="${member.member_image == null }">
-						<img src="./images/user.png" class="img_preview rounded-circle"/>
+							<img src="./images/user.png" class="img_preview rounded-circle" />
 						</c:if>
 						<c:if test="${member.member_image != null }">
-						<img src="upload/${member.member_image}" class="img_preview rounded-circle"/>
+							<img src="upload/${member.member_image}"
+								class="img_preview rounded-circle" />
 						</c:if>
-						
+
 						<label for="file" class="img_upload"> <input id="file"
 							type="file" accept="image/*" name="image"> <i
 							class="fa-solid fa-camera text-light"
@@ -173,12 +153,12 @@ function phone_authorization1(event) {
 					</div>
 				</div>
 				<div class="d-flex justify-content-center mx-auto mb-3">
-					<button id="ai_modal_button" class="ai-title btn rounded-pill fw-bold" 
-						data-bs-toggle="modal" data-bs-target="#ai_modal" style="width:220px;">
+					<button id="ai_modal_button"
+						class="ai-title btn rounded-pill fw-bold" data-bs-toggle="modal"
+						data-bs-target="#ai_modal" style="width: 220px;">
 						<i class="fs-5 fa-solid fa-wand-magic-sparkles text-light"
-						style="translate: -50% 0%;"></i>
-						AI이미지생성
-						</button>
+							style="translate: -50% 0%;"></i> AI이미지생성
+					</button>
 					<div class="ai-text opacity-75">
 						원하는 이미지를 간단하게<br>글로 설명하면 AI가 생성해줘요
 					</div>
@@ -188,7 +168,8 @@ function phone_authorization1(event) {
 					<div class="input-group">
 						<input
 							class="form-control border-bottom border-dark-subtle rounded-0"
-							type="text" style="border: none;" name="member_id" value="${member.member_id}">
+							type="text" style="border: none;" name="member_id"
+							value="${member.member_id}">
 					</div>
 				</div>
 				<div class="input-group mb-2">
@@ -196,7 +177,8 @@ function phone_authorization1(event) {
 					<div class="input-group">
 						<input
 							class="form-control border-bottom border-dark-subtle rounded-0"
-							type="text" style="border: none;" name="member_name" value="${member.member_name}">
+							type="text" style="border: none;" name="member_name"
+							value="${member.member_name}">
 					</div>
 				</div>
 				<div class="input-group mb-2">
@@ -204,10 +186,12 @@ function phone_authorization1(event) {
 					<div class="input-group">
 						<input
 							class="form-control border-bottom border-dark-subtle rounded-0"
-							type="text" style="border: none;" name="member_nickname" value="${member.member_nickname}" id="member_nickname">
+							type="text" style="border: none;" name="member_nickname"
+							value="${member.member_nickname}" id="member_nickname">
 					</div>
 					<div class="input-group">
-						<input type="text" class="rounded-pill text-danger fw-bold" id="nickname_valiable" value="" style="display:none">
+						<input type="text" class="rounded-pill text-danger fw-bold"
+							id="nickname_valiable" value="" style="display: none">
 					</div>
 				</div>
 				<div class="input-group mb-2">
@@ -215,10 +199,13 @@ function phone_authorization1(event) {
 					<div class="input-group">
 						<input
 							class="form-control border-bottom border-dark-subtle rounded-0"
-							type="text" style="border: none;" name="member_phone_num" id="member_phone_num" value="${member.member_phone_num}" onfocus="nickname_valiable1()">
+							type="text" style="border: none;" name="member_phone_num"
+							id="member_phone_num" value="${member.member_phone_num}"
+							onfocus="nickname_valiable1()">
 					</div>
 					<div class="input-group">
-						<input class="col-9 fw-medium text-danger rounded-pill fw-bold" id="phone_number_valiable" type="text" style="display:none" >
+						<input class="col-9 fw-medium text-danger rounded-pill fw-bold"
+							id="phone_number_valiable" type="text" style="display: none">
 					</div>
 				</div>
 				<button type="submit" id="member_update_button">수정하기</button>
