@@ -62,12 +62,19 @@ public class MypageService {
 		goods.setStart_list(pp.getStartRow() - 1);
 		goods.setEnd_list(pp.getEndRow());
 		goods.setMember_no(member_no);
+		
 		List<Goods> list = mypageDao.getList(goods);
 		for(int i = 0; i<list.size(); i++) {
 			list.get(i).setGoods_image(list.get(i).getGoods_image().substring(0,list.get(i).getGoods_image().length()-1));
-			
+			// 이미지 다중 업로드 되었을때 첫번째 이미지를 썸네일로 설정
+			String image = list.get(i).getGoods_image();
+			String[] goods_img = image.split(",");
+			if (goods_img.length > 1) {
+				String thum_img = goods_img[0];
+				list.get(i).setGoods_image(thum_img);
+			}
 		}
-
+		
 		return list;
 	}
 
@@ -113,6 +120,14 @@ public class MypageService {
 		for(int i=0; i<list.size(); i++) {
 			String image = (String)list.get(i).get("goods_image");
 			list.get(i).put("goods_image", image.substring(0,image.length()-1));
+			// 이미지 다중 업로드 되었을때 첫번째 이미지를 썸네일로 설정
+			String tmp = (String)list.get(i).get("goods_image");
+			String[] goods_img = image.split(",");
+			
+			if (goods_img.length > 1) {
+				String thum_img = goods_img[0];
+				list.get(i).put("goods_image", thum_img);
+			}
 		}
 		
 		return list;
