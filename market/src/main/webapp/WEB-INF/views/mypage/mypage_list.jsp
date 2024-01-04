@@ -56,8 +56,7 @@
 			<c:forEach var="list" items="${list}">
 				<div class="col">
 					<div class="card" style="border: none;">
-					
-						<img src="../images/example.png" class="card-img-top mx-auto my-2"
+						<img src="./upload/${list.goods_image}" class="card-img-top mx-auto my-2"
 							alt="" style="width: 200px; height: 200px;">
 						<div class="card-body mx-1">
 							<p class="card-text lh-1"><a href="detail?goods_no=${list.goods_no}" style="text-decoration: none; color: black;">${list.goods_name}</a></p>

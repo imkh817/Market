@@ -52,8 +52,13 @@ public class MypageService {
 		goods.setStart_list(pp.getStartRow() - 1);
 		goods.setEnd_list(pp.getEndRow());
 		goods.setMember_no(member_no);
+		List<Goods> list = mypageDao.getList(goods);
+		for(int i = 0; i<list.size(); i++) {
+			list.get(i).setGoods_image(list.get(i).getGoods_image().substring(0,list.get(i).getGoods_image().length()-1));
+			
+		}
 
-		return mypageDao.getList(goods);
+		return list;
 	}
 
 	// 회원 탈퇴
@@ -93,8 +98,14 @@ public class MypageService {
 		Goods goods = new Goods();
 		goods.setStart_list(pp.getStartRow() - 1);
 		goods.setMember_no(member_no);
-
-		return mypageDao.liked_list(goods);
+		
+		List<Map<String, Object>> list = mypageDao.liked_list(goods);;
+		for(int i=0; i<list.size(); i++) {
+			String image = (String)list.get(i).get("goods_image");
+			list.get(i).put("goods_image", image.substring(0,image.length()-1));
+		}
+		
+		return list;
 	}
 
 	// 상품 상태 업데이트
