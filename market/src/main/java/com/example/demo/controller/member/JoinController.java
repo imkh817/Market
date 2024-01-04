@@ -65,7 +65,6 @@ public class JoinController {
 			String result = smsService.sendOne(number);
 			return result;
 		}
-		
 	}
 	
 	@RequestMapping("join_member")

@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -17,6 +18,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.example.demo.dao.MemberDao;
+import com.example.demo.model.Member;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -26,7 +29,10 @@ import java.io.File;
 
 @Service
 public class CreateImageService {
-
+	
+	@Autowired
+	MemberDao memberDao;
+	
     @Value("${kakao.RestApi-key}")
     String restApiKey;
 
@@ -57,14 +63,21 @@ public class CreateImageService {
 			String destinationPath = request.getRealPath("/upload/") +session.getAttribute("member_id")+ ".jpeg"; // 저장할 파일 경로
 
 			downloadImage(imageUrl, destinationPath);
+			
+			// 데이터 베이스에 파일 명 저장
+			Member member = new Member();
+			member.setMember_id((String)session.getAttribute("member_id"));
+			member.setMember_image(session.getAttribute("member_id")+ ".jpeg");
+			int result = memberDao.setImage(member);
+			
 			System.out.println("이미지 다운로드 및 저장 성공!");
 		} catch (IOException e) {
 			System.err.println("이미지 다운로드 및 저장 중 오류 발생: " + e.getMessage());
-			return "이미지 다운로드 및 저장 중 오류 발생";
+			return "Fail";
 		}
         
         
-		return "이미지 다운로드 및 저장 성공!";
+		return "Success";
     }
     
     private static void downloadImage(String imageUrl, String destinationPath) throws IOException {

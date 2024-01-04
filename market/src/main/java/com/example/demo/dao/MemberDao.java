@@ -30,6 +30,12 @@ public interface MemberDao {
 	
 	// 비밀번호 찾기 - 임시 비밀번호 발송 후 임시 비밀번호 디비 저장
 	int update_pw(Member member);
+
+	int setImage(Member member);
+
+	int update_member(Member member);
+
+	int no_image_update_member(Member member);
 	
 
 
