@@ -64,10 +64,10 @@
 	<!-- header -->
 	<%@ include file="/WEB-INF/views/include/navbar.jsp"%>
 
+		<c:forEach var="list" items="${list}">
 	<div
 		class="d-flex flex-column justify-content-center mx-auto px-3 my-5 py-5"
 		id="detail">
-		<c:forEach var="list" items="${list}">
 
 			<div class="container" id="detail_goods">
 				<div class="row">
@@ -162,7 +162,7 @@
 						<!-- 조회수, 관심, 내용 -->
 						<div class="row">
 							<div class="col-8">
-								<a href="mypage_list?member_no=${list.member_no }"
+								<a 
 									id="member_nick"><i class="fa-regular fa-user" id="user_img"></i>
 									${list.member_nickname }</a>
 							</div>
@@ -199,13 +199,11 @@
 				<hr>
 
 			</div>
-		</c:forEach>
 	</div>
 	<!-- detail_store_container end -->
 
 	<!-- 인기상품 목록 -->
 	<div class="container" id="detail_hit">
-
 
 		<div class="row mx-auto">
 			<h5 id="hit_goods">주변 공고 보고가세요!</h5>
@@ -214,7 +212,7 @@
 					<img alt="" style="width: 200px; height: 200px;"
 						src="./upload/${job_place.job_image}"<%-- ${best.goods_image } --%>>
 					<p>
-						<a href="detail?goods_no=${job_place.job_no }" id="hit_name">${job_place.job_title}</a>
+						<a href="job_detail?job_no=${job_place.job_no }" id="hit_name">${job_place.job_title}</a>
 					</p>
 					<p>${job_place.job_price}원</p>
 				</div>
@@ -225,45 +223,49 @@
 
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 
+	<!-- 카카오맵 api -->
+		<script type="text/javascript"
+			src="//dapi.kakao.com/v2/maps/sdk.js?appkey=977ee17ba59e7721767fe0fdf92b13a5&libraries=services"></script>
 
-
-	<script type="text/javascript"
-		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=977ee17ba59e7721767fe0fdf92b13a5"></script>
-
-	<script>
+		<script>
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-		mapOption = {
-			center : new kakao.maps.LatLng(37.499593, 127.030474), // 지도의 중심좌표
-			level : 3
-		// 지도의 확대 레벨
-		};
+	    mapOption = {
+	        center: new kakao.maps.LatLng(37.499593, 127.030474), // 지도의 중심좌표
+	        level: 3 // 지도의 확대 레벨
+	    };  
 
-		// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
-		var map = new kakao.maps.Map(mapContainer, mapOption);
+		// 지도를 생성합니다    
+		var map = new kakao.maps.Map(mapContainer, mapOption); 
 
-		// 마커가 표시될 위치입니다 
-		var markerPosition = new kakao.maps.LatLng(37.499593, 127.030474);
+		// 주소-좌표 변환 객체를 생성합니다
+		var geocoder = new kakao.maps.services.Geocoder();
 
-		// 마커를 생성합니다
-		var marker = new kakao.maps.Marker({
-			position : markerPosition
-		});
+		// 주소로 좌표를 검색합니다
+		geocoder.addressSearch('${list.job_place}', function(result, status) {
 
-		// 마커가 지도 위에 표시되도록 설정합니다
-		marker.setMap(map);
+	    // 정상적으로 검색이 완료됐으면 
+	     if (status === kakao.maps.services.Status.OK) {
 
-		var iwContent = '<div style="padding:5px;">양배추마켓 <br><a href="https://map.kakao.com/link/map/양배추마켓,37.499593,127.030474" style="color:#47C83E; font-size:14px;" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/양배추마켓,37.499593,127.030474" style="color:#47C83E; font-size:14px;" target="_blank">길찾기</a></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+	        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
-		iwPosition = new kakao.maps.LatLng(37.499593, 127.030474); //인포윈도우 표시 위치입니다
+	        // 결과값으로 받은 위치를 마커로 표시합니다
+	        var marker = new kakao.maps.Marker({
+	            map: map,
+	            position: coords
+	        });
+	        
+	        // 인포윈도우로 장소에 대한 설명을 표시합니다
+	   /*      var infowindow = new kakao.maps.InfoWindow({
+            	content : '<div id="place_info">${list.job_place}</div>'
+       		 });
+	        infowindow.open(map, marker); */
 
-		// 인포윈도우를 생성합니다
-		var infowindow = new kakao.maps.InfoWindow({
-			position : iwPosition,
-			content : iwContent
-		});
+	        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+	        map.setCenter(coords);
+	   		 } 
+			});    
+			</script>
+		</c:forEach>
 
-		// 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
-		infowindow.open(map, marker);
-	</script>
 </body>
 </html>
