@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.dao.MemberDao;
 import com.example.demo.dao.MypageDao;
 import com.example.demo.model.Goods;
 import com.example.demo.model.Member;
@@ -26,6 +27,10 @@ public class MypageService {
 
 	@Autowired
 	LoginService loginService;
+	
+	@Autowired
+	MemberDao memberDao;
+	
 
 	// 페이징
 	public PagingPgm paging(String page, int member_no) {
@@ -95,6 +100,12 @@ public class MypageService {
 		goods.setMember_no(member_no);
 
 		return mypageDao.liked_list(goods);
+	}
+	
+	// 회원 정보 수정 폼으로 넘어갈때 회원의 정보 가지고 가기
+	public Member getMember(HttpSession session) {
+		Member member = memberDao.get_member((String)session.getAttribute("member_id"));
+		return member;
 	}
 
 }

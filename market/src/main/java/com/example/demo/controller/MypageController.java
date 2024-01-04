@@ -20,6 +20,8 @@ import com.example.demo.service.login.LoginService;
 import com.example.demo.service.mypage.CreateImageService;
 import com.example.demo.service.mypage.MypageService;
 import com.example.demo.service.mypage.TranslationService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 public class MypageController {
@@ -97,8 +99,20 @@ public class MypageController {
 	
 	// 마이페이지 정보 수정
 	@RequestMapping("member_update_form")
-	public String member_update_form(HttpSession session) {
+	public String member_update_form(HttpSession session,Model model) {
 		
+		Member member = mypageService.getMember(session);
+		ObjectMapper mapper = new ObjectMapper();
+		String jsonMember ="";
+		try {
+			jsonMember = mapper.writeValueAsString(member);
+		} catch (JsonProcessingException e) {
+			System.out.println("Json형태로 반환 실패!");
+			e.printStackTrace();
+		}
+		System.out.println(jsonMember);
+		model.addAttribute("jsonMember" , jsonMember);
+		model.addAttribute("member" , member);
 		return "mypage/member_update_form";
 	}
 	
@@ -115,11 +129,15 @@ public class MypageController {
 		// 번역된 결과 파싱해서 원하는 결과(텍스트 문장) 뽑아오기
 		String result = translationService.result(responseBody);
 		
-		System.out.println("번역 : " + result);
 		
 		String imageResult = imageService.request(result,requset,session);
 		
 		return imageResult;
+	}
+	
+	@RequestMapping("member_update")
+	public String member_update(Member member) {
+		return "";
 	}
 	
 	@RequestMapping("practice")
