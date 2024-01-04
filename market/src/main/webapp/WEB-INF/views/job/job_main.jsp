@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="./css/job_button.css">
 <link rel="stylesheet" href="./css/navbar.css">
 </head>
-<body style="padding-top: 40px;">
+<body style="padding-top: 20px;">
 
 	<%@ include file="/WEB-INF/views/include/navbar.jsp"%>
 	<section class="banner my-5 py-5">
@@ -23,7 +23,7 @@
 		</div>
 	</section>
 
-	<div class="d-flex justify-content-center my-3 py-3">
+	<div class="d-flex justify-content-center my-2 py-2">
 		<h3 class="fw-bold">우리 동네 알바</h3>
 	</div>
 
@@ -93,4 +93,8 @@
 
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 </body>
+<!-- load 함수로 동적 교체 -->
+<script>
+	$(".category").load("<c:url value='navbar' />");
+</script>
 </html>

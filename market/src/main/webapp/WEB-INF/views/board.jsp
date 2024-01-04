@@ -13,16 +13,15 @@
 <link rel="stylesheet" href="./css/banner.css">
 <link rel="stylesheet" href="./css/pagination.css">
 <link rel="stylesheet" href="./css/navbar.css">
-
 <!-- 게시판 정렬 -->
 <script>
 	function sort() {
 		var order = $("#order").val();
-		location.href = "${path}/board?keyword=${keyword}&order=" + order;
+		location.href = "${path}/board?category=${category}&keyword=${keyword}&order=" + order;
 	}
 </script>
 </head>
-<body style="padding-top: 40px;">
+<body style="padding-top: 20px;">
 	<%@ include file="/WEB-INF/views/include/navbar.jsp"%>
 	<!-- 배너 -->
 	<section class="banner my-5 py-5">
@@ -58,7 +57,7 @@
 
 	<!-- 글 목록 -->
 	<div class="container mb-3" style="max-width: 768px">
-		<div class="row d-flex row-cols-1 row-cols-md-3" >
+		<div class="row d-flex row-cols-1 row-cols-md-3">
 			<c:set var="no" value="${listcount-(page-1)*12}" />
 			<c:forEach var="gd" items="${goods_list}">
 				<div class="col">
@@ -100,65 +99,131 @@
 	<!-- 페이지네이션 -->
 	<div class="container d-flex justify-content-center my-3">
 		<ul class="pagination">
-			<c:if test="${keyword == null}">
-				<c:if test="${order == null}">
-					<c:if test="${page>1}">
-						<li class="page-item"><a class="page-link"
-							href="${path}/board?page=${page-1}">이전</a></li>
+			<c:if test="${category == null}">
+				<c:if test="${keyword == null}">
+					<c:if test="${order == null}">
+						<c:if test="${page>1}">
+							<li class="page-item"><a class="page-link"
+								href="${path}/board?page=${page-1}">이전</a></li>
+						</c:if>
+						<c:forEach var="i" begin="${startpage}" end="${endpage}">
+							<li class="page-item <c:if test="${page==i}">active</c:if>"><a
+								class="page-link" href="${path}/board?page=${i}">${i}</a></li>
+						</c:forEach>
+						<c:if test="${page<maxpage}">
+							<li class="page-item"><a class="page-link"
+								href="${path}/board?page=${page+1}">다음</a></li>
+						</c:if>
 					</c:if>
-					<c:forEach var="i" begin="${startpage}" end="${endpage}">
-						<li class="page-item <c:if test="${page==i}">active</c:if>"><a
-							class="page-link" href="${path}/board?page=${i}">${i}</a></li>
-					</c:forEach>
-					<c:if test="${page<maxpage}">
-						<li class="page-item"><a class="page-link"
-							href="${path}/board?page=${page+1}">다음</a></li>
+					<c:if test="${order != null}">
+						<c:if test="${page>1}">
+							<li class="page-item"><a class="page-link"
+								href="${path}/board?order=${order}&page=${page-1}">이전</a></li>
+						</c:if>
+						<c:forEach var="i" begin="${startpage}" end="${endpage}">
+							<li class="page-item <c:if test="${page==i}">active</c:if>"><a
+								class="page-link" href="${path}/board?order=${order}&page=${i}">${i}</a></li>
+						</c:forEach>
+						<c:if test="${page<maxpage}">
+							<li class="page-item"><a class="page-link"
+								href="${path}/board?order=${order}&page=${page+1}">다음</a></li>
+						</c:if>
 					</c:if>
 				</c:if>
-				<c:if test="${order != null}">
-					<c:if test="${page>1}">
-						<li class="page-item"><a class="page-link"
-							href="${path}/board?order=${order}&page=${page-1}">이전</a></li>
+				<c:if test="${keyword != null}">
+					<c:if test="${order == null}">
+						<c:if test="${page>1}">
+							<li class="page-item"><a class="page-link"
+								href="${path}/board?keyword=${keyword}&page=${page-1}">이전</a></li>
+						</c:if>
+						<c:forEach var="i" begin="${startpage}" end="${endpage}">
+							<li class="page-item <c:if test="${page==i}">active</c:if>"><a
+								class="page-link"
+								href="${path}/board?keyword=${keyword}&page=${i}">${i}</a></li>
+						</c:forEach>
+						<c:if test="${page<maxpage}">
+							<li class="page-item"><a class="page-link"
+								href="${path}/board?keyword=${keyword}&page=${page+1}">다음</a></li>
+						</c:if>
 					</c:if>
-					<c:forEach var="i" begin="${startpage}" end="${endpage}">
-						<li class="page-item <c:if test="${page==i}">active</c:if>"><a
-							class="page-link" href="${path}/board?order=${order}&page=${i}">${i}</a></li>
-					</c:forEach>
-					<c:if test="${page<maxpage}">
-						<li class="page-item"><a class="page-link"
-							href="${path}/board?order=${order}&page=${page+1}">다음</a></li>
+					<c:if test="${order != null}">
+						<c:if test="${page>1}">
+							<li class="page-item"><a class="page-link"
+								href="${path}/board?keyword=${keyword}&order=${order}&page=${page-1}">이전</a></li>
+						</c:if>
+						<c:forEach var="i" begin="${startpage}" end="${endpage}">
+							<li class="page-item <c:if test="${page==i}">active</c:if>"><a
+								class="page-link"
+								href="${path}/board?keyword=${keyword}&order=${order}&page=${i}">${i}</a></li>
+						</c:forEach>
+						<c:if test="${page<maxpage}">
+							<li class="page-item"><a class="page-link"
+								href="${path}/board?keyword=${keyword}&order=${order}&page=${page+1}">다음</a></li>
+						</c:if>
 					</c:if>
 				</c:if>
 			</c:if>
-			<c:if test="${keyword != null}">
-				<c:if test="${order == null}">
-					<c:if test="${page>1}">
-						<li class="page-item"><a class="page-link"
-							href="${path}/board?keyword=${keyword}&page=${page-1}">이전</a></li>
+			<c:if test="${category != null}">
+				<c:if test="${keyword == null}">
+					<c:if test="${order == null}">
+						<c:if test="${page>1}">
+							<li class="page-item"><a class="page-link"
+								href="${path}/board?category=${category}&page=${page-1}">이전</a></li>
+						</c:if>
+						<c:forEach var="i" begin="${startpage}" end="${endpage}">
+							<li class="page-item <c:if test="${page==i}">active</c:if>"><a
+								class="page-link" href="${path}/board?category=${category}&page=${i}">${i}</a></li>
+						</c:forEach>
+						<c:if test="${page<maxpage}">
+							<li class="page-item"><a class="page-link"
+								href="${path}/board?category=${category}&page=${page+1}">다음</a></li>
+						</c:if>
 					</c:if>
-					<c:forEach var="i" begin="${startpage}" end="${endpage}">
-						<li class="page-item <c:if test="${page==i}">active</c:if>"><a
-							class="page-link"
-							href="${path}/board?keyword=${keyword}&page=${i}">${i}</a></li>
-					</c:forEach>
-					<c:if test="${page<maxpage}">
-						<li class="page-item"><a class="page-link"
-							href="${path}/board?keyword=${keyword}&page=${page+1}">다음</a></li>
+					<c:if test="${order != null}">
+						<c:if test="${page>1}">
+							<li class="page-item"><a class="page-link"
+								href="${path}/board?category=${category}&order=${order}&page=${page-1}">이전</a></li>
+						</c:if>
+						<c:forEach var="i" begin="${startpage}" end="${endpage}">
+							<li class="page-item <c:if test="${page==i}">active</c:if>"><a
+								class="page-link" href="${path}/board?category=${category}&order=${order}&page=${i}">${i}</a></li>
+						</c:forEach>
+						<c:if test="${page<maxpage}">
+							<li class="page-item"><a class="page-link"
+								href="${path}/board?category=${category}&order=${order}&page=${page+1}">다음</a></li>
+						</c:if>
 					</c:if>
 				</c:if>
-				<c:if test="${order != null}">
-					<c:if test="${page>1}">
-						<li class="page-item"><a class="page-link"
-							href="${path}/board?keyword=${keyword}&order=${order}&page=${page-1}">이전</a></li>
+				<c:if test="${keyword != null}">
+					<c:if test="${order == null}">
+						<c:if test="${page>1}">
+							<li class="page-item"><a class="page-link"
+								href="${path}/board?category=${category}&keyword=${keyword}&page=${page-1}">이전</a></li>
+						</c:if>
+						<c:forEach var="i" begin="${startpage}" end="${endpage}">
+							<li class="page-item <c:if test="${page==i}">active</c:if>"><a
+								class="page-link"
+								href="${path}/board?category=${category}&keyword=${keyword}&page=${i}">${i}</a></li>
+						</c:forEach>
+						<c:if test="${page<maxpage}">
+							<li class="page-item"><a class="page-link"
+								href="${path}/board?category=${category}&keyword=${keyword}&page=${page+1}">다음</a></li>
+						</c:if>
 					</c:if>
-					<c:forEach var="i" begin="${startpage}" end="${endpage}">
-						<li class="page-item <c:if test="${page==i}">active</c:if>"><a
-							class="page-link"
-							href="${path}/board?keyword=${keyword}&order=${order}&page=${i}">${i}</a></li>
-					</c:forEach>
-					<c:if test="${page<maxpage}">
-						<li class="page-item"><a class="page-link"
-							href="${path}/board?keyword=${keyword}&order=${order}&page=${page+1}">다음</a></li>
+					<c:if test="${order != null}">
+						<c:if test="${page>1}">
+							<li class="page-item"><a class="page-link"
+								href="${path}/board?category=${category}&keyword=${keyword}&order=${order}&page=${page-1}">이전</a></li>
+						</c:if>
+						<c:forEach var="i" begin="${startpage}" end="${endpage}">
+							<li class="page-item <c:if test="${page==i}">active</c:if>"><a
+								class="page-link"
+								href="${path}/board?category=${category}&keyword=${keyword}&order=${order}&page=${i}">${i}</a></li>
+						</c:forEach>
+						<c:if test="${page<maxpage}">
+							<li class="page-item"><a class="page-link"
+								href="${path}/board?category=${category}&keyword=${keyword}&order=${order}&page=${page+1}">다음</a></li>
+						</c:if>
 					</c:if>
 				</c:if>
 			</c:if>
@@ -166,4 +231,8 @@
 	</div>
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 </body>
+<!-- load 함수로 동적 교체 -->
+<script>
+	$(".category").load("<c:url value='navbar' />");
+</script>
 </html>
