@@ -1,12 +1,17 @@
 package com.example.demo.service.mypage;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.dao.MemberDao;
 import com.example.demo.dao.MypageDao;
@@ -102,15 +107,45 @@ public class MypageService {
 		return mypageDao.liked_list(goods);
 	}
 	
-	// 회원 정보 수정 폼으로 넘어갈때 회원의 정보 가지고 가기
-	public Member getMember(HttpSession session) {
-		Member member = memberDao.get_member((String)session.getAttribute("member_id"));
-		return member;
-	}
 
 	// 상품 상태 업데이트
 	public int goods_state_update(Goods goods) {
 		return mypageDao.goods_state_update(goods);
 	}
 
+	// 회원 정보 수정 폼으로 넘어갈때 회원의 정보 가지고 가기
+	public Member getMember(HttpSession session) {
+		Member member = memberDao.get_member((String)session.getAttribute("member_id"));
+		return member;
+	}
+	
+	// 회원  업데이트
+	public int update_member(@RequestParam("image") MultipartFile mf,HttpServletRequest request,HttpSession session,Member member) {
+		String path = request.getRealPath("upload");
+		System.out.println("path :" +path);
+		String extension ="";
+		if(mf.getSize()>0) {
+			System.out.println("mf.name : " + mf.getOriginalFilename());
+			extension = mf.getOriginalFilename().substring(mf.getOriginalFilename().lastIndexOf("."),mf.getOriginalFilename().length()); // 파일을 .을 기준으로 자르고 배열의 1번가지고 오기!
+			
+			if(extension.equals(".jpeg") || extension.equals(".png") || extension.equals(".gif")) {
+				try {
+					System.out.println("파일 전송!");
+					mf.transferTo(new File(path+"/"+ session.getAttribute("member_id")+extension));
+					member.setMember_image(session.getAttribute("member_id")+extension);
+					 // 회원 이미지는 어차피 1개이므로 중복 신경X, 파일 명은 회원아이디로 한다.
+					int result = memberDao.update_member(member);
+					return result;
+				} catch (Exception e) {
+					return -1; // 파일 저장 실패
+				} 
+			}else {
+				return -2; // 형식 안맞아서 실패
+			}
+		}else {
+			System.out.println("사진 이미지 설정을 안했습니다!");
+			int result = memberDao.no_image_update_member(member);
+			return result;
+		}
+	}
 }

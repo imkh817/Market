@@ -9,13 +9,17 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.model.Goods;
 import com.example.demo.model.Member;
 import com.example.demo.model.PagingPgm;
 import com.example.demo.model.Translation;
+import com.example.demo.service.join.JoinService;
 import com.example.demo.service.login.LoginService;
 import com.example.demo.service.mypage.CreateImageService;
 import com.example.demo.service.mypage.MypageService;
@@ -28,6 +32,7 @@ public class MypageController {
 	
 	@Autowired
 	MypageService mypageService;
+	
 	@Autowired
 	LoginService loginService;
 	
@@ -36,6 +41,9 @@ public class MypageController {
 	
 	@Autowired
 	CreateImageService imageService;
+	
+	@Autowired
+	JoinService joinService;
 
 //	// 마이페이지 홈화면
 //	@RequestMapping("mypage_form")
@@ -129,8 +137,7 @@ public class MypageController {
 	
 	// 마이페이지 프로필 이미지 생성
 	@RequestMapping("image_ai")
-	@ResponseBody
-	public String image_ai(String prompt,HttpServletRequest requset,HttpSession session) {
+	public String image_ai(String prompt,HttpServletRequest requset,HttpSession session,Model model) {
 		if(prompt == "" || prompt == null) {
 			return "생성하고싶은 이미지의 설명을 적어주세요.";
 		}
@@ -143,12 +150,31 @@ public class MypageController {
 		
 		String imageResult = imageService.request(result,requset,session);
 		
-		return imageResult;
+		
+		model.addAttribute("result", imageResult);
+		
+		return "mypage/image_ai_result";
+	}
+	// 핸드폰 유효성 검사(정보수정)
+	@PostMapping("phone_autorization_update")
+	@ResponseBody
+	public String autorization(String number) {
+		// 중복 검사
+		int number_valiable = joinService.phone_num_valiable(number);
+		
+		if(number_valiable == 1) return "이미 가입되어 있는 번호 입니다.";
+		else return "사용 가능한 핸드폰 번호 입니다.";
 	}
 	
 	@RequestMapping("member_update")
-	public String member_update(Member member) {
-		return "";
+	public String member_update(@RequestParam("image") MultipartFile mf,HttpServletRequest request,HttpSession session,Member member,Model model) {
+		// 1: 성공
+		// -1 : 파일 저장 실패
+		// -2 : 파일 형식 안맞음
+		int result = mypageService.update_member(mf, request, session, member);
+		System.out.println("update_result : " + result);
+		model.addAttribute("result",result);
+		return "mypage/update_result";
 	}
 	
 	@RequestMapping("practice")

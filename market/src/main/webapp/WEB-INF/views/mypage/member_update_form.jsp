@@ -52,6 +52,14 @@
 }
 </style>
 <script>
+
+$(document).ready(function () {
+    $("#ai_modal_button").click(function () {
+        $("#ai_modal").modal("show");
+        return false;
+    });
+});
+
 var member = ${jsonMember};
 function nickname_valiable1(){
 	var nickname = document.getElementById('member_nickname').value;
@@ -77,27 +85,29 @@ function nickname_valiable1(){
 		document.getElementById('nickname_valiable').style.display = 'none';
 	}
 }
-function phone_authorization1() {
+function phone_authorization1(event) {
+	event.preventDefault();
     var number = document.getElementById('member_phone_num').value
+	
     if(member.member_phone_num != number){
-    $.ajax({
-    	url : "phone_autorization",
-    	type : "POST",
-    	data : {"number" : number},
-    	success : function(data){
-    		if(data == '이미 가입되어 있는 번호 입니다.'){
-    			document.getElementById('member_phone_num').value = '';
-    			document.getElementById('member_phone_num').focus(); 
-    			document.getElementById('phone_number_valiable').value = data;
-				document.getElementById('phone_number_valiable').style.display = 'block';
-				return false;
-    		}else{
-    		document.getElementById('phone_number_valiable').style.display = 'none';	
-    		}
-    	}
-    })
+	    $.ajax({
+	    	url : "phone_autorization_update",
+	    	type : "POST",
+	    	data : {"number" : number},
+	    	success : function(data){
+	    		if(data == '이미 가입되어 있는 번호 입니다.'){
+	    			document.getElementById('member_phone_num').value = '';
+	    			document.getElementById('member_phone_num').focus(); 
+	    			document.getElementById('phone_number_valiable').value = data;
+					document.getElementById('phone_number_valiable').style.display = 'block';
+	    		}else{
+	    			event.target.submit();
+	    		}
+	    	}
+	    })
    }else{
 	   document.getElementById('nickname_valiable').style.display = 'none';
+	   event.target.submit();
    }
 }
 </script>
@@ -115,58 +125,72 @@ function phone_authorization1() {
 				<li class="nav-item"><a class="nav-link"
 					href="member_liked_form" style="color: #47C83E;">관심 상품</a></li>
 				<li class="nav-item"><a class="nav-link"
-					href="member_delete_form" style="color: #47C83E;">회원 탈퇴</a></li>
-				<li class="nav-item"><a class="nav-link"
 					href="member_delete_form" style="color: #47C83E;">정보 수정</a></li>
+				<li class="nav-item"><a class="nav-link"
+					href="member_delete_form" style="color: #47C83E;">회원 탈퇴</a></li>
 			</ul>
 		</div>
 	</div>
 
 	<div class="join-container" style="width: 768px;">
 		<div class="join-form">
-			<p class="fs-2 fw-medium">프로필</p>
-			<hr>
-			<div class="container d-flex">
-				<div class="wrapper" style="position: relative;">
-					<img src="../images/user.png" class="img_preview rounded-circle" />
-					<label for="file" class="img_upload"> <input id="file"
-						type="file" accept="image/*"> <i
-						class="fa-solid fa-camera text-light"
-						style="position: absolute; translate: -50% -350%;"></i>
-					</label>
-				</div>
-			</div>
-			<div class="d-flex justify-content-center mx-auto mb-3">
-				<button class="ai-title btn rounded-pill fw-bold" 
-					data-bs-toggle="modal" data-bs-target="#ai_modal" style="width:220px;">
-					<i class="fs-5 fa-solid fa-wand-magic-sparkles text-light"
-					style="translate: -50% 0%;"></i>
-					AI이미지생성
-					</button>
-				<div class="ai-text opacity-75">
-					원하는 이미지를 간단하게<br>글로 설명하면 AI가 생성해줘요
-				</div>
+			<form action="image_ai">
 				<div class="modal fade" id="ai_modal" tabindex="-1"
 					aria-labelledby="ai_modal_label" aria-hidden="true">
 					<div class="modal-dialog">
 						<div class="modal-content">
 							<div class="modal-body">
-								<form>
 									<div class="mb-3">
 										<label for="message-text" class="col-form-label">내용:</label>
-										<textarea class="form-control" id="message-text"></textarea>
+										<textarea class="form-control" id="message-text" name="prompt"></textarea>
 									</div>
-								</form>
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn col" data-bs-dismiss="modal">닫기</button>
-								<button type="button" class="btn col" onclick="">생성</button>
+								<button type="submit" class="btn col">생성</button>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			<form action="member_update" method="post">
+			</form>
+			<form action="member_update" method="post" onsubmit="return phone_authorization1(event)" enctype="multipart/form-data">
+				<p class="fs-2 fw-medium">프로필</p>
+				<hr>
+				<div class="container d-flex">
+					<div class="wrapper" style="position: relative;">
+						<c:if test="${member.member_image == null }">
+						<img src="./images/user.png" class="img_preview rounded-circle"/>
+						</c:if>
+						<c:if test="${member.member_image != null }">
+						<img src="upload/${member.member_image}" class="img_preview rounded-circle"/>
+						</c:if>
+						
+						<label for="file" class="img_upload"> <input id="file"
+							type="file" accept="image/*" name="image"> <i
+							class="fa-solid fa-camera text-light"
+							style="position: absolute; translate: -50% -350%;"></i>
+						</label>
+					</div>
+				</div>
+				<div class="d-flex justify-content-center mx-auto mb-3">
+					<button id="ai_modal_button" class="ai-title btn rounded-pill fw-bold" 
+						data-bs-toggle="modal" data-bs-target="#ai_modal" style="width:220px;">
+						<i class="fs-5 fa-solid fa-wand-magic-sparkles text-light"
+						style="translate: -50% 0%;"></i>
+						AI이미지생성
+						</button>
+					<div class="ai-text opacity-75">
+						원하는 이미지를 간단하게<br>글로 설명하면 AI가 생성해줘요
+					</div>
+				</div>
+				<div class="input-group mb-2">
+					<label class="form-label fw-medium">아이디</label>
+					<div class="input-group">
+						<input
+							class="form-control border-bottom border-dark-subtle rounded-0"
+							type="text" style="border: none;" name="member_id" value="${member.member_id}">
+					</div>
+				</div>
 				<div class="input-group mb-2">
 					<label class="form-label fw-medium">이름</label>
 					<div class="input-group">
