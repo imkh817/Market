@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="./css/navbar.css">
 </head>
 <script src="./js/join/join_function.js"></script>
-<body>
+<body style="padding-top:20px;">
 <section class="banner my-5 py-5">
 	<div class="title">
 		<h1>
@@ -22,7 +22,7 @@
 <%@ include file="/WEB-INF/views/include/navbar.jsp"%>
 <div class="join-container">
     <div class="join-form">
-       	<h2>양배추 마켓 가입 정보로</h2>
+       	<h2>양배추마켓 가입 정보로</h2>
         <h2>비밀번호를 확인하세요.</h2>
         <br>
         <form action="find_pw" method="post">
@@ -49,4 +49,8 @@
 </div>
 <%@ include file="/WEB-INF/views/include/footer.jsp"%>
 </body>
+<!-- load 함수로 동적 교체 -->
+<script>
+	$(".category").load("<c:url value='navbar' />");
+</script>
 </html>
