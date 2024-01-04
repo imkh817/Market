@@ -67,15 +67,13 @@
 			</div>
 
 			<div class="form-group row mt-3">
-				<div class="input-group">
 				<label for="inputZip" class="col-sm-2 col-form-label fw-bold">주소 찾기</label>
-					<input type="text" id="job_place" class="form-control"
+					<div class="col-sm-4">
+					<input type="text" id="job_place" class="form-control d-inline w-auto"
 						name="job_place" readonly onclick="openDaumPostcode()" required>
-					<div class="input-group-append">
 						<button type="button" class="btn btn-secondary"
 							onclick="openDaumPostcode()">검색</button>
 					</div>
-				</div>
 			</div>
 
 			<div class="form-group row mt-3">

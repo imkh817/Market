@@ -16,6 +16,7 @@ public class FindService {
 		return memberDao.find_id(member);
 	}
 	
+	// 아이디 찾기 시 앞 3글자 제외 *처리
 	public String replace_id(String id) {
 		StringBuilder resultBuilder = new StringBuilder(id);
 		for (int i = 3; i < id.length(); i++) {

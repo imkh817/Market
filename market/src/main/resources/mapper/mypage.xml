@@ -35,4 +35,9 @@
 	limit #{start_list}, 6
 </select>
 
+<!-- 상품 상태 업데이트 -->
+<update id="goods_state_update" parameterType="goods">
+	update goods set goods_state = #{goods_state}
+	where goods_no = #{goods_no}
+</update>
 </mapper>

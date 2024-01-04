@@ -27,4 +27,7 @@ public interface GoodsDao {
 	
 	// 인기글 목록
 	List<Goods> best_list();
+
+	// 특정게시글 정보 불러오기
+	Goods get_goods(Goods goods);
 }

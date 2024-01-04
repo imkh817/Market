@@ -20,7 +20,8 @@ public class Job {
 	private String job_day;
 	private Date job_reg_date;
 	private String job_image;
-
+	private int job_readcount;
+	
 	private int startRow;
 	private int endRow;
 }

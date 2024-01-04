@@ -39,6 +39,17 @@ public class GoodsController {
 	@RequestMapping("best")
 	public String best(Model model) {
 		List<Goods> goods_list = GoodsService.best_list();
+		for (Goods goods : goods_list) {
+			
+			String image = goods.getGoods_image();
+			String[] goods_img = image.split(",");
+
+			if (goods_img.length > 0) {
+				String thum_img = goods_img[0];
+				goods.setGoods_image(thum_img);
+			}
+		model.addAttribute("goods_image", goods.getGoods_image());
+		}
 		model.addAttribute("goods_list", goods_list);
 		return "best";
 	}
@@ -184,4 +195,19 @@ public class GoodsController {
 		model.addAttribute("result", result);
 		return "goods/reg_result";
 	}
+	
+	// 상품판매 글 수정 폼
+		@RequestMapping("update_sell_form")
+		public String update_sell_form(Goods goods, Model model) {
+
+			// 카테고리 불러오기
+			List<Category> Category = CategoryService.get_category();
+			
+			// 특정게시글 정보 불러오기
+			Goods get_goods = GoodsService.get_goods(goods);
+			
+			model.addAttribute("Category", Category);
+			model.addAttribute("goods", get_goods);
+			return "goods/update_sell_form";
+		}
 }

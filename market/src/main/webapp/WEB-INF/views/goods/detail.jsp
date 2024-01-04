@@ -161,7 +161,11 @@
 								</c:if>
 							</div>
 
+
 							<!-- 채팅 버튼 또는 수정, 삭제 -->
+
+							<!-- 한희 수정 시작 -->
+
 							<div class="col-2 text-end">
 								<c:if
 									test="${dl.goods_state ne '4' && dl.member_no != session_member_no }">
@@ -218,6 +222,11 @@
 								</script>
 
 							</div>
+<%-- 							<div class="col-2 text-end">
+								<button class="btn btn-outline-dark mt-2" id="chat"
+									onclick="location.href='<c:url value='${chat_link}'/>'">채팅하기</button>
+							</div> --%>
+							<!-- 한희 수정 끝 -->
 						</div>
 
 					</div>
@@ -292,6 +301,49 @@
 	        }
 	    });
 	});
+		
+		
+		
+		
+		//한희 수정 시작
+<!-- 채팅하기 버튼을 누를 때의 스크립트 -->
+    // '채팅하기' 버튼 클릭 이벤트
+    $('#chat').on('click', function(){
+        // 채팅방을 개설하고 DB에 저장
+        createChatRoomAndSaveToDB();
+    });
+
+    // 채팅방 개설 및 DB에 저장하는 함수
+    function createChatRoomAndSaveToDB() {
+        // 이동할 페이지 URL 가져오기
+        var chatLink = '<c:url value="${chat_link}"/>';
+
+        // 페이지 이동
+        window.location.href = chatLink;
+
+        // 여기에서 채팅방을 개설하고 DB에 저장하는 로직을 추가
+        $.ajax({
+            url: 'create_chat_room',
+            method: 'POST',
+            data: {
+                // 채팅방 생성에 필요한 데이터를 전달 (예: 상대방의 닉네임 등)
+            },
+            success: function(response) {
+                // 채팅방이 성공적으로 생성되고 DB에 저장된 경우 수행할 로직
+                console.log('채팅방이 개설되었습니다.');
+            },
+            error: function(error) {
+                // 오류 처리
+                console.error('채팅방 생성 중 오류 발생:', error);
+            }
+        });
+    }
+		//한희 수정 끝
+		
+		
+		
+		
+		
 	</script>
 
 		<!-- 카카오맵 api -->
