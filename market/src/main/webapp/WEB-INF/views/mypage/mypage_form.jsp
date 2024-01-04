@@ -16,7 +16,7 @@ $('.nav-item').find('a').each(function(){
 <link rel="stylesheet" href="./css/pagination.css">
 <link rel="stylesheet" href="./css/navbar.css">
 </head>
-<body class="my-5 py-5">
+<body style="padding-top: 20px;">
 	<!-- 상단 내비바 -->
 	<%@ include file="/WEB-INF/views/include/navbar.jsp"%>
 
@@ -107,4 +107,8 @@ $('.nav-item').find('a').each(function(){
 	<!-- 하단 내비바 -->
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 </body>
+<!-- load 함수로 동적 교체 -->
+<script>
+	$(".category").load("<c:url value='navbar' />");
+</script>
 </html>

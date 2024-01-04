@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="./css/banner.css">
 <link rel="stylesheet" href="./css/navbar.css">
 </head>
-<body style="padding-top:40px;">
+<body style="padding-top:20px;">
 	<%@ include file="/WEB-INF/views/include/navbar.jsp"%>
 	<!-- 각 페이지 변동 부분 시작 -->
 	<!-- 배너 -->
@@ -29,7 +29,11 @@
 	<!-- 각 페이지 변동 부분 끝 -->
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 </body>
+
 <!-- load 함수로 동적 교체 -->
+<script>
+	$(".category").load("<c:url value='navbar' />");
+</script>
 <script>
 	$(".best_list").load("<c:url value='best' />");
 </script>

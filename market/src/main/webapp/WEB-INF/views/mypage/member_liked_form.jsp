@@ -55,7 +55,7 @@
 			<c:forEach var="list" items="${list}">
 				<div class="col">
 					<div class="card" style="border: none;">
-						<img src="../images/example.png" class="card-img-top mx-auto my-2"
+						<img src="./upload/${list.goods_image}" class="card-img-top mx-auto my-2"
 							alt="" style="width: 200px; height: 200px;">
 						<div class="card-body mx-1">
 							<p class="card-text lh-1">${list.goods_name}</p>
@@ -77,7 +77,7 @@
 					</div>
 				</div>
 			</c:forEach>
-
+		</div>
 			<!-- 페이징 버튼 -->
 			<div class="container d-flex justify-content-center mt-3 pt-3">
 				<ul class="pagination">
@@ -97,10 +97,13 @@
 					</c:if>
 				</ul>
 			</div>
-		</div>
 	</div>
 
 	<!-- 하단 내비바 -->
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 </body>
+<!-- load 함수로 동적 교체 -->
+<script>
+	$(".category").load("<c:url value='navbar' />");
+</script>
 </html>

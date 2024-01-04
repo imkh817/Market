@@ -56,8 +56,7 @@
 			<c:forEach var="list" items="${list}">
 				<div class="col">
 					<div class="card" style="border: none;">
-					
-						<img src="../images/example.png" class="card-img-top mx-auto my-2"
+						<img src="./upload/${list.goods_image}" class="card-img-top mx-auto my-2"
 							alt="" style="width: 200px; height: 200px;">
 						<div class="card-body mx-1">
 							<p class="card-text lh-1"><a href="detail?goods_no=${list.goods_no}" style="text-decoration: none; color: black;">${list.goods_name}</a></p>
@@ -120,4 +119,8 @@
 	<!-- 하단 내비바 -->
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 </body>
+<!-- load 함수로 동적 교체 -->
+<script>
+	$(".category").load("<c:url value='navbar' />");
+</script>
 </html>
