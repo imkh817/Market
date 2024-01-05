@@ -14,17 +14,25 @@
 				<div class="card text-center" style="border: none;">
 					<p class="fw-bold">TOP ${status.count}</p>
 					<a href="detail?goods_no=${gd.goods_no}&page=${page}&state=cont">
-					<img src="./upload/${gd.goods_image}"
-						class="card-img-top my-2" alt=""
-						style="width: 200px; height: 200px;"></a>
+						<img src="./upload/${gd.goods_image}" class="card-img-top my-2"
+						alt="" style="width: 200px; height: 200px;">
+					</a>
 					<div class="card-body mx-1 px-0">
 						<p class="card-text text-start mx-3 px-1 lh-1">
 							<c:set var="truncated_sub"
-								value="${fn:substring(gd.goods_name, 0, 12)}" /><a href="detail?goods_no=${gd.goods_no}" style="text-decoration: none; color: black;">${truncated_sub}</a><c:if
-								test="${fn:length(gd.goods_name)>12}">...</c:if>
+								value="${fn:substring(gd.goods_name, 0, 12)}" />
+							<a href="detail?goods_no=${gd.goods_no}"
+								style="text-decoration: none; color: black;"> <c:if
+									test="${fn:trim(gd.goods_state)=='2'}">
+									<span class="badge bg-warning my-auto"
+										style="font-size: 0.6rem;">예약중</span>
+								</c:if> ${truncated_sub}
+							</a>
+							<c:if test="${fn:length(gd.goods_name)>12}">...</c:if>
 						</p>
 						<p class="card-text text-start mx-3 px-1 lh-1 fw-bold">${gd.goods_price}</p>
-						<p class="card-text text-start mx-3 px-1 lh-1" style="font-size: 0.8rem;">
+						<p class="card-text text-start mx-3 px-1 lh-1"
+							style="font-size: 0.8rem;">
 							<i class="fa-solid fa-location-dot"></i> <span>&nbsp;${gd.goods_place}</span>
 						</p>
 						<div class="row">
