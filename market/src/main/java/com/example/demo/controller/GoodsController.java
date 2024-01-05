@@ -76,8 +76,19 @@ public class GoodsController {
 		
 		String keyword = request.getParameter("keyword");
 		
+		int category;
+		if(request.getParameter("category") != null) {
+			category = Integer.parseInt(request.getParameter("category"));
+		}else {
+			category = 0;
+		}
+		
+		Map<String, Object> find_map = new HashMap<String, Object>();
+		find_map.put("keyword", keyword);
+		find_map.put("category", category);
+		
 		// 페이징 처리
-		int listcount = GoodsService.goods_listcount(keyword);
+		int listcount = GoodsService.goods_listcount(find_map);
 		int limit = 12; // 화면당 출력수
 		int paging = 10; // 페이지 분할수
 		int start = (page - 1) * paging;
@@ -91,12 +102,13 @@ public class GoodsController {
 		// Goods 객체에 없는 컬럼 입력
 		map.put("order", order);
 		map.put("keyword", keyword);
+		map.put("category", category);
 		map.put("start", start);
 		
 		// Goods 객체 컬럼 입력
 		map.put("goods_no", goods.getGoods_no());
 		map.put("member_no", goods.getMember_no());
-		map.put("category_no", goods.getCategory_no());
+		map.put("category_no", goods.getMember_no());
 		map.put("goods_name", goods.getGoods_name());
 		map.put("goods_content", goods.getGoods_content());
 		map.put("goods_price", goods.getGoods_price());
@@ -126,6 +138,7 @@ public class GoodsController {
 		model.addAttribute("page", page);
 		model.addAttribute("order", order);
 		model.addAttribute("keyword", keyword);
+		model.addAttribute("category", category);		
 		model.addAttribute("startpage", startpage);
 		model.addAttribute("endpage", endpage);
 		model.addAttribute("maxpage", maxpage);
