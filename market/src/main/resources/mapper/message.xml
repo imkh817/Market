@@ -13,6 +13,11 @@
 		#{nick} or message_recv_nick=#{nick})
 		order by message_no desc;
 	</select>
+	
+	
+	<select id="selectNick" parameterType="int" resultType="String">
+	select member_nickname from member where member_no = #{member_no}
+	</select>
 
 	<!-- 메세지 list에서 상대방 profile 가져오기 -->
 	<select id="get_other_profile"
@@ -32,7 +37,7 @@
 	<select id="count_unread"
 		parameterType="message" resultType="Int">
 		select count(message_no) from message
-		where message_recv_nick=#{message_recv_nick} and message_read_chk=0 and message_room=#{message_room}
+		where message_recv_nick=#{nick} and message_read_chk=0 and message_room=#{message_room}
 	</select>
 
 	<!-- 메세지 내용 가져오기 -->
@@ -42,35 +47,21 @@
 		select m.message_no, m.message_room, m.message_send_nick, m.message_recv_nick,
 		date_format(m.message_send_time, '%Y-%m-%d %H:%i') message_send_time, m.message_read_time,
 		m.message_content, m.message_read_chk, u.member_image
+		
 		from message m left outer join member u
-		on m.message_send_nick = u.member_nickname
-		<choose>
-			<when test="message_room != 0">
-				where message_room=#{message_room}
-			</when>
-			<otherwise>
-				where (message_recv_nick = #{message_recv_nick} and message_send_nick = #{nick}) or (message_send_nick =
-				#{message_recv_nick} and message_recv_nick = #{nick})
-			</otherwise>
-		</choose>
-
+		on m.message_send_nick = u.member_nickname 
+		
+		where message_room=#{message_room}
 	</select>
-
+	
 	<!-- 메세지 읽음 처리 -->
 	<update id="message_read_chk"
 		parameterType="message">
-		update message set message_read_chk=1
-		<choose>
-			<when test="message_room != 0">
-				where message_room=#{message_room} and message_read_chk=0 and message_recv_nick=#{nick}
-			</when>
-			<otherwise>
-				where message_send_nick=#{message_recv_nick} and message_read_chk=0 and message_recv_nick=#{nick}
-			</otherwise>
-		</choose>
-
+		update message 
+		set message_read_chk=1
+		where message_send_nick=#{message_recv_nick} and message_read_chk=0 and message_recv_nick=#{nick}
 	</update>
-
+	
 	<!-- 메세지리스트에서 메세지 보내기 -->
 	<insert id="messageSendInlist"
 		parameterType="message">
@@ -84,6 +75,12 @@
 				now(), #{message_content}, 0);
 			</otherwise>
 		</choose>
+	</insert>
+	
+	<!-- 채팅방 만들기 -->
+	<insert id="createRoom" parameterType="message">
+				insert into message values(0, #{message_room}, #{message_send_nick}, #{message_recv_nick}, now(),
+				now(), "안녕하세요.", 0);
 	</insert>
 
 	<!-- room 번호 최댓값 구하기 -->
@@ -108,4 +105,5 @@
 		#{message_recv_nick} and message_recv_nick=#{message_send_nick})
 		limit 0,1
 	</select>
+	
 </mapper>
