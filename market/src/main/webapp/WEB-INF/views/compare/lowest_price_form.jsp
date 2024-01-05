@@ -44,7 +44,7 @@ div {
 }
 </style>
 </head>
-<body style="padding-top:40px;">
+<body style="padding-top:20px;">
 	<section class="banner my-5 py-5">
 		<div class="title">
 			<h1>
@@ -158,4 +158,8 @@ div {
 	</c:if>
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 </body>
+<!-- load 함수로 동적 교체 -->
+<script>
+	$(".category").load("<c:url value='navbar' />");
+</script>
 </html>

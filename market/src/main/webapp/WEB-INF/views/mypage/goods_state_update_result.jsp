@@ -11,7 +11,6 @@
 
 <c:if test="${result == 1}">
 	<script>
-		alert("상품 상태 수정 완료");
 		location.href="mypage_list";
 	</script>
 </c:if>

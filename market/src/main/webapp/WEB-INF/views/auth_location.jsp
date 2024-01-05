@@ -25,7 +25,7 @@
 }
 </style>
 </head>
-<body class="my-5 py-5">
+<body style="padding-top:20px;">
 	<%@ include file="/WEB-INF/views/include/navbar.jsp"%>
 	<!-- 각 페이지 변동 부분 시작 -->
 	<div class="d-flex flex-column align-items-center mx-auto my-3">
@@ -151,4 +151,8 @@
 	<!-- 각 페이지 변동 부분 끝 -->
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 </body>
+<!-- load 함수로 동적 교체 -->
+<script>
+	$(".category").load("<c:url value='navbar' />");
+</script>
 </html>

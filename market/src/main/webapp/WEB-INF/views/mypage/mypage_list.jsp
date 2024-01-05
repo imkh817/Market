@@ -20,8 +20,15 @@
 			<div class="row">
 				<div class="col my-auto text-center">
 					<p class="fs-4 fw-bold mb-2">#${member_nickname}</p>
-					<img src="./images/picture.png" class="img-fluid" alt="프로필 이미지"
-						style="width: 100px; height: 100px;">
+					<c:if test="${member.member_image == null }">
+						<img src="./images/user.png" class="img_preview rounded-circle" 
+							style="width: 100px; height: 100px;"/>
+					</c:if>
+					<c:if test="${member.member_image != null }">
+						<img src="./upload/${member.member_image }"
+							class="img_preview rounded-circle" alt="프로필 이미지"
+							style="width: 100px; height: 100px;">
+					</c:if>
 				</div>
 				<div class="col my-auto text-center pt-3">
 					<i class="fa-solid fa-gift fs-1 mb-2" style="color: #5ba95d;"></i>
@@ -56,9 +63,10 @@
 			<c:forEach var="list" items="${list}">
 				<div class="col">
 					<div class="card" style="border: none;">
-					
-						<img src="../images/example.png" class="card-img-top mx-auto my-2"
+					<a href="detail?goods_no=${list.goods_no}">
+						<img src="./upload/${list.goods_image}" class="card-img-top mx-auto my-2"
 							alt="" style="width: 200px; height: 200px;">
+					</a>
 						<div class="card-body mx-1">
 							<p class="card-text lh-1"><a href="detail?goods_no=${list.goods_no}" style="text-decoration: none; color: black;">${list.goods_name}</a></p>
 							<p class="card-text lh-1 fw-bold">${list.goods_price}</p>
@@ -120,4 +128,8 @@
 	<!-- 하단 내비바 -->
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 </body>
+<!-- load 함수로 동적 교체 -->
+<script>
+	$(".category").load("<c:url value='navbar' />");
+</script>
 </html>
