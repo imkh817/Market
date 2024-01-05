@@ -19,20 +19,14 @@
 </head>
 <body>
 	<c:forEach var="dl" items="${detail_result }">
-		<c:set var="member_no" value="${dl.member_no}" />
-
-		<c:url var="seller_profile_link"
-			value="${sessionScope.member_no == member_no ? 'mypage_list' : 'seller_profile'}">
-			<c:param name="goods_no" value="${dl.goods_no}" />
-			<c:param name="member_no" value="${dl.member_no}" />
-		</c:url>
-
-		<c:url var="detail_chat_link"
-			value="${sessionScope.member_no == null ? 'login_form' : 'message_list'}">
-			<c:param name="goods_no" value="${dl.goods_no}" />
-			<c:param name="member_no" value="${dl.member_no}" />
-			<c:param name="session_member_no" value="${session_member_no}" />
-		</c:url>
+		<c:set var="member_goods_link"
+			value="${sessionScope.member_no == null ? 'login_form' : 'member_goods'}" />
+        <c:url var="detail_chat_link" value="${sessionScope.member_no == null ? 'login_form' : 'message_list'}">
+            <c:param name="goods_no" value="${dl.goods_no}" />
+            <c:param name="member_no" value="${dl.member_no}" />
+            <c:param name="session_member_no" value="${session_member_no}" />
+        </c:url>
+		
 		<!-- header -->
 		<%@ include file="/WEB-INF/views/include/navbar.jsp"%>
 
@@ -46,52 +40,100 @@
 
 					<div id="carouselIndicators" class="carousel slide col-5">
 						<div class="carousel-indicators">
-							<c:forEach var="detail_img"
-								items="${fn:split(dl.goods_image, ',')}" varStatus="num">
-								<button type="button" data-bs-target="#carouselIndicators"
-									data-bs-slide-to="${num.index}"
-									class="${num.first ? 'active' : ''}"
-									aria-current="${num.first}" aria-label="Slide ${num.index + 1}"></button>
-							</c:forEach>
+							<button type="button" data-bs-target="#carouselIndicators"
+								data-bs-slide-to="0" class="active" aria-current="true"
+								aria-label="Slide 1"></button>
+							<button type="button" data-bs-target="#carouselIndicators"
+								data-bs-slide-to="1" aria-label="Slide 2"></button>
+							<button type="button" data-bs-target="#carouselIndicators"
+								data-bs-slide-to="2" aria-label="Slide 3"></button>
 						</div>
 
 						<div class="carousel-inner">
-							<c:forEach var="detail_img"
-								items="${fn:split(dl.goods_image, ',')}" varStatus="num">
-								<div class="carousel-item ${num.first ? 'active' : ''}">
-									<img id="goods_image" src="./upload/${detail_img}"
-										onerror="this.src='https://via.placeholder.com/600'"
-										class="d-block w-100" alt="상품 이미지">
-								</div>
-							</c:forEach>
+							<div class="carousel-item active">
+								<img id="goods_image" src="${dl.goods_image }"
+									class="d-block w-100" alt="상품 이미지1"
+									onerror="this.src='https://via.placeholder.com/600x600'">
+							</div>
+							<div class="carousel-item">
+								<img id="goods_image" src="${dl.goods_image }"
+									class="d-block w-100" alt="상품 이미지2"
+									onerror="this.src='https://via.placeholder.com/600x600'">
+							</div>
+							<div class="carousel-item">
+								<img id="goods_image" src="${dl.goods_image }"
+									class="d-block w-100" alt="상품 이미지3"
+									onerror="this.src='https://via.placeholder.com/600x600'">
+							</div>
 						</div>
-						<c:if test="${fn:length(fn:split(dl.goods_image, ',')) > 1}">
-							<button class="carousel-control-prev" type="button"
-								data-bs-target="#carouselIndicators" data-bs-slide="prev">
-								<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-								<span class="visually-hidden">Previous</span>
-							</button>
-							<button class="carousel-control-next" type="button"
-								data-bs-target="#carouselIndicators" data-bs-slide="next">
-								<span class="carousel-control-next-icon" aria-hidden="true"></span>
-								<span class="visually-hidden">Next</span>
-							</button>
-						</c:if>
+
+						<button class="carousel-control-prev" type="button"
+							data-bs-target="#carouselIndicators" data-bs-slide="prev">
+							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+							<span class="visually-hidden">Previous</span>
+						</button>
+						<button class="carousel-control-next" type="button"
+							data-bs-target="#carouselIndicators" data-bs-slide="next">
+							<span class="carousel-control-next-icon" aria-hidden="true"></span>
+							<span class="visually-hidden">Next</span>
+						</button>
 					</div>
 
 					<!-- 상품명, 가격 등등 -->
 					<div class="col-7">
 						<div class="row">
 							<div class="col-9">
-								<h3 class="mb-3" id="goods_name">${dl.goods_name }
+								<h3 class="mb-3" id="goods_name">${dl.goods_name }&nbsp;
 
 									<!-- 하트 클릭 -->
 									<input type="hidden" name="liked_state" value="${heart_result}">
 									<i id="heart_icon" class="far fa-heart"></i>
 
+
+
 								</h3>
 							</div>
-							<div class="col-3" id="detail_category">${detail_category }
+							<div class="col-3">
+								<c:if test="${dl.member_no == session_member_no }">
+									<div class="btn-group btn-group-sm" role="group"
+										aria-label="Small button group" id="edit">
+										<button type="button" class="btn btn-outline-primary" onclick="location.href='update_sell_form?goods_no=${dl.goods_no}'">수정</button>
+										<button type="button" class="btn btn-outline-danger"
+											data-bs-toggle="modal" data-bs-target="#staticBackdrop">삭제</button>
+									</div>
+								</c:if>
+
+								<!-- 삭제 확인 모달창 -->
+								<div class="modal fade" id="staticBackdrop"
+									data-bs-backdrop="static" data-bs-keyboard="false"
+									tabindex="-1" aria-labelledby="staticBackdropLabel"
+									aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h1 class="modal-title fs-5" id="staticBackdropLabel">상품
+													삭제</h1>
+												<button type="button" class="btn-close"
+													data-bs-dismiss="modal" aria-label="Close"></button>
+											</div>
+											<div class="modal-body">${dl.goods_name }을 삭제하시겠습니까?</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary"
+													data-bs-dismiss="modal">닫기</button>
+												<button type="button" class="btn btn-danger"
+													onclick="location.href='detail_delete?goods_no=${dl.goods_no}'">삭제</button>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<script>
+								const myModal = document.getElementById('myModal') const myInput
+								= document.getElementById('myInput')
+
+								myModal.addEventListener('shown.bs.modal', () => {
+								myInput.focus() })
+								</script>
 
 							</div>
 						</div>
@@ -126,16 +168,13 @@
 
 						<!-- 조회수, 관심, 내용 -->
 						<div class="row">
-							<div class="col-8" id="social">
-								<a href="<c:url value='${seller_profile_link}'/>"
-									id="member_nick"><i class="fa-regular fa-user"
-									id="user_img"></i>&nbsp;${detail_nick }</a>&nbsp;&nbsp;
+							<div class="col-8">
+								<a href="<c:url value='${member_goods_link}'/>" id="member_nick"><i
+									class="fa-regular fa-user" id="user_img"></i></a>
 
 								<!-- 카카오톡 공유하기 -->
-								<a id="kakaotalk-sharing-btn" href="javascript:;"> <img
-									src="https://ifh.cc/g/bndvfy.png" id="kakaotalk-sharing-img">&nbsp;카톡
-									공유하기
-								</a>
+								<a id="kakaotalk-sharing-btn" href="javascript:;"> <i
+									class="fa-solid fa-share" id="kakaotalk-sharing-img"></i></a>
 							</div>
 							<div class="col-4" id="view_div">
 								<p>조회&nbsp;${dl.goods_readcount }&nbsp;·&nbsp;관심&nbsp;${heart_count }</p>
@@ -151,82 +190,14 @@
 						<!-- 희망거래장소 -->
 						<div class="row">
 							<div class="col-10" id="trade_here">
-								<c:if test="${dl.goods_place != null }">
-									<i class="fa-solid fa-location-dot" id="trade_marker"></i>&nbsp;<span>여기서
-										거래해요!</span>
-									<div id="map"></div>
-								</c:if>
-								<c:if test="${dl.goods_place == null }">
-									<i class="fa-solid fa-location-dot" id="trade_marker"></i>&nbsp;<span>거래장소는 판매자에게 채팅해주세요!</span>
-								</c:if>
+								<i class="fa-solid fa-location-dot" id="trade_marker"></i>&nbsp;<span>여기서
+									거래해요!</span>
+								<div id="map"></div>
 							</div>
-
-
-							<!-- 채팅 버튼 또는 수정, 삭제 -->
-
-							<!-- 한희 수정 시작 -->
-
 							<div class="col-2 text-end">
-								<c:if
-									test="${dl.goods_state ne '4' && dl.member_no != session_member_no }">
-									<button class="btn btn-outline-dark mt-2" id="chat"
-										onclick="location.href='<c:url value='${detail_chat_link}'/>'">채팅하기</button>
-								</c:if>
-
-								<c:if
-									test="${dl.goods_state ne '4' && dl.member_no == session_member_no }">
-									<div class="btn-group btn-group-sm" role="group"
-										aria-label="Small button group" id="edit">
-										<button type="button" class="btn btn-outline-primary"
-											onclick="location.href='update_sell_form?goods_no=${dl.goods_no}'">수정</button>
-										<button type="button" class="btn btn-outline-danger"
-											data-bs-toggle="modal" data-bs-target="#staticBackdrop">삭제</button>
-									</div>
-								</c:if>
-
-								<c:if
-									test="${dl.goods_state eq '4' && dl.member_no == session_member_no }">
-									<div>삭제된 게시물입니다.</div>
-								</c:if>
-
-								<!-- 삭제 확인 모달창 -->
-								<div class="modal fade" id="staticBackdrop"
-									data-bs-backdrop="static" data-bs-keyboard="false"
-									tabindex="-1" aria-labelledby="staticBackdropLabel"
-									aria-hidden="true">
-									<div class="modal-dialog">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h1 class="modal-title fs-5" id="staticBackdropLabel">상품
-													삭제</h1>
-												<button type="button" class="btn-close"
-													data-bs-dismiss="modal" aria-label="Close"></button>
-											</div>
-											<div class="modal-body">${dl.goods_name }을&nbsp;삭제하시겠습니까?</div>
-											<div class="modal-footer">
-												<button type="button" class="btn btn-secondary"
-													data-bs-dismiss="modal">닫기</button>
-												<button type="button" class="btn btn-danger"
-													onclick="location.href='detail_delete?goods_no=${dl.goods_no}'">삭제</button>
-											</div>
-										</div>
-									</div>
-								</div>
-
-								<script>
-								const myModal = document.getElementById('myModal') const myInput
-								= document.getElementById('myInput')
-
-								myModal.addEventListener('shown.bs.modal', () => {
-								myInput.focus() })
-								</script>
-
-							</div>
-<%-- 							<div class="col-2 text-end">
 								<button class="btn btn-outline-dark mt-2" id="chat"
-									onclick="location.href='<c:url value='${chat_link}'/>'">채팅하기</button>
-							</div> --%>
-							<!-- 한희 수정 끝 -->
+									onclick="location.href='<c:url value='${detail_chat_link}'/>'">채팅하기</button>
+							</div>
 						</div>
 
 					</div>
@@ -240,18 +211,15 @@
 		<!-- detail_store_container end -->
 
 		<!-- 인기상품 목록 -->
-
 		<div class="container" id="detail_hit">
-			<div class="row">
+			<div class="row mx-auto">
 				<h5 id="hit_goods">인기상품 보고가세요!</h5>
 				<c:forEach var="best" items="${best_detail }">
-					<div class="col-2 mx-auto" id="hit_info">
+					<div class="col-2 mx-auto" id="hit_image">
 						<a href="detail?goods_no=${best.goods_no }" id="hit_name"> <img
-							alt="인기상품" id="hit_img"
-							src="./upload/${fn:split(best.goods_image, ',')[0]}"
+							alt="인기상품" src=""
 							onerror="this.src='https://via.placeholder.com/200x200'">
-							${best.goods_name }
-						</a>
+							<p>${best.goods_name }</p></a>
 						<p>${best.goods_price}원</p>
 					</div>
 				</c:forEach>
@@ -301,49 +269,6 @@
 	        }
 	    });
 	});
-		
-		
-		
-		
-		//한희 수정 시작
-<!-- 채팅하기 버튼을 누를 때의 스크립트 -->
-    // '채팅하기' 버튼 클릭 이벤트
-    $('#chat').on('click', function(){
-        // 채팅방을 개설하고 DB에 저장
-        createChatRoomAndSaveToDB();
-    });
-
-    // 채팅방 개설 및 DB에 저장하는 함수
-    function createChatRoomAndSaveToDB() {
-        // 이동할 페이지 URL 가져오기
-        var chatLink = '<c:url value="${chat_link}"/>';
-
-        // 페이지 이동
-        window.location.href = chatLink;
-
-        // 여기에서 채팅방을 개설하고 DB에 저장하는 로직을 추가
-        $.ajax({
-            url: 'create_chat_room',
-            method: 'POST',
-            data: {
-                // 채팅방 생성에 필요한 데이터를 전달 (예: 상대방의 닉네임 등)
-            },
-            success: function(response) {
-                // 채팅방이 성공적으로 생성되고 DB에 저장된 경우 수행할 로직
-                console.log('채팅방이 개설되었습니다.');
-            },
-            error: function(error) {
-                // 오류 처리
-                console.error('채팅방 생성 중 오류 발생:', error);
-            }
-        });
-    }
-		//한희 수정 끝
-		
-		
-		
-		
-		
 	</script>
 
 		<!-- 카카오맵 api -->
@@ -369,29 +294,19 @@
 	    // 정상적으로 검색이 완료됐으면 
 	     if (status === kakao.maps.services.Status.OK) {
 
-	    	 var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+	        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
-	    	// 결과값으로 받은 위치를 마커로 표시합니다
-	    	var marker = new kakao.maps.Marker({
-	    	    map: map,
-	    	    position: coords
-	    	});
-
-	    	// 인포윈도우로 장소에 대한 설명을 표시합니다
-	    	var infowindow = new kakao.maps.InfoWindow({
-	    	    content: '<div id="place_info">${dl.goods_place}<br>' +
-	    	                '<a id="place_a" href="https://map.kakao.com/link/map/${dl.goods_place},' + 
-	    	                    result[0].y + ',' + 
-	    	                    result[0].x + 
-	    	                    '">큰지도보기</a>&nbsp;' +
-	    	                '<a id="place_a" href="https://map.kakao.com/link/to/${dl.goods_place},' + 
-	    	                    result[0].y + ',' + 
-	    	                    result[0].x + 
-	    	                    '">길찾기</a>' + '</div>'
-	    	});
-
-	    	infowindow.open(map, marker);
-
+	        // 결과값으로 받은 위치를 마커로 표시합니다
+	        var marker = new kakao.maps.Marker({
+	            map: map,
+	            position: coords
+	        });
+	        
+	        // 인포윈도우로 장소에 대한 설명을 표시합니다
+	        var infowindow = new kakao.maps.InfoWindow({
+            	content : '<div id="place_info">${dl.goods_place}</div>'
+       		 });
+	        infowindow.open(map, marker);
 
 	        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
 	        map.setCenter(coords);

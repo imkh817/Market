@@ -30,6 +30,7 @@ img{ max-width:100%;}
   width: 40%; border-right:1px solid #f7f7f7;
 }
 .inbox_msg {
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
   border: 1px solid #f7f7f7;
   border-radius: 15px;
   clear: both;
@@ -50,7 +51,6 @@ img{ max-width:100%;}
   color: #5fcf80;
   font-size: 30px;
   margin: auto;
-  font-family: 'Nanum Pen Script', cursive;
 }
 .srch_bar input{ border:1px solid #cdcdcd; border-width:0 0 1px 0; width:80%; padding:2px 0 4px 6px; background:none; font-family: 'Nanum Pen Script', cursive; font-size:25px;}
 .srch_bar .input-group-addon button {
@@ -62,9 +62,9 @@ img{ max-width:100%;}
 }
 .srch_bar .input-group-addon { margin: 0 0 0 -27px;}
 
-.chat_ib h5{ font-size:20px; color:#464646; margin:0 0 8px 0; font-family: 'Nanum Pen Script', cursive;}
-.chat_ib h5 span{ font-size:17px; float:right;}
-.chat_ib p{ font-size:14px; color:#989898; margin:auto}
+.chat_ib h5{ font-size:20px; color:#464646; margin:0 0 8px 0;}
+.chat_ib h5 span{ font-size:13px; float:right;}
+.chat_ib p{ font-size:13px; color:#989898; margin:auto}
 .chat_img {
   float: left;
   width: 11%;
@@ -91,54 +91,90 @@ img{ max-width:100%;}
 
 .active_chat{ background:#ebebeb;}
 
-.incoming_msg_img {
-  display: inline-block;
-  width: 6%;
-}
+/* .incoming_msg_img {
+  width: 5;
+  height: 3%;
+} */
 .received_msg {
   display: inline-block;
   padding: 0 0 0 10px;
   vertical-align: top;
   width: 92%;
+  font-size: 10px;
  }
- .received_withd_msg p {
-  background: #f4f4f4 none repeat scroll 0 0;
-  border-radius: 7px;
-  color: #646464;
-  font-size: 14px;
-  margin: 0;
-  padding: 10px 10px 10px 12px;
-  width: 100%;
-  font-family: 'Noto Sans KR', sans-serif;
-}
-.time_date {
+.time_date  {
+  display: inline-block;
+  height: 12px; /* 원하는 높이로 조절 */
   color: #747474;
   display: block;
   font-size: 12px;
-  margin: 5px 0 8px;
+  margin: 2px 0 8px;
+   text-align: left;
 }
-.received_withd_msg { width: 57%;}
+.time_date2  {
+  display: inline-block;
+  height: 12px; /* 원하는 높이로 조절 */
+  color: #747474;
+  display: block;
+  font-size: 12px;
+  margin: 2px 0 8px;
+  text-align: right;
+  padding-right: 10px;
+}
+.received_withd_msg {
+	font-size: 17px;
+	position: relative;
+	padding: 10px 20px;
+	border-radius: 25px;
+	background: #E5E5EA;
+	color: black;
+	float: left;
+	}
+	
 .mesgs {
   float: left;
   padding: 30px 15px 0 25px;
   width: 60%;
 }
 
- .sent_msg p {
-  background: #97df93 none repeat scroll 0 0;
-  border-radius: 7px;
-  font-size: 14px;
-  margin: 0; color:#fff;
-  padding: 10px 10px 10px 12px;
-  width:100%;
-  font-family: 'Noto Sans KR', sans-serif;
-}
-.outgoing_msg{ overflow:hidden; margin:26px 0 26px;}
 .sent_msg {
-  float: right;
-  width: 46%;
-  font-family: 'Noto Sans KR', sans-serif;
+	font-size: 17px;
+	position: relative;
+	padding: 10px 20px;
+	border-radius: 25px;
+	margin-left: 30px;
+	background: #0B93F6;
+	float: right;
+	color: white;
 }
+
+/* .sent_msg:before {
+	content: "";
+	position: absolute;
+	z-index: -1;
+	bottom: -2px;
+	right: -7px;
+	height: 20px;
+	border-right: 20px solid #0B93F6;
+	border-bottom-left-radius: 16px 14px;
+	-webkit-transform: translate(0, -2px);
+	margin-left: 30px;
+}
+
+.sent_msg:after {
+	content: "";
+	position: absolute;
+	z-index: 1;
+	bottom: -2px;
+	right: -56px;
+	width: 26px;
+	height: 20px;
+	background: white;
+	border-bottom-left-radius: 10px;
+	-webkit-transform: translate(-30px, -2px);
+	margin-left: 30px;
+} */
+
 .input_msg_write input {
   background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
   border: medium none;
@@ -171,4 +207,6 @@ img{ max-width:100%;}
 .msg_history {
   height: 516px;
   overflow-y: auto;
+  width:630px;
+  padding-right: 15px;
 }
