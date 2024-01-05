@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,7 +18,7 @@
 		<div
 			class="container p-4 mb-3 bg-body-tertiary shadow rounded rounded-4">
 			<div class="row">
-					<div class="col my-auto text-center">
+				<div class="col my-auto text-center">
 						<p class="fs-4 fw-bold mb-2">#${member.member_nickname}</p>
 						<c:if test="${member.member_image == null }">
 							<img src="./images/user.png" class="img_preview rounded-circle"
@@ -30,15 +29,15 @@
 								class="img_preview rounded-circle" alt="프로필 이미지"
 								style="width: 100px; height: 100px;">
 						</c:if>
-					</div>
-					<div class="col my-auto text-center pt-3">
-						<i class="fa-solid fa-gift fs-1 mb-2" style="color: #5ba95d;"></i>
-						<p class="fs-5">판매 ${sell_count}</p>
-					</div>
-					<div class="col my-auto text-center pt-3">
-						<i class="fa-solid fa-heart fs-1 mb-2" style="color: #e84a62;"></i>
-						<p class="fs-5">좋아요 ${liked_count}</p>
-					</div>
+				</div>
+				<div class="col my-auto text-center pt-3">
+					<i class="fa-solid fa-gift fs-1 mb-2" style="color: #5ba95d;"></i>
+					<p class="fs-5">판매 ${sell_count}</p>
+				</div>
+				<div class="col my-auto text-center pt-3">
+					<i class="fa-solid fa-heart fs-1 mb-2" style="color: #e84a62;"></i>
+					<p class="fs-5">좋아요 ${liked_count}</p>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -50,8 +49,9 @@
 				<div class="col">
 					<div class="card" style="border: none;">
 
-						<img src="./upload/${list.goods_image}" class="card-img-top mx-auto my-2"
-							alt="" style="width: 200px; height: 200px;">
+						<img src="./upload/${list.goods_image}"
+							class="card-img-top mx-auto my-2" alt=""
+							style="width: 200px; height: 200px;">
 						<div class="card-body mx-1">
 							<p class="card-text lh-1">
 								<a href="detail?goods_no=${list.goods_no}"
@@ -68,8 +68,7 @@
 								</p>
 								<p class="col card-text text-body-tertiary lh-1"
 									style="font-size: 0.8rem;">
-									<i class="fa-solid fa-heart"></i> <span>&nbsp;${heart_count }</span>
-									
+									<i class="fa-solid fa-heart"></i> <span>&nbsp;관심</span>
 								</p>
 								<div class="btn-group dropup">
 									<button type="button" class="btn dropdown-toggle"
@@ -83,9 +82,6 @@
 										</c:if>
 										<c:if test="${list.goods_state == 3}">
 											<span style="color: white;">판매완료</span>
-										</c:if>
-										<c:if test="${list.goods_state == 4}">
-											<span style="color: white;">삭제됨</span>
 										</c:if>
 									</button>
 								</div>

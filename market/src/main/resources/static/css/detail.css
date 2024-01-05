@@ -65,9 +65,10 @@
 }
 
 #goods_state {
-	font-size: 20px;
+	font-size: 18px;
+	font-style: bold;
+	margin-top: 150px;
 	color: #47C83E;
-	margin-top: 155px;
 	text-align: center;
 }
 
