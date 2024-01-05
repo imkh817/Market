@@ -69,7 +69,6 @@
 	update member set member_phone_num = #{member_phone_num},
 	member_nickname=#{member_nickname} where member_id=#{member_id}
 </update>
->>>>>>> main
 
 
 </mapper>

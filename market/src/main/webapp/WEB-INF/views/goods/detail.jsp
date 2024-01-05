@@ -22,7 +22,7 @@
 		<c:set var="member_no" value="${dl.member_no}" />
 
 		<c:url var="seller_profile_link"
-			value="${sessionScope.member_no == member_no ? 'login_form' : 'seller_profile'}">
+			value="${sessionScope.member_no == member_no ? 'mypage_list' : 'seller_profile'}">
 			<c:param name="goods_no" value="${dl.goods_no}" />
 			<c:param name="member_no" value="${dl.member_no}" />
 		</c:url>
@@ -132,8 +132,8 @@
 									id="user_img"></i>&nbsp;${detail_nick }</a>&nbsp;&nbsp;
 
 								<!-- 카카오톡 공유하기 -->
-								<a id="kakaotalk-sharing-btn" href="javascript:;"> <i
-									class="fa-solid fa-share" id="kakaotalk-sharing-img"></i>&nbsp;카톡
+								<a id="kakaotalk-sharing-btn" href="javascript:;"> <img
+									src="https://ifh.cc/g/bndvfy.png" id="kakaotalk-sharing-img">&nbsp;카톡
 									공유하기
 								</a>
 							</div>
