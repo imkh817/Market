@@ -43,4 +43,8 @@
 	update goods set goods_state = #{goods_state}
 	where goods_no = #{goods_no}
 </update>
+
+<select id="get_member" parameterType="int" resultType="member">
+	select * from member where member_no = #{member_no}
+</select>
 </mapper>

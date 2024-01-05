@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="./css/join.css">
 <link rel="stylesheet" href="./css/navbar.css">
 </head>
-<body class="pt-5">
+<body style="padding-top:20px;">
 	<%@ include file="/WEB-INF/views/include/navbar.jsp"%>
 	<section class="banner my-5 py-5">
 		<div class="title">
@@ -55,4 +55,8 @@
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 
 </body>
+<!-- load 함수로 동적 교체 -->
+<script>
+	$(".category").load("<c:url value='navbar' />");
+</script>
 </html>

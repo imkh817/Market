@@ -122,7 +122,7 @@ public class MypageService {
 			list.get(i).put("goods_image", image.substring(0,image.length()-1));
 			// 이미지 다중 업로드 되었을때 첫번째 이미지를 썸네일로 설정
 			String tmp = (String)list.get(i).get("goods_image");
-			String[] goods_img = image.split(",");
+			String[] goods_img = tmp.split(",");
 			
 			if (goods_img.length > 1) {
 				String thum_img = goods_img[0];
@@ -173,5 +173,10 @@ public class MypageService {
 			int result = memberDao.no_image_update_member(member);
 			return result;
 		}
+	}
+	
+	// 회원 정보 가져오기
+	public Member get_member(int member_no) {
+		return mypageDao.get_member(member_no);
 	}
 }

@@ -123,7 +123,7 @@
 	<div class="container my-5 goods_form">
 		<br>
 		<!-- 상품 수정 폼 -->
-		<form action="#" method="post" enctype="multipart/form-data">
+		<form action="goods_update?goods_no=${goods.goods_no }" method="post" enctype="multipart/form-data">
 			<div class="form-group row mt-1">
 				<label for="title" class="col-sm-2 col-form-label fw-bold">상품 제목</label>
 				<div class="col-sm-10">
@@ -135,9 +135,11 @@
 				<label for="goods_category" class="col-sm-2 col-form-label fw-bold">카테고리</label>
 				<div class="col-sm-10">
 					<select class="form-select" id="category_no" name="category_no">
-						<option value="0" selected="selected">카테고리 선택</option>
+						<option value="0">카테고리 선택</option>
 						<c:forEach items="${Category}" var="Category">
-							<option value="${Category.category_no }">${Category.category_name}</option>
+							<option value="${Category.category_no }"
+								<c:if test="${Category.category_no eq goods.category_no }"> selected</c:if>
+								>${Category.category_name}</option>
 						</c:forEach>
 					</select>
 				</div>
@@ -146,7 +148,7 @@
 			<div class="form-group row mt-3">
 				<label for="goods_price" class="col-sm-2 col-form-label fw-bold">가격</label>
 				<div class="col-sm-4">
-					<input type="number" class="form-control" id="goods_price" name="goods_price" 
+					<input type="number" class="form-control" id="goods_price" name="goods_price" min="0" max="99999999"
 					placeholder="숫자만 입력해주세요." value="${goods.goods_price }">
 				</div>
 			</div>
@@ -165,11 +167,24 @@
 			<div class="form-group row mt-3">
 				<label for="images" class="col-sm-2 col-form-label fw-bold">상품 이미지</label>
 				<div class="col-sm-6 input_container my-auto">
-					<input type="file" class="form-control-file" id="images" name="images" multiple>
+					<input type="file" class="form-control-file" id="images" name="images" multiple value="${goods.goods_image}">
 					<p class="fst-italic">파일은 3장까지 업로드 가능하며, 9MB가 넘지 않아야 합니다.</p>
 				</div>
 			</div>
 			
+			<%-- ${goods.goods_image}
+			<div class="form-group row mt-3">
+				<label for="image_list" class="col-sm-2 col-form-label fw-bold"></label>
+				<div class="col-sm-2 input_container my-auto">
+					<img src="upload/148db4f7-c43c-4aee-b719-a7979066485e.jpg" class="img-fluid" alt="...">
+				</div>
+				<div class="col-sm-2 input_container my-auto">
+					<img src="upload/070d02b3-1683-4105-a6d4-5e1d931d14ee.jpg" class="img-fluid" alt="...">
+				</div>
+				<div class="col-sm-2 input_container my-auto">
+					<img src="upload/9a11488b-2b65-4a57-9082-af1b457f71a1.jpg" class="img-fluid" alt="...">
+				</div>
+			</div> --%>
 			
 			<div class="text-center mt-3">
 				<button type="submit" class="btn btn-primary" onclick="return validate_write()">상품 등록</button>

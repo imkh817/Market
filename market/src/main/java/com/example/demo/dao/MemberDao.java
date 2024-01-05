@@ -2,6 +2,7 @@ package com.example.demo.dao;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.example.demo.model.Goods;
 import com.example.demo.model.Member;
 
 @Mapper
@@ -31,11 +32,16 @@ public interface MemberDao {
 	// 비밀번호 찾기 - 임시 비밀번호 발송 후 임시 비밀번호 디비 저장
 	int update_pw(Member member);
 
+
+//	상세페이지 회원명 가져오기
+	String detail_nick(Goods goods);
+
 	int setImage(Member member);
 
 	int update_member(Member member);
 
 	int no_image_update_member(Member member);
+
 	
 
 

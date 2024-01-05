@@ -31,7 +31,4 @@ public class LikedService {
 	public int heart_count(int goods_no) {
 		return dao.heart_count(goods_no);
 	}
-
-
-
 }
