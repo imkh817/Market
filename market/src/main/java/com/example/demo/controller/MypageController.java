@@ -57,10 +57,12 @@ public class MypageController {
 		PagingPgm pp = mypageService.paging(page, (int)session.getAttribute("member_no"));
 		List<Goods> mypage_list = mypageService.getList(pp, (int)session.getAttribute("member_no"));
 		System.out.println("list : " + mypage_list);
+		Member member = mypageService.get_member((int)session.getAttribute("member_no"));
 		
 		int sell_count = pp.getTotal();
 		int liked_count = mypageService.paging_liked(page,(int)session.getAttribute("member_no")).getTotal();
 		
+		model.addAttribute("member", member);
 		model.addAttribute("member_nickname", session.getAttribute("member_nickname"));
 		model.addAttribute("sell_count", sell_count);
 		model.addAttribute("liked_count", liked_count);
@@ -93,10 +95,12 @@ public class MypageController {
 		PagingPgm pp = mypageService.paging_liked(page, (int)session.getAttribute("member_no"));
 		List<Map<String, Object>> liked_list = mypageService.liked_list(pp, (int)session.getAttribute("member_no"));
 		System.out.println("liked_list : " + liked_list);
+		Member member = mypageService.get_member((int)session.getAttribute("member_no"));
 		
 		int sell_count = mypageService.paging(page,(int)session.getAttribute("member_no")).getTotal();;
 		int liked_count = pp.getTotal();
 		
+		model.addAttribute("member", member);
 		model.addAttribute("sell_count", sell_count);
 		model.addAttribute("liked_count", liked_count);
 		model.addAttribute("list", liked_list);
