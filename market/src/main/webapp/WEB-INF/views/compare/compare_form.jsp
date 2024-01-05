@@ -52,8 +52,6 @@
 
 	<br>
 	<br>
-	<br>
-	<br>
 
 
 	<c:if test="${list != null }">
