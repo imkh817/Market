@@ -21,7 +21,7 @@
 }
 </style>
 </head>
-<body style="padding-top:40px;">
+<body style="padding-top:20px;">
 	<section class="banner my-5 py-5">
 		<div class="title">
 			<h1>
@@ -52,8 +52,6 @@
 
 	<br>
 	<br>
-	<br>
-	<br>
 
 
 	<c:if test="${list != null }">
@@ -75,7 +73,7 @@
 								<a href="${list.link }" style="text-decoration: none; color:#000">
 								<p class="card-text lh-1 fw-bold">${list.lprice}원</p>
 								</a>
-								<br>
+								<br> 
 							</div>
 						</div>
 					</div>
@@ -104,4 +102,8 @@
 	</c:if>
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 </body>
+<!-- load 함수로 동적 교체 -->
+<script>
+	$(".category").load("<c:url value='navbar' />");
+</script>
 </html>

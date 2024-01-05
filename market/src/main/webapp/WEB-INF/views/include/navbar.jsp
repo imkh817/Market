@@ -1,10 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<c:set var="path" value="${pageContext.request.contextPath}"></c:set>
 <c:set var="chat" value="${sessionScope.member_id==null ? '5' : ''}" />
-<c:set var="chat_link"
-	value="${sessionScope.member_id==null ? 'login_form' : 'message_list'}" />
+<c:url var="chat_link"
+	value="${sessionScope.member_no == null ? 'login_form' : 'message_list'}">
+	<c:param name="goods_no" value="0" />
+	<c:param name="member_no" value="20" />
+	<c:param name="session_member_no" value="${sessionScope.member_no}" />
+</c:url>
 <c:set var="sell_link"
 	value="${sessionScope.member_id==null ? 'login_form' : 'sell_form'}" />
 <c:set var="join"
@@ -16,28 +19,13 @@
 <c:set var="loginout_link"
 	value="${sessionScope.member_id==null ? 'login_form' : '/logout'}" />
 <c:set var="auth_link"
-	value="${sessionScope.member_id==null ? 'login_form' : '/auth_location'}" />
+	value="${sessionScope.member_id==null ? 'login_form' : '/auth_location'}" />	
 
 <nav class="navbar navbar-expand-lg fixed-top"
 	style="background-color: #fff">
 	<div class="container-fluid ms-5 my-auto">
-		<div class="btn-group">
-			<button class="btn btn-sm dropdown-toggle" type="button"
-				data-bs-toggle="dropdown" aria-expanded="false"
-				style="color: #47C83E; font-size: 20px;"></button>
-			<div class="category">
-				<ul class="dropdown-menu" style="font-size: 0.8rem;">
-					<c:forEach var="cg" items="${cg_list}">
-						<li class="dropdown-item"><a
-							href="${path}/board?category=${cg.category_no}"
-							style="text-decoration: none; color: #333;"> ${cg.category_name} </a></li>
-					</c:forEach>
-				</ul>
-			</div>
-		</div>
-		<a class="navbar-brand fs-3 ms-3" href="home"><div
-				class="hstack gap-2">
-				<img src="./images/cabbage.png" width="40px" height="40px">
+		<a class="navbar-brand fs-2" href="home"><div class="hstack gap-3">
+				<img src="./images/cabbage.png" width="60px" height="60px">
 				<p class="fw-bold my-auto">양배추마켓</p>
 			</div></a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -45,15 +33,13 @@
 			aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
-		<div class="collapse navbar-collapse ms-3" id="navbar_toggler">
-			<form class="d-flex me-auto w-40" 
-				action="${path}/board?category=${category}&keyword=${keyword}" role="search">
-				<input class="form-control mx-1 px-5 my-auto" id="keyword"
-					name="keyword" type="search" placeholder="어떤 상품을 찾으시나요?"
-					aria-label="Search"
+		<div class="collapse navbar-collapse ms-5" id="navbar_toggler">
+			<form class="d-flex me-auto w-40" action="${path}/board?keyword=${keyword}" role="search">
+				<input class="form-control me-2 px-5 my-auto" id="keyword" name="keyword" type="search"
+					placeholder="어떤 상품을 찾으시나요?" aria-label="Search"
 					style="position: relative; border: 2px solid #47C83E; font-size: 0.8rem; width: 330px;"><i
 					class="fa-solid fa-magnifying-glass"
-					style="position: absolute; transform: translate(80%, 60%); color: #47C83E;"></i>
+					style="position: absolute; transform: translate(60%, 70%); color: #47C83E;"></i>
 			</form>
 			<ul class="navbar-nav me-auto mb-2">
 				<li class="nav-item px-2 fs-2 me-4 my-auto"><a class="sell"
@@ -101,8 +87,8 @@
 								href="<c:url value='${join_link}'/>">${join}</a></li>
 							<li><a class="dropdown-item border-bottom"
 								href="<c:url value='${loginout_link}'/>">${loginout}</a></li>
-							<li><a class="dropdown-item pb-0"
-								href="<c:url value='${auth_link}'/>">내 위치 인증</a></li>
+							<li><a class="dropdown-item pb-0" href="<c:url value='${auth_link}'/>">내
+									위치 인증</a></li>
 						</ul>
 					</div>
 				</li>
