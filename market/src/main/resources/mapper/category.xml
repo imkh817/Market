@@ -5,4 +5,10 @@
 	<select id="get_category" resultType="category">
 		select * from category
 	</select>
+	
+	<!-- 상세페이지 카테고리 불러오기 -->
+	<select id="detail_category" parameterType="goods" resultType="String">
+		SELECT category_name FROM category c JOIN goods g ON c.category_no = g.category_no WHERE goods_no = #{goods_no}  
+	</select>
+	
 </mapper>

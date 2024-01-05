@@ -114,7 +114,7 @@
 	
 </script>
 
-<body class="pt-5">
+<body style="padding-top: 20px;">
 	<!-- header : 부트스트랩, 제이쿼리 불러오기-->
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
 	<!-- navbar -->
@@ -174,9 +174,13 @@
 				<button type="submit" class="btn btn-primary" onclick="return validate_write()">상품 등록</button>
 			</div>
 		</form>
-	</div><!-- end 상품 등록 작성 폼 -->
-
-</body>
+	</div>
+<!-- end 상품 등록 작성 폼 -->
 <!-- footer -->
 <%@ include file="/WEB-INF/views/include/footer.jsp"%>
+</body>
+<!-- load 함수로 동적 교체 -->
+<script>
+	$(".category").load("<c:url value='navbar' />");
+</script>
 </html>

@@ -16,7 +16,65 @@
 <!-- 글 등록 -->
 <insert id="job_insert" parameterType="job">
 	insert into job values(null, #{member_no}, #{job_title}, #{job_content}, #{job_price}, #{job_place},
-	#{job_time1}, #{job_time2}, #{job_day}, sysdate(), #{job_image})
+	#{job_time1}, #{job_time2}, #{job_day}, sysdate(), #{job_image}, 0)
 </insert>
 
+<!-- 글 수정 위해 Job 정보 가져오기 -->
+<select id="get_job" parameterType="int" resultType="java.util.Map">
+	select * from job
+	join member on member.member_no = job.member_no
+	where job.job_no = #{job_no}
+</select>
+
+<!-- job_no으로 모든 정보 가져오기 -->
+<select id="get_all_job" parameterType="int" resultType="job">
+	select * from job where job_no = #{job_no}
+</select>
+
+<!-- 조회수 증가 -->
+<update id="add_readcount" parameterType="int">
+	update job set job_readcount = job_readcount + 1 
+	where job_no = #{job_no}
+</update>
+
+<!-- 글 수정 -->
+<update id="job_update" parameterType="job">
+	update job set
+		job_title = #{job_title},
+		job_content = #{job_content},
+		job_price = #{job_price},
+		job_place = #{job_place},
+		job_time1 = #{job_time1},
+		job_time2 = #{job_time2},
+		job_day = #{job_day},
+		job_image = #{job_image}
+	where job_no = #{job_no}
+</update>
+
+<!-- 글 삭제 -->
+<delete id="job_delete" parameterType="int">
+	delete from job where job_no = #{job_no}
+</delete>
+
+<!-- 주변 공고 뿌리기 위한 주소 스플릿 -->
+<select id="get_job_place" parameterType="String" resultType="job">
+	select * from job
+	where job_place like '%${job_place}%' order by job_regdate
+	limit 5
+</select>
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

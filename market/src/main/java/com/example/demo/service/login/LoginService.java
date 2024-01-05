@@ -18,11 +18,13 @@ public class LoginService {
 	@Autowired
 	JoinService joinService;
 	
+	// 유저 체크
 	public Member user_check(Member member) {
 		Member user = memberDao.user_check(member);
 		return user;
 	}
 	
+	// 로그인 체크
 	public int login_check(Member member,HttpSession session) {
 		
 		Member user = user_check(member);

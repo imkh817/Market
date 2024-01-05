@@ -11,31 +11,11 @@
 <link rel="stylesheet" href="./css/pagination.css">
 <link rel="stylesheet" href="./css/navbar.css">
 </head>
-<body class="my-5 py-5">
+<body class="my-5">
 	<!-- 상단 내비바 -->
 	<%@ include file="/WEB-INF/views/include/navbar.jsp"%>
 
-	<!-- 프로필 정보 및 통계 영역 -->
 	<div class="mx-auto my-3 py-3" style="max-width: 768px;">
-		<%-- <div
-			class="container p-4 mb-3 bg-body-tertiary shadow rounded rounded-4">
-			<div class="row">
-				<div class="col my-auto text-center">
-					<p class="fs-4 fw-bold mb-2">#${member_nickname}</p>
-					<img src="./images/picture.png" class="img-fluid" alt="프로필 이미지"
-						style="width: 100px; height: 100px;">
-				</div>
-				<div class="col my-auto text-center pt-3">
-					<i class="fa-solid fa-gift fs-1 mb-2" style="color: #5ba95d;"></i>
-					<p class="fs-5">판매 ${sell_count}</p>
-				</div>
-				<div class="col my-auto text-center pt-3">
-					<i class="fa-solid fa-heart fs-1 mb-2" style="color: #e84a62;"></i>
-					<p class="fs-5">좋아요 ${liked_count}</p>
-				</div>
-			</div>
-		</div> --%>
-
 		<div class="d-flex justify-content-center my-3 py-3">
 			<ul class="nav nav-underline gap-5">
 				<li class="nav-item"><a class="nav-link" aria-current="page"
@@ -43,14 +23,14 @@
 				<li class="nav-item"><a class="nav-link"
 					href="member_liked_form" style="color: #47C83E;">관심 상품</a></li>
 				<li class="nav-item"><a class="nav-link"
-					href="member_delete_form" style="color: #47C83E;">회원 탈퇴</a></li>
+					href="member_update_form" style="color: #47C83E;">정보 수정</a></li>
 				<li class="nav-item"><a class="nav-link"
-					href="member_update_form" style="color: #47C83E;">정보 수정</a></li>	
+					href="member_delete_form" style="color: #47C83E;">회원 탈퇴</a></li>
 			</ul>
 		</div>
 	</div>
 
-	<div class="d-flex justify-content-center my-3 py-3">
+	<div class="d-flex justify-content-center">
 		<div class="join-container" style="width: 768px;">
 			<div class="join-form">
 				<h2>회원 탈퇴를 원하시면</h2>
@@ -70,4 +50,8 @@
 		<!-- 하단 내비바 -->
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 </body>
+<!-- load 함수로 동적 교체 -->
+<script>
+	$(".category").load("<c:url value='navbar' />");
+</script>
 </html>

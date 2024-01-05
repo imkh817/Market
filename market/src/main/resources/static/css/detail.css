@@ -1,23 +1,24 @@
 @charset "UTF-8";
 
 #goods_image {
-	max-width: 600px;
-	max-height: 600px;
-	height: auto;
+	max-width: 500px;
+	height: 500px;
 }
 
 #detail_indicator {
 	font-size: 14px;
 }
 
-#heart_icon {
-	font-size: 30px;
-	
-	cursor: pointer;
+#detail_category {
+	text-align: right;
+	color: #47C83E;
+	margin-top: 5px;
 }
 
-#edit {
-	float: right;
+
+#heart_icon {
+	font-size: 30px;
+	cursor: pointer;
 }
 
 #time_div {
@@ -26,6 +27,17 @@
 
 #recent_price {
 	font-size: 12px;
+	color: #47C83E;
+	text-decoration: none;
+}
+
+#social {
+	margin-top: -5px;
+}
+
+#member_nick {
+	font-size: 12px;
+	color: #47C83E;
 }
 
 #user_img {
@@ -34,10 +46,17 @@
 	cursor: pointer;
 }
 
-#kakaotalk-sharing-img {
-	font-size: 20px;
+#kakaotalk-sharing-btn {
+	font-size: 12px;
 	color: #47C83E;
+	text-decoration: none;
+}
+
+#kakaotalk-sharing-img {
+	width: 20px;
+	height: 20px;
 	cursor: pointer;
+	margin-bottom: 3px;
 }
 
 #view_div {
@@ -65,12 +84,12 @@
 
 #goods_content {
 	width: 750px;
-	height: 160px;
+	height: 130px;
 	border: none;
 	border-radius: 10px;
 	resize: none;
 	outline: none;
-	spellcheck: false;	/* textarea 내부 빨간줄 없애기 */
+	spellcheck: false;
 }
 
 #trade_here {
@@ -97,15 +116,20 @@
 
 #chat:hover {
 	border-color: #47C83E;
-	color: #47C83E; /* 텍스트 색상 변경 (선택 사항) */
-	background-color: transparent; /* 배경색 투명으로 설정 */
+	color: #47C83E;
+	background-color: transparent;
+}
+
+#edit {
+	float: right;
+	bottom: -190px;
 }
 
 #hit_goods {
 	margin-top: -100px;
 }
 
-#hit_image {
+#hit_info {
 	margin: 10px;
 	margin-top: -50px;
 	padding-right: 10px;
@@ -117,10 +141,20 @@
 	font-style: bold;
 }
 
+#hit_img {
+	width: 200px;
+	height: 200px;
+}
+
 #place_info {
 	width:150px;
 	font-size: 12px;
 	text-align:center;
 	padding:6px 0;
+}
+
+#place_a {
+	color: #47C83E;
+	text-decoration: none;
 }
 

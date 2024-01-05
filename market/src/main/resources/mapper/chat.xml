@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.dao.ChatDao">
+	<!-- useGeneratedKeys="true" : key를 자동으로 생성할 것인지 여부, 정수 형태로 생성되며
+	 MySql의 AutoIncrement에 해당한다. (시퀀스와 비슷) 
+	 	 keyProperty="id" : 자동 생성된 키를 id라는 객체에 저장한다.-->
+	<insert id="add" parameterType="map" useGeneratedKeys="true" keyProperty="id">
+	INSERT INTO 'chatRoom'
+	SET regDate = NOW(),
+	title = #{title},
+	passwd = #{passwd},
+	memberId = #{memberId}
+	</insert>
+
+</mapper>

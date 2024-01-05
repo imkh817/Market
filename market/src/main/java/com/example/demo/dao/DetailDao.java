@@ -14,6 +14,9 @@ public interface DetailDao {
 //	상세페이지 이동 및 데이터 불러오기
 	List<Map<String, Object>> detail_goods(Goods goods);
 
+//	인기상품 이동
+	List<Map<String, Object>> best_detail(int goods_no);
+	
 //	member 데이터 불러오기
 	List<Member> detail_member(Member member);
 	
@@ -23,11 +26,10 @@ public interface DetailDao {
 //	조회수 증가
 	int read_count_up(Goods goods);
 
-//	인기상품 이동
-	List<Map<String, Object>> best_detail(int goods_no);
-
-//	상품 삭제
+	
+//	상품 삭제 - 비가시처리
 	int detail_delete(int goods_no);
+
 
 
 

@@ -5,7 +5,9 @@
 
 <!-- 판매 내역 리스트 불러오기 -->
 <select id="getList" parameterType="goods" resultType="goods">
-	SELECT * FROM goods WHERE member_no = #{member_no} 
+	SELECT * FROM goods
+	WHERE member_no = #{member_no}
+	ORDER BY goods_regdate desc
 	LIMIT #{start_list}, 6
 </select>
 
@@ -32,7 +34,17 @@
 	FROM goods
 	JOIN liked ON goods.goods_no = liked.goods_no
 	where liked.member_no = #{member_no}
+	order by goods_regdate desc
 	limit #{start_list}, 6
 </select>
 
+<!-- 상품 상태 업데이트 -->
+<update id="goods_state_update" parameterType="goods">
+	update goods set goods_state = #{goods_state}
+	where goods_no = #{goods_no}
+</update>
+
+<select id="get_member" parameterType="int" resultType="member">
+	select * from member where member_no = #{member_no}
+</select>
 </mapper>

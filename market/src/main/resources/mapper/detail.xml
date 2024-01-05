@@ -30,12 +30,11 @@
 		FROM (SELECT * FROM goods WHERE goods_no !=
 		#{goods_no}) AS best ORDER BY goods_readcount DESC LIMIT 5
 	</select>
-
-	<!-- 상품 삭제 -->
-	<delete id="detail_delete" parameterType="int">
-		DELETE FROM goods WHERE
-		goods_no = #{goods_no}
-	</delete>
+	
+	<!-- 상품 삭제 - 비가시처리 -->
+	<update id="detail_delete" parameterType="int">
+		UPDATE goods SET goods_state = 4 WHERE goods_no = ${goods_no}
+	</update>
 
 	
 	

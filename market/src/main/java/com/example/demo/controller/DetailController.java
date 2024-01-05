@@ -13,8 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.demo.model.Goods;
 import com.example.demo.model.Liked;
 import com.example.demo.model.Member;
+import com.example.demo.model.PagingPgm;
+import com.example.demo.service.CategoryService;
 import com.example.demo.service.DetailService;
 import com.example.demo.service.LikedService;
+import com.example.demo.service.MemberService;
+import com.example.demo.service.mypage.MypageService;
 
 @Controller
 
@@ -25,6 +29,15 @@ public class DetailController {
 
 	@Autowired
 	private LikedService likedService;
+	
+	@Autowired
+	private CategoryService categoryService;
+	
+	@Autowired
+	private MemberService memberService;
+	
+	@Autowired
+	private MypageService mypageService;
 
 //	상세페이지 이동 및 데이터 불러오기
 	@RequestMapping("detail")
@@ -39,7 +52,7 @@ public class DetailController {
 //		인기상품 5개
 		List<Map<String, Object>> best_detail = detailService.best_detail(goods.getGoods_no());
 		System.out.println("상세 goods_readcount 기반 데이터 = " + best_detail);
-
+		
 //		시간 분단위 출력
 		int minute = detailService.goods_reg_minute(goods.getGoods_no());
 
@@ -48,14 +61,20 @@ public class DetailController {
 
 //		하트 개수
 		int heart_count = likedService.heart_count(goods.getGoods_no());
-
 		
+//		카테고리명 가져오기
+		String detail_category = categoryService.detail_category(goods);
+		
+//		회원 닉네임 가져오기
+		String detail_nick = memberService.detail_nick(goods);
+
 		model.addAttribute("detail_result", detail_result);
 		model.addAttribute("minute", minute);
 		model.addAttribute("read_count_up", read_count_up);
 		model.addAttribute("best_detail", best_detail);
 		model.addAttribute("heart_count", heart_count);
-		
+		model.addAttribute("detail_category", detail_category);
+		model.addAttribute("detail_nick", detail_nick);
 
 //		하트
 		if (session.getAttribute("member_no") != null) {
@@ -84,7 +103,7 @@ public class DetailController {
 		return "goods/detail";
 	}
 
-//	상품 삭제
+//	상품 삭제 - 비가시처리
 	@RequestMapping("detail_delete")
 	public String detail_delete(int goods_no, Model model) {
 		int detail_delete = detailService.detail_delete(goods_no);
@@ -116,6 +135,25 @@ public class DetailController {
 
 		model.addAttribute("liked_state", liked_state);
 
+	}
+	
+//	판매자 프로필
+	@RequestMapping("/seller_profile")
+	public String seller_profile(String page, Goods goods, HttpSession session, Model model) {
+		PagingPgm pp = mypageService.paging(page, goods.getMember_no());
+		List<Goods> mypage_list = mypageService.getList(pp, goods.getMember_no());
+		
+		int sell_count = pp.getTotal();
+		int liked_count = mypageService.paging_liked(page,goods.getMember_no()).getTotal();
+		String detail_nick = memberService.detail_nick(goods);
+		
+		model.addAttribute("member_nickname", detail_nick);
+		model.addAttribute("sell_count", sell_count);
+		model.addAttribute("liked_count", liked_count);
+		model.addAttribute("list", mypage_list);
+		model.addAttribute("page", pp);
+		
+		return "mypage/seller_profile";
 	}
 
 }

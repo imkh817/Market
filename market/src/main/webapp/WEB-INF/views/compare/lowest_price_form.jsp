@@ -44,7 +44,7 @@ div {
 }
 </style>
 </head>
-<body>
+<body style="padding-top:20px;">
 	<section class="banner my-5 py-5">
 		<div class="title">
 			<h1>
@@ -69,7 +69,7 @@ div {
 			style="color: #47C83E;"></i>
 	</form>
 	<br>
-	<div class="lowest_price" align="center">
+	<div class="lowest_price mb-5" align="center">
 		<a href="lowest_baechu_form" style="color: #47C83E;">양배추 마켓 최저가</a>&nbsp;
 		&nbsp;|&nbsp; &nbsp;<a href="lowest_naver_form">네이버 신제품 최저가</a>
 	</div>
@@ -158,4 +158,8 @@ div {
 	</c:if>
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 </body>
+<!-- load 함수로 동적 교체 -->
+<script>
+	$(".category").load("<c:url value='navbar' />");
+</script>
 </html>

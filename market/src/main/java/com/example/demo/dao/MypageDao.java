@@ -23,4 +23,8 @@ public interface MypageDao {
 
 	int get_liked_total(int member_no);
 
+	int goods_state_update(Goods goods);
+
+	Member get_member(int member_no);
+
 }
