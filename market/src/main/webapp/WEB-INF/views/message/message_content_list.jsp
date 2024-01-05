@@ -5,35 +5,25 @@
 
 
 <c:forEach var="tmp" items="${clist }">
-	
 	<c:choose>
-		<c:when test="${sessionScope.nick ne tmp.message_send_nick }">
-		<!-- 받은 메세지 -->
-		<div class="	">
-			<div class="incoming_msg_img">
-					<!-- 사진 부분 수정해야함. -->
-					<img src="./upload/profile/${tmp.profile }" alt=${tmp.message_send_nick }>
-				</a>
+		<c:when test="${myNick ne tmp.message_send_nick }">
+			<div>
+				<div class="received_withd_msg">${tmp.message_content }</div>
 			</div>
-			<div class="received_msg">
-				<div class="received_withd_msg">
-					<p>${tmp.message_content }</p>
-					<span class="time_date"> ${tmp.message_send_time }</span>
-				</div>
-			</div>
-		</div>
+			<br>
+			<br>
+			<span class="time_date">      ${tmp.message_send_time }</span>
+			<br>
 		</c:when>
-		
+
 		<c:otherwise>
-		<!-- 보낸 메세지 -->
-		<div class="outgoing_msg">
-			<div class="sent_msg">
-				<p>${tmp.message_content }</p>
-				<span class="time_date"> ${tmp.message_send_time }</span>
+			<div>
+				<div class="sent_msg">${tmp.message_content }</div>
 			</div>
-		</div>
+			<br>
+			<br>
+			<span class="time_date2"> ${tmp.message_send_time }</span>
+			<br>
 		</c:otherwise>
 	</c:choose>
-
-
 </c:forEach>

@@ -21,30 +21,23 @@
 
 <body>
 	<%@ include file="/WEB-INF/views/include/navbar.jsp"%>
-	<!-- 메뉴바 
-       현재페이지 뭔지 param.thisPage에 넣어서 navbar.jsp에  던짐 -->
-	<jsp:include page="../include/navbar.jsp">
-		<jsp:param value="message" name="thisPage" />
-	</jsp:include>
-
+	<!-- 메뉴바 현재페이지 뭔지 param.thisPage에 넣어서 navbar.jsp에  던짐 -->
 	<br />
 	<br />
 	<br />
 	<br />
 	<br />
-
 	<div class="msg-container">
-
 		<div class="messaging">
 			<div class="inbox_msg">
 				<!-- 메세지 목록 영역 -->
 				<div class="inbox_people">
 					<div class="headind_srch">
 						<div class="recent_heading">
-							<h4>Recent</h4>
+							<h4>채팅방</h4>
 						</div>
 					</div>
-
+					
 					<!-- 메세지 리스트 -->
 					<div class="inbox_chat"></div>
 				</div>
@@ -62,10 +55,38 @@
 
 		</div>
 	</div>
-
 	<script>
 	
-	// 가장 처음 메세지를 보냈을 때 리스트를 가져온다.
+    // JSTL을 사용하여 JSP 내에서 Java 변수를 JavaScript로 가져오기
+    var goodsNo = ${param.goods_no};
+    var memberNo = ${param.member_no};
+    var sessionMemberNo = ${param.session_member_no};
+/* 	const intervalId = setInterval(function () {
+	   }(), 3000); */
+    
+    // 채팅방 만들기
+       $(document).ready(function() {
+        // Ajax를 사용하여 서버로 데이터 전송
+        $.ajax({
+            type: "POST",  // 또는 "GET" 등 필요에 따라 변경
+            url: "message_list",
+            data: {
+                member_no: memberNo,
+                goods_no: goodsNo
+            },
+            success: function(response) {
+                // 서버 응답에 대한 처리
+                console.log(response);
+            },
+            error: function(error) {
+                // 에러 처리
+                console.log(error);
+            }
+        });
+    });
+    
+    
+	// 가장 처음 웹페이지를 로드 했을 시에 채팅룸 리스트를 가져온다.
 	const FirstMessageList = function(){
 		$.ajax({
 			url:"message_ajax_list",
@@ -73,12 +94,13 @@
 			data:{
 			},
 			success:function(data){
-				console.log("메세지 리스트 리로드 성공");
-				
+				// <div class="inbox_chat"></div> 에 데이터를 넣는다.
 				$('.inbox_chat').html(data);
 				
-				// 메세지 리스트중 하나를 클릭했을 때
+				// message_ajax_list.jsp의 'chat_list' 버튼 중 하나를 클릭했을 때
 				$('.chat_list').on('click', function(){
+
+					// 포함된 html 요소에서 room과 other_nick의 값을 가져와 각각 할당한다.
 					let room = $(this).attr('room');
 					let other_nick = $(this).attr('other-nick');
 					
@@ -108,20 +130,51 @@
 						// 메세지 전송 함수 호출
 						SendMessage(room, other_nick);
 						
+						
 						// 전송버튼을 누르면 메세지 리스트가 리로드 되면서 현재 열린 메세지의 선택됨 표시가 사라진다.
 						// 이걸 해결하기 위해 메세지 전송버튼을 누르고 메세지 리스트가 리로드되면 메세지 리스트의 첫번째 메세지(현재 열린 메세지)가 선택됨 표시 되도록 한다.
-						//$('.chat_list_box:first').addClass('active_chat');
+						// $('.chat_list_box:first').addClass('active_chat');
+						
 					});
 					
+					// 엔터 키 이벤트
+				    $('.write_msg').on('keypress', function(event) {
+				        // event.which는 브라우저 호환성을 위한 것으로 엔터 키의 경우 13입니다.
+				        if (event.which === 13) {
+				            // 엔터 키가 눌렸을 때 SendMessage 함수 호출
+				            SendMessage(room, other_nick);
+				        }
+				    });
 					
-					// 메세지 내용을 불러오는 함수 호출
-					MessageContentList(room);
+					// 메세지 내용을 가져온다.
+					MessageContentList(room, other_nick);
 					
+			        // 자동 로드 기능 구현하자.
+			        if (typeof intervalId === 'undefined') {
+			            // 전역 변수에 할당
+			            intervalId = setInterval(function () {
+			                // 클로저를 사용하여 외부 변수에 접근
+			                
+		            	/* IntervalMessageList(); */
+			            IntervalMessageContentList(room, other_nick);
+			            }, 3000);
+			        } else {
+			            // 이미 intervalId가 정의되어 있다면 clearInterval 호출
+			            clearInterval(intervalId);
+			            // 초기화
+			            intervalId = undefined;
+		          	  	intervalId = setInterval(function () {
+		                // 클로저를 사용하여 외부 변수에 접근
+		                
+		                /* IntervalMessageList(); */
+		                IntervalMessageContentList(room, other_nick);
+		            }, 3000);
+			        }
 				});
-				
 			}
-		})
+		}) 
 	};
+	
 	
 	// 메세지 리스트를 다시 가져온다.
 	const MessageList = function(){
@@ -138,13 +191,13 @@
 				
 				// 메세지 리스트중 하나를 클릭했을 때
 				$('.chat_list').on('click', function(){
-					let message_room = $(this).attr('room');
+					let room = $(this).attr('room');
 					let other_nick = $(this).attr('other-nick');
 					// 선택한 메세지빼고 나머지는 active 효과 해제하기
 					$('.chat_list_box').not('.chat_list_box.chat_list_box'+room).removeClass('active_chat');
 					// 선택한 메세지만 active 효과 주기
-					$('.chat_list_box'+message_room).addClass('active_chat');
-					
+					$('.chat_list_box'+room).addClass('active_chat');
+					// 메세지 입력 및 출력란 보이기
 					let send_msg = "";
 					send_msg += "<div class='type_msg'>";
 					send_msg += "	<div class='input_msg_write row'>";
@@ -164,19 +217,16 @@
 					$('.msg_send_btn').on('click',function(){
 						
 						// 메세지 전송 함수 호출
-						SendMessage(message_room, other_nick);
+						SendMessage(room, other_nick);
 						
 						// 전송버튼을 누르면 메세지 리스트가 리로드 되면서 현재 열린 메세지의 선택됨 표시가 사라진다.
 						// 이걸 해결하기 위해 메세지 전송버튼을 누르고 메세지 리스트가 리로드되면 메세지 리스트의 첫번째 메세지(현재 열린 메세지)가 선택됨 표시 되도록 한다.
-						//$('.chat_list_box:first').addClass('active_chat');
+						 $('.chat_list_box:first').addClass('active_chat');
 					});
 					
 					// 메세지 내용을 불러오는 함수 호출
-					/* MessageContentList(message_room); */
-					setInterval(function () {
-						MessageContentList(message_room);
-					}, 3000);
-					
+					MessageContentList(room);
+
 				});
 				
 				// 전송버튼을 누르면 메세지 리스트가 리로드 되면서 현재 열린 메세지의 선택됨 표시가 사라진다.
@@ -185,88 +235,130 @@
 			}
 		})
 	};
-    
+	
+	// 반복하기 위한 MessageList.
+	const IntervalMessageList = function(){
+
+		$.ajax({
+			url:"message_ajax_list",
+			method:"get",
+			data:{
+			},
+			success:function(data){
+				console.log("메세지 리스트 리로드 성공");
+				
+				$('.inbox_chat').html(data);
+				
+				// 전송버튼을 누르면 메세지 리스트가 리로드 되면서 현재 열린 메세지의 선택됨 표시가 사라진다.
+				// 이걸 해결하기 위해 메세지 전송버튼을 누르고 메세지 리스트가 리로드되면 메세지 리스트의 첫번째 메세지(현재 열린 메세지)가 선택됨 표시 되도록 한다.
+				$('.chat_list_box:first').addClass('active_chat');
+			}
+		})
+	};
+	
 	
 	// 메세지 내용을 가져온다.
 	// 읽지 않은 메세지들을 읽음으로 바꾼다.
-	const MessageContentList = function(message_room) {
-		$.ajax({
-			url:"message_content_list",
-			method:"GET",
-			data:{
-				message_room : message_room,
-			},
-			success:function(data){
-				console.log("메세지 내용 가져오기 성공");
-				
-				// 메세지 내용을 html에 넣는다
-				$('.msg_history').html(data);
-				
-				// 이 함수로 메세지 내용을 가져올때마다 스크롤를 맨아래로 가게 한다.
-				$(".msg_history").scrollTop($(".msg_history")[0].scrollHeight);
-
-			},
-			error : function() {
-				alert('서버 에러');
-			}
-		})
-		
-		$('.unread'+message_room).empty();
-	
-	};
-	
-/* 	setInterval(function () {
-		MessageContentList(message_room);
-	}, 3000);
-	 */
-	
-	// 메세지를 전송하는 함수
-	const SendMessage = function(room, other_nick){
-		
-		let message_content = $('.write_msg').val().trim();
-		//alert("content: " + content);
-		if(message_content == ""){
-			alert("메세지를 입력하세요!");
-		}else{
+		const MessageContentList = function(room, other_nick) {
 			$.ajax({
-				url:"message_send_inlist",
-				method:"GET",
-				data:{
+				url : "message_content_list",
+				method : "GET",
+				data : {
 					room : room,
-					other_nick: other_nick,
-					content: message_content
+					other_nick : other_nick
 				},
-				success:function(data){
-					console.log("메세지 전송 성공");
-					
-					// 메세지 입력칸 비우기
-					$('.write_msg').val("");
-					
-					// 메세지 내용  리로드
-					MessageContentList(room);
-					
-					// 메세지 리스트 리로드
-					MessageList();
-					
+				success : function(data) {
+					// 메세지 내용을 html에 넣는다
+					$('.msg_history').html(data);
+
+					// 이 함수로 메세지 내용을 가져올때마다 스크롤을 맨아래로 가게 한다.
+					$(".msg_history").scrollTop(
+							$(".msg_history")[0].scrollHeight);
 				},
 				error : function() {
 					alert('서버 에러');
 				}
-			});
-		}
+			})
+			// 데이터가 아닌 함수 자체의 값을 비워준다.
+			$('.unread' + room).empty();
+		};
 		
-	};
-	
-	$(document).ready(function(){
-		// 메세지 리스트 리로드
-		FirstMessageList();
-	});
-	
-	
-	
-	
-	</script>
+		
+	// 반복 하기 위한 MessageContentList
+		const IntervalMessageContentList = function(room, other_nick) {
+			$.ajax({
+				url : "message_content_list",
+				method : "GET",
+				data : {
+					room : room,
+					other_nick : other_nick
+				},
+				success : function(data) {
+					// 메세지 내용을 html에 넣는다
+					$('.msg_history').html(data);
+				},
+				error : function() {
+					alert('서버 에러');
+				}
+			})
+			// 데이터가 아닌 함수 자체의 값을 비워준다.
+			$('.unread' + room).empty();
+		};
 
+
+		// 메세지를 전송하는 함수
+		const SendMessage = function(room, other_nick) {
+			let message_content = $('.write_msg').val().trim();
+			//alert("content: " + content);
+			if (message_content == "") {
+				alert("메세지를 입력하세요!");
+			} else {
+				$.ajax({
+					url : "message_send_inlist",
+					method : "GET",
+					data : {
+						room : room,
+						other_nick : other_nick,
+						content : message_content
+					},
+					success : function(data) {
+						console.log("메세지 전송 성공");
+
+						// 메세지 입력칸 비우기
+						$('.write_msg').val("");
+
+  						// 메세지 내용  리로드
+						MessageContentList(room);
+
+						// 메세지 리스트 리로드
+						MessageList();
+						
+						FirstMessageList();
+						
+					},
+					error : function() {
+						alert('서버 에러');
+					}
+				});
+			}
+
+		};
+		
+		
+		$(document).ready(function() {
+			// 메세지 리스트 리로드
+			FirstMessageList();
+		});
+		
+		// 자동 로드 기능 구현하자.    
+/*		const intervalId = setInterval(function (room, other_nick) {
+	        // 클로저를 사용하여 외부 변수에 접근
+	        return function () {
+		            // 메세지 내용 리로드
+	            MessageContentList(room, other_nick);
+	        };
+	    }(room, other_nick), 3000); */
+	</script>
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 </body>
 </html>

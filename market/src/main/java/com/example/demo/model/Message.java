@@ -14,7 +14,7 @@ public class Message {
 	private String message_send_time;
 	private String message_read_time;
 	private String message_content;
-	private String message_read_chk;
+	private int message_read_chk;
 	
 	// 현재 사용자의 메세지 상대 nick을 담는다.
 	private String other_nick;

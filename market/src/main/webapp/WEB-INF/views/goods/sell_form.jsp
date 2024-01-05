@@ -146,7 +146,8 @@
 			<div class="form-group row mt-3">
 				<label for="goods_price" class="col-sm-2 col-form-label fw-bold">가격</label>
 				<div class="col-sm-4">
-					<input type="number" class="form-control" id="goods_price" name="goods_price" placeholder="숫자만 입력해주세요.">
+					<input type="number" class="form-control" id="goods_price" name="goods_price" 
+					min="0" max="99999999" placeholder="숫자만 입력해주세요.">
 				</div>
 			</div>
 

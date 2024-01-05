@@ -111,7 +111,7 @@ function phone_authorization1(event) {
 							<div class="modal-body">
 								<div class="mb-3">
 									<label for="message-text" class="col-form-label">내용:</label>
-									<textarea class="form-control" id="message-text" name="prompt"></textarea>
+									<textarea class="form-control" id="message-text" name="prompt" placeholder="ex)양배추 캐릭터"></textarea>
 								</div>
 							</div>
 							<div class="modal-footer">

@@ -4,13 +4,13 @@
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 <c:forEach var="tmp" items="${list }">
 	<div class="chat_list_box${tmp.message_room } chat_list_box">
-		<div type="button" class="chat_list" room="${tmp.message_room }" other-nick="${tmp.other_nick }">
+		<div type="button" class="chat_list" room="${tmp.message_room }"
+			other-nick="${tmp.other_nick }">
 			<!-- active-chat -->
 			<div class="chat_people">
-				<div class="chat_img" >
-						<!-- 사진 구해올 곳 여기도 수정해야함 -->
-						<img src="./upload/profile/${tmp.profile}" alt="sunil" >
-					</a>
+				<div class="chat_img">
+					<!-- 사진 구해올 곳 여기도 수정해야함 -->
+					<img src="./upload/${tmp.profile}" alt="sunil"> </a>
 				</div>
 				<div class="chat_ib">
 					<h5>${tmp.other_nick }<span class="chat_date">${tmp.message_send_time }</span>
