@@ -53,18 +53,18 @@
 		<if test="keyword != null and category != 0">
 			WHERE (goods_name LIKE CONCAT('%',#{keyword},'%') OR goods_content LIKE CONCAT('%',#{keyword},'%'))
 			AND category_no=#{category}
-			AND goods_state IN ('1', '2', '3')
+			AND goods_state = '1' OR goods_state = '2'
 		</if>
 		<if test="keyword != null and category == 0">
 			WHERE (goods_name LIKE CONCAT('%',#{keyword},'%') OR goods_content LIKE CONCAT('%',#{keyword},'%')) 
-			AND goods_state IN ('1', '2', '3')
+			AND goods_state = '1' OR goods_state = '2'
 		</if>
 		<if test="keyword == null and category != 0">
 			WHERE category_no = #{category} 
-			AND goods_state IN ('1', '2', '3')
+			AND goods_state = '1' OR goods_state = '2'
 		</if>
 		<if test="keyword == null and category == 0">
-			WHERE goods_state IN ('1', '2', '3')
+			WHERE goods_state = '1' OR goods_state = '2'
 		</if>
 	</select>
 
@@ -74,18 +74,18 @@
 		<if test="keyword != null and category != 0">
 			WHERE (goods.goods_name LIKE CONCAT('%',#{keyword},'%') OR goods.goods_content LIKE CONCAT('%',#{keyword},'%')) 
 			AND goods.category_no=#{category}
-			AND goods.goods_state IN ('1', '2', '3')
+			AND goods.goods_state = '1' OR goods.goods_state = '2'
 		</if>
 		<if test="keyword != null and category == 0">
 			WHERE (goods_name LIKE CONCAT('%',#{keyword},'%') OR goods_content LIKE CONCAT('%',#{keyword},'%')) 
-			AND goods.goods_state IN ('1', '2', '3')
+			AND goods.goods_state = '1' OR goods.goods_state = '2'
 		</if>
 		<if test="keyword == null and category != 0">
 			WHERE goods.category_no = #{category} 
-			AND goods.goods_state IN ('1', '2', '3')
+			AND goods.goods_state = '1' OR goods.goods_state = '2'
 		</if>
 		<if test="keyword == null and category == 0">
-			WHERE goods.goods_state IN ('1', '2', '3')
+			WHERE goods.goods_state = '1' OR goods.goods_state = '2'
 		</if>
 		GROUP BY goods.goods_no
 		<choose>
@@ -104,7 +104,7 @@
 		SELECT goods.*,
 		count(liked.liked_no) AS liked_no FROM goods LEFT JOIN liked ON
 		goods.goods_no = liked.goods_no
-		WHERE goods.goods_state IN ('1', '2', '3')
+		WHERE goods.goods_state = '1' OR goods.goods_state = '2'
 		GROUP BY goods.goods_no
 		ORDER BY goods.goods_readcount DESC LIMIT 0, 12
 	</select>
