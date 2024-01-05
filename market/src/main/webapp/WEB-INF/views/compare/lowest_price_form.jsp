@@ -106,7 +106,7 @@ div {
 				<c:forEach var="list" items="${list}">
 					<div class="col">
 						<div class="card" style="border: none;">
-							<a href="detail?goods_no=${list.goods_no }"> <img src="${list.goods_image}"
+							<a href="#"> <img src="./upload/${list.goods_image}"
 								class="card-img-top mx-auto my-2" alt=""
 								style="width: 200px; height: 200px;">
 							</a>
