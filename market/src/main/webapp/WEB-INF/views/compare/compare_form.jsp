@@ -75,7 +75,7 @@
 								<a href="${list.link }" style="text-decoration: none; color:#000">
 								<p class="card-text lh-1 fw-bold">${list.lprice}원</p>
 								</a>
-								<br>
+								<br> 
 							</div>
 						</div>
 					</div>
