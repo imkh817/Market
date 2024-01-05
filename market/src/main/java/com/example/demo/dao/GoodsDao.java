@@ -30,4 +30,7 @@ public interface GoodsDao {
 
 	// 특정게시글 정보 불러오기
 	Goods get_goods(Goods goods);
+	
+	// 판매 글 수정
+	int goods_update(Goods goods);
 }

@@ -82,4 +82,11 @@
 	<select id="get_goods" parameterType="goods" resultType="goods">
 		select * from goods where goods_no=#{goods_no}
 	</select>
+	
+	<!-- 상품 판매 글 수정 -->
+	<update id="goods_update" parameterType="goods">
+		update goods set goods_name=#{goods_name}, goods_content=#{goods_content},
+		goods_price=#{goods_price}, goods_place=#{goods_place},goods_image=#{goods_image}
+		where goods_no=#{goods_no};
+	</update>
 </mapper>

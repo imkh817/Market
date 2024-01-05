@@ -116,5 +116,26 @@ public class GoodsService {
 	public Goods get_goods(Goods goods) {
 		return GoodsDao.get_goods(goods);
 	}
+	
+	// 다중 이미지 파싱해서 list
+	public String[] iamge_parsing(Goods goods){
+		
+		Goods get_goods = GoodsDao.get_goods(goods);
+		String images = get_goods.getGoods_image();
+		System.out.println("이미지 파싱을 위해 이미지 불어오기: "+images);
+		
+		String[] image_list = images.split(images, ',');
+		System.out.println("파싱한 이미지: "+image_list);
+		
+		return image_list;
+	}
+	
+	// 게시글 수정시 upload폴더 기존 사진 삭제
 
+
+	// 판매 글 수정
+	public int goods_update(Goods goods) {
+		System.out.println("수정 할 goods: "+goods.toString());
+		return GoodsDao.goods_update(goods);
+	}
 }
