@@ -5,7 +5,7 @@
 
 	<!-- Liked 테이블 연결 처리 -->
 	<resultMap type="liked" id="liked">
-		<result column="LIKED_NO" property="liked_no" />		
+		<result column="LIKED_NO" property="liked_no" />
 	</resultMap>
 	<resultMap type="goods" id="goods">
 		<result column="GOODS_NO" property="goods_no" />
@@ -37,9 +37,10 @@
 	]]>
 
 	</select>
-	
+
 	<!-- 최저가 비교 상품 리스트 -->
-	<select id="get_compare_list" parameterType="goods" resultType="goods">
+	<select id="get_compare_list" parameterType="goods"
+		resultType="goods">
 		<![CDATA[
 		select * from goods where goods_name LIKE CONCAT('%', #{goods_name}, '%')  and goods_state='3' and goods_regdate >= DATE_SUB(sysdate(), INTERVAL 30 DAY) AND goods_regdate < sysdate() order by goods_regdate desc
 		limit #{start_list},12;
@@ -48,54 +49,70 @@
 
 	<!-- 글 갯수 -->
 	<select id="goods_listcount" resultType="int">
-		SELECT COUNT(*) FROM goods 
-		<if test = "keyword != null and category != 0">
-			WHERE ((goods.goods_name LIKE CONCAT('%',#{keyword},'%') or goods.goods_content LIKE CONCAT('%',#{keyword},'%')) and goods.category_no=#{category}) 
+		SELECT COUNT(*) FROM goods
+		<if test="keyword != null and category != 0">
+			WHERE ((goods.goods_name LIKE CONCAT('%',#{keyword},'%') OR goods.goods_content LIKE CONCAT('%',#{keyword},'%'))
+			AND goods.category_no=#{category}
+			AND (goods.goods_state = '1' OR goods.goods_state = '2')
 		</if>
-  		<if test = "keyword != null and category == 0">
-			WHERE (goods_name LIKE CONCAT('%',#{keyword},'%') or goods_content LIKE CONCAT('%',#{keyword},'%'))
+		<if test="keyword != null and category == 0">
+			WHERE ((goods_name LIKE CONCAT('%',#{keyword},'%') OR goods_content LIKE CONCAT('%',#{keyword},'%')) 
+			AND (goods.goods_state = '1' OR goods.goods_state = '2')
 		</if>
-		<if test = "keyword == null and category != 0">
-			WHERE goods.category_no = #{category}
+		<if test="keyword == null and category != 0">
+			WHERE goods.category_no = #{category} 
+			AND (goods.goods_state = '1' OR goods.goods_state = '2')
 		</if>
-		<if test = "keyword == null and category == 0">
+		<if test="keyword == null and category == 0">
+			WHERE (goods.goods_state = '1' OR goods.goods_state = '2')
 		</if>
 	</select>
 
 	<!-- 글 목록 -->
 	<select id="goods_list" resultMap="goods">
-		SELECT goods.*, count(liked.liked_no) AS liked_no FROM goods LEFT JOIN liked ON goods.goods_no = liked.goods_no 
-		<if test = "keyword != null and category != 0">
-			WHERE ((goods.goods_name LIKE CONCAT('%',#{keyword},'%') or goods.goods_content LIKE CONCAT('%',#{keyword},'%')) and goods.category_no=#{category}) 
+		SELECT goods.*, count(liked.liked_no) AS liked_no FROM goods LEFT JOIN
+		liked ON goods.goods_no = liked.goods_no
+		<if test="keyword != null and category != 0">
+			WHERE ((goods.goods_name LIKE CONCAT('%',#{keyword},'%') OR goods.goods_content LIKE CONCAT('%',#{keyword},'%')) 
+			AND goods.category_no=#{category}
+			AND (goods.goods_state = '1' OR goods.goods_state = '2')
 		</if>
-  		<if test = "keyword != null and category == 0">
-			WHERE (goods_name LIKE CONCAT('%',#{keyword},'%') or goods_content LIKE CONCAT('%',#{keyword},'%'))
+		<if test="keyword != null and category == 0">
+			WHERE ((goods_name LIKE CONCAT('%',#{keyword},'%') OR goods_content LIKE CONCAT('%',#{keyword},'%')) 
+			AND (goods.goods_state = '1' OR goods.goods_state = '2')
 		</if>
-		<if test = "keyword == null and category != 0">
-			WHERE goods.category_no = #{category}
+		<if test="keyword == null and category != 0">
+			WHERE (goods.category_no = #{category} 
+			AND (goods.goods_state = '1' OR goods.goods_state = '2')
 		</if>
-		<if test = "keyword == null and category == 0">
+		<if test="keyword == null and category == 0">
+			WHERE (goods.goods_state = '1' OR goods.goods_state = '2')
 		</if>
 		GROUP BY goods.goods_no
 		<choose>
-            <when test="order == 'readcount'">
-            	ORDER BY goods.goods_readcount DESC 
-            </when>
-            <otherwise>
-                ORDER BY goods.goods_regdate DESC 
-            </otherwise>
+			<when test="order == 'readcount'">
+				ORDER BY goods.goods_readcount DESC
+			</when>
+			<otherwise>
+				ORDER BY goods.goods_regdate DESC
+			</otherwise>
 		</choose>
 		LIMIT #{start}, 12
 	</select>
 
 	<!-- 인기글 목록 -->
 	<select id="best_list" resultMap="goods">
-		SELECT goods.*, count(liked.liked_no) AS liked_no FROM goods LEFT JOIN liked ON goods.goods_no = liked.goods_no GROUP BY goods.goods_no 
+		SELECT goods.*,
+		count(liked.liked_no) AS liked_no FROM goods LEFT JOIN liked ON
+		goods.goods_no = liked.goods_no
+		WHERE (goods.goods_state = '1' OR goods.goods_state = '2')
+		GROUP BY goods.goods_no
 		ORDER BY goods.goods_readcount DESC LIMIT 0, 12
 	</select>
-	
+
 	<!-- 특정게시글 정보 불러오기 -->
 	<select id="get_goods" parameterType="goods" resultType="goods">
-		select * from goods where goods_no=#{goods_no}
+		select *
+		from goods where goods_no=#{goods_no}
 	</select>
 </mapper>
