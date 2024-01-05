@@ -157,7 +157,8 @@
 									<div id="map"></div>
 								</c:if>
 								<c:if test="${dl.goods_place == null }">
-									<i class="fa-solid fa-location-dot" id="trade_marker"></i>&nbsp;<span>거래장소는 판매자에게 채팅해주세요!</span>
+									<i class="fa-solid fa-location-dot" id="trade_marker"></i>&nbsp;<span>거래장소는
+										판매자에게 채팅해주세요!</span>
 								</c:if>
 							</div>
 
@@ -165,30 +166,44 @@
 							<!-- 채팅 버튼 또는 수정, 삭제 -->
 
 							<!-- 한희 수정 시작 -->
-
 							<div class="col-2 text-end">
-								<c:if
-									test="${dl.goods_state ne '4' && dl.member_no != session_member_no }">
-									<button class="btn btn-outline-dark mt-2" id="chat"
-										onclick="location.href='<c:url value='${detail_chat_link}'/>'">채팅하기</button>
-								</c:if>
 
-								<c:if
-									test="${dl.goods_state ne '4' && dl.member_no == session_member_no }">
-									<div class="btn-group btn-group-sm" role="group"
-										aria-label="Small button group" id="edit">
-										<button type="button" class="btn btn-outline-primary"
-											onclick="location.href='update_sell_form?goods_no=${dl.goods_no}'">수정</button>
-										<button type="button" class="btn btn-outline-danger"
-											data-bs-toggle="modal" data-bs-target="#staticBackdrop">삭제</button>
-									</div>
+								<div id="goods_state">
+									<c:if test="${dl.goods_state eq '1'}">
+									&nbsp;<strong>판매중</strong>
 								</c:if>
-
-								<c:if
-									test="${dl.goods_state eq '4' && dl.member_no == session_member_no }">
-									<div>삭제된 게시물입니다.</div>
+									<c:if test="${dl.goods_state eq '2'}">
+									&nbsp;<strong>예약중</strong>
 								</c:if>
+									<c:if test="${dl.goods_state eq '3'}">
+									&nbsp;<strong>판매완료</strong>
+								</c:if>
+								</div>
 
+								<div>
+									<c:if
+										test="${dl.goods_state ne '4' && dl.member_no != session_member_no }">
+										<button class="btn btn-outline-dark mt-2" id="chat"
+											onclick="location.href='<c:url value='${detail_chat_link}'/>'">채팅하기</button>
+									</c:if>
+
+
+									<c:if
+										test="${dl.goods_state ne '4' && dl.member_no == session_member_no }">
+										<div class="btn-group btn-group-sm" role="group"
+											aria-label="Small button group" id="edit">
+											<button type="button" class="btn btn-outline-primary"
+												onclick="location.href='update_sell_form?goods_no=${dl.goods_no}'">수정</button>
+											<button type="button" class="btn btn-outline-danger"
+												data-bs-toggle="modal" data-bs-target="#staticBackdrop">삭제</button>
+										</div>
+									</c:if>
+
+									<c:if
+										test="${dl.goods_state eq '4' && dl.member_no == session_member_no }">
+										<div>삭제된 게시물입니다.</div>
+									</c:if>
+								</div>
 								<!-- 삭제 확인 모달창 -->
 								<div class="modal fade" id="staticBackdrop"
 									data-bs-backdrop="static" data-bs-keyboard="false"
@@ -222,7 +237,7 @@
 								</script>
 
 							</div>
-<%-- 							<div class="col-2 text-end">
+							<%-- 							<div class="col-2 text-end">
 								<button class="btn btn-outline-dark mt-2" id="chat"
 									onclick="location.href='<c:url value='${chat_link}'/>'">채팅하기</button>
 							</div> --%>

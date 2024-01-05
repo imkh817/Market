@@ -65,12 +65,10 @@
 }
 
 #goods_state {
-	border: none;
-	resize: none;
-	outline: none;
-	pointer-events: none;
-	font-size: 16px;
-	font-style: bold;
+	font-size: 20px;
+	color: #47C83E;
+	margin-top: 155px;
+	text-align: center;
 }
 
 #member_nick {
@@ -110,7 +108,7 @@
 
 #chat {
 	position: relative;
-	bottom: -175px;
+	margin-top: 10px;
 	border-color: #47C83E;
 }
 

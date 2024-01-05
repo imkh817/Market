@@ -142,16 +142,19 @@ public class DetailController {
 	public String seller_profile(String page, Goods goods, HttpSession session, Model model) {
 		PagingPgm pp = mypageService.paging(page, goods.getMember_no());
 		List<Goods> mypage_list = mypageService.getList(pp, goods.getMember_no());
+		Member member = mypageService.get_member(goods.getMember_no());
 		
 		int sell_count = pp.getTotal();
 		int liked_count = mypageService.paging_liked(page,goods.getMember_no()).getTotal();
-		String detail_nick = memberService.detail_nick(goods);
 		
-		model.addAttribute("member_nickname", detail_nick);
+		int heart_count = likedService.heart_count(goods.getGoods_no());
+
+		model.addAttribute("member", member);
 		model.addAttribute("sell_count", sell_count);
 		model.addAttribute("liked_count", liked_count);
 		model.addAttribute("list", mypage_list);
 		model.addAttribute("page", pp);
+		model.addAttribute("heart_count", heart_count);
 		
 		return "mypage/seller_profile";
 	}
