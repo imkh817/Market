@@ -48,10 +48,27 @@
 	update member set member_pw=#{member_pw} where member_id=#{member_id}
 </update>
 
+
 <!-- 상세페이지 회원명 가져오기 -->
 <select id="detail_nick" parameterType="int" resultType="String">
 	SELECT member_nickname FROM member m JOIN goods g ON m.member_no = g.member_no WHERE goods_no = #{goods_no}
 </select>
+
+<!-- 마이페이지 AI 이미지 정보수정 (이미지 파일명 저장)-->
+<update id="setImage" parameterType="member">
+	update member set member_image=#{member_image} where member_id = #{member_id}
+</update>
+
+<!-- 마이페이지 정보수정 -->
+<update id="update_member" parameterType="member">
+	update member set member_image=#{member_image},member_phone_num = #{member_phone_num},
+	member_nickname=#{member_nickname} where member_id=#{member_id}
+</update>
+<!-- 마이페이지 정보수정 이미지 선택 X -->
+<update id="no_image_update_member" parameterType="member">
+	update member set member_phone_num = #{member_phone_num},
+	member_nickname=#{member_nickname} where member_id=#{member_id}
+</update>
 
 
 </mapper>

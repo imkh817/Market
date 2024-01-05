@@ -78,10 +78,10 @@
 									style="font-size: 0.8rem;">
 									<i class="fa-solid fa-eye"></i> <span>&nbsp;${list.goods_readcount}</span>
 								</p>
-								<p class="col card-text text-body-tertiary lh-1"
+								<%-- <p class="col card-text text-body-tertiary lh-1"
 									style="font-size: 0.8rem;">
-									<i class="fa-solid fa-heart"></i> <span>&nbsp;관심</span>
-								</p>
+									<i class="fa-solid fa-heart"></i> <span>&nbsp;관심${list.goods_liked }</span>
+								</p> --%>
 								<div class="btn-group dropup">
 								  <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style=" background-color: #47C83E">
 									<c:if test="${list.goods_state == 1}"><span style="color:white;">판매중</span></c:if>
