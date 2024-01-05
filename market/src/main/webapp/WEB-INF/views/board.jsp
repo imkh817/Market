@@ -67,16 +67,19 @@
 							alt="" style="width: 200px; height: 200px;">
 						</a>
 						<div class="card-body mx-1 px-0">
-							<p class="card-text text-start mx-3 px-1 lh-1">
+							<p class="card-text text-start mx-3 px-1 lh-1" style="font-size: 0.9rem;">
 								<c:set var="truncated_sub"
-									value="${fn:substring(gd.goods_name, 0, 10)}" />
+									value="${fn:substring(gd.goods_name, 0, 12)}" />
 								<a href="detail?goods_no=${gd.goods_no}"
 									style="text-decoration: none; color: black;">
 									<c:if test="${fn:trim(gd.goods_state)=='2'}">
 										<span class="badge bg-warning my-auto" style="font-size: 0.6rem;">예약중</span>
 									</c:if>
+									<c:if test="${fn:trim(gd.goods_state)=='3'}">
+										<span class="badge bg-secondary my-auto" style="font-size: 0.6rem;">판매완료</span>
+									</c:if>
 									${truncated_sub}</a>
-								<c:if test="${fn:length(gd.goods_name)>10}">...</c:if>
+								<c:if test="${fn:length(gd.goods_name)>12}">...</c:if>
 							</p>
 							<p class="card-text text-start mx-3 px-1 lh-1 fw-bold">${gd.goods_price}</p>
 							<p class="card-text text-start mx-3 px-1 lh-1"
