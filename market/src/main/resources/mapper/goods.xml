@@ -51,42 +51,41 @@
 	<select id="goods_listcount" resultType="int">
 		SELECT COUNT(*) FROM goods
 		<if test="keyword != null and category != 0">
-			WHERE ((goods.goods_name LIKE CONCAT('%',#{keyword},'%') OR goods.goods_content LIKE CONCAT('%',#{keyword},'%'))
-			AND goods.category_no=#{category}
-			AND (goods.goods_state = '1' OR goods.goods_state = '2')
+			WHERE (goods_name LIKE CONCAT('%',#{keyword},'%') OR goods_content LIKE CONCAT('%',#{keyword},'%'))
+			AND category_no=#{category}
+			AND goods_state = '1' OR goods_state = '2'
 		</if>
 		<if test="keyword != null and category == 0">
-			WHERE ((goods_name LIKE CONCAT('%',#{keyword},'%') OR goods_content LIKE CONCAT('%',#{keyword},'%')) 
-			AND (goods.goods_state = '1' OR goods.goods_state = '2')
+			WHERE (goods_name LIKE CONCAT('%',#{keyword},'%') OR goods_content LIKE CONCAT('%',#{keyword},'%')) 
+			AND goods_state = '1' OR goods_state = '2'
 		</if>
 		<if test="keyword == null and category != 0">
-			WHERE goods.category_no = #{category} 
-			AND (goods.goods_state = '1' OR goods.goods_state = '2')
+			WHERE category_no = #{category} 
+			AND goods_state = '1' OR goods_state = '2'
 		</if>
 		<if test="keyword == null and category == 0">
-			WHERE (goods.goods_state = '1' OR goods.goods_state = '2')
+			WHERE goods_state = '1' OR goods_state = '2'
 		</if>
 	</select>
 
 	<!-- 글 목록 -->
 	<select id="goods_list" resultMap="goods">
-		SELECT goods.*, count(liked.liked_no) AS liked_no FROM goods LEFT JOIN
-		liked ON goods.goods_no = liked.goods_no
+		SELECT goods.*, COUNT(liked.liked_no) AS liked_no FROM goods LEFT JOIN liked ON goods.goods_no = liked.goods_no
 		<if test="keyword != null and category != 0">
-			WHERE ((goods.goods_name LIKE CONCAT('%',#{keyword},'%') OR goods.goods_content LIKE CONCAT('%',#{keyword},'%')) 
+			WHERE (goods.goods_name LIKE CONCAT('%',#{keyword},'%') OR goods.goods_content LIKE CONCAT('%',#{keyword},'%')) 
 			AND goods.category_no=#{category}
-			AND (goods.goods_state = '1' OR goods.goods_state = '2')
+			AND goods.goods_state = '1' OR goods.goods_state = '2'
 		</if>
 		<if test="keyword != null and category == 0">
-			WHERE ((goods_name LIKE CONCAT('%',#{keyword},'%') OR goods_content LIKE CONCAT('%',#{keyword},'%')) 
-			AND (goods.goods_state = '1' OR goods.goods_state = '2')
+			WHERE (goods_name LIKE CONCAT('%',#{keyword},'%') OR goods_content LIKE CONCAT('%',#{keyword},'%')) 
+			AND goods.goods_state = '1' OR goods.goods_state = '2'
 		</if>
 		<if test="keyword == null and category != 0">
-			WHERE (goods.category_no = #{category} 
-			AND (goods.goods_state = '1' OR goods.goods_state = '2')
+			WHERE goods.category_no = #{category} 
+			AND goods.goods_state = '1' OR goods.goods_state = '2'
 		</if>
 		<if test="keyword == null and category == 0">
-			WHERE (goods.goods_state = '1' OR goods.goods_state = '2')
+			WHERE goods.goods_state = '1' OR goods.goods_state = '2'
 		</if>
 		GROUP BY goods.goods_no
 		<choose>
@@ -105,7 +104,7 @@
 		SELECT goods.*,
 		count(liked.liked_no) AS liked_no FROM goods LEFT JOIN liked ON
 		goods.goods_no = liked.goods_no
-		WHERE (goods.goods_state = '1' OR goods.goods_state = '2')
+		WHERE goods.goods_state = '1' OR goods.goods_state = '2'
 		GROUP BY goods.goods_no
 		ORDER BY goods.goods_readcount DESC LIMIT 0, 12
 	</select>
