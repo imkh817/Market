@@ -9,7 +9,7 @@
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 <link rel="stylesheet" href="./css/navbar.css">
 <style>
-.btn:not(:hover) {
+.auth:not(:hover) {
 	background-color: #47C83E;
 	color: #fff;
 	border: none;
@@ -17,7 +17,7 @@
 	transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
 }
 
-.btn:hover {
+.auth:hover {
 	background-color: #47C83E;
 	color: #fff;
 	border: none;
@@ -25,7 +25,7 @@
 }
 </style>
 </head>
-<body style="padding-top:20px;">
+<body style="padding-top:100px;">
 	<%@ include file="/WEB-INF/views/include/navbar.jsp"%>
 	<!-- 각 페이지 변동 부분 시작 -->
 	<div class="d-flex flex-column align-items-center mx-auto my-3">
@@ -36,7 +36,7 @@
 			</p>
 		</div>
 		<div class="mb-3">
-			<button class="btn btn-secondary btn-lg fw-bold mb-3"
+			<button class="auth btn btn-secondary btn-lg fw-bold mb-3"
 				onClick="javascript:ask_geo()"
 				style="position: relative; transform: translate(0, -50%);">새로
 				인증하기</button>
@@ -61,7 +61,7 @@
 
 		//주소-좌표 변환 객체 생성
 		var geocoder = new kakao.maps.services.Geocoder();
-
+		
 		//저장된 주소로 좌표를 검색
 		geocoder.addressSearch('${mem.member_auth_add}', function(result,
 				status) {
@@ -70,7 +70,7 @@
 			if (status === kakao.maps.services.Status.OK) {
 
 				var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
+				
 				// 지도의 중심을 결과값으로 받은 위치로 이동
 				map.setCenter(coords);
 			}
@@ -82,7 +82,7 @@
 
 			var lat = position.coords.latitude, // 위도
 			lng = position.coords.longitude; // 경도
-
+			
 			var latlng = new kakao.maps.LatLng(lat, lng);
 
 			var mapContainer = document.getElementById('map'), // 지도를 표시할 div 

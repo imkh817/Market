@@ -145,13 +145,14 @@ public class DetailController {
 		
 		int sell_count = pp.getTotal();
 		int liked_count = mypageService.paging_liked(page,goods.getMember_no()).getTotal();
-		String detail_nick = memberService.detail_nick(goods);
 		
-		model.addAttribute("member_nickname", detail_nick);
+		Member member = mypageService.get_member(goods.getMember_no());
+		
 		model.addAttribute("sell_count", sell_count);
 		model.addAttribute("liked_count", liked_count);
 		model.addAttribute("list", mypage_list);
 		model.addAttribute("page", pp);
+		model.addAttribute("member", member);
 		
 		return "mypage/seller_profile";
 	}
