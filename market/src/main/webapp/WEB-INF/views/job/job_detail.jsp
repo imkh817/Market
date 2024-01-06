@@ -134,8 +134,9 @@
 						</div>
 						<div class="row">
 							<div class="col-7">
-								<h5>시급 ${list.job_price }원&nbsp;
+								<h5>시급 ${list.job_price }원&nbsp;<br>
 								</h5>
+									${list.job_day } / 시간 : ${list.job_time1 } ~ ${list.job_time2 }
 							</div>
 							<div class="col-5" id="time_div">
 								<!-- 시간 변환 출력 -->
