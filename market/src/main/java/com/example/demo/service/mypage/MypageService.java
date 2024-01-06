@@ -83,9 +83,10 @@ public class MypageService {
 		Member user = new Member();
 		user.setMember_id((String) session.getAttribute("member_id"));
 		Member db = loginService.user_check(user);
-
+		
 		// 이미 여기서 비번확인을 했으니 xml파일에서는 그냥 절차만 밟아도 됨
 		if (joinService.match_password(member.getMember_pw(), db.getMember_pw())) {
+			mypageDao.goods_state_update_two((int)session.getAttribute("member_no"));
 
 			return mypageDao.member_delete(db.getMember_pw());
 		}

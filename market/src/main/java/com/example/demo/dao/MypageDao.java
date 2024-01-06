@@ -27,4 +27,6 @@ public interface MypageDao {
 
 	Member get_member(int member_no);
 
+	void goods_state_update_two(int member_no);
+
 }

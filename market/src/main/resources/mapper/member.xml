@@ -35,7 +35,7 @@
 
 <!-- 로그인(유저확인) -->
 <select id="user_check" parameterType="member" resultType="member">
-	select * from member where member_id = #{member_id}
+	select * from member where member_id = #{member_id} and member_state = 'Y'
 </select>
 
 <!-- 아이디 찾기(유저확인) -->
