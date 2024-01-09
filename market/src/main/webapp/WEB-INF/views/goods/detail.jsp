@@ -32,6 +32,7 @@
             <c:param name="member_no" value="${dl.member_no}" />
             <c:param name="session_member_no" value="${session_member_no}" />
         </c:url>
+        
       <!-- header -->
       <%@ include file="/WEB-INF/views/include/navbar.jsp"%>
 
@@ -42,7 +43,6 @@
          <div class="container" id="detail_goods">
             <div class="row">
                <!-- 상품 이미지 carousel -->
-
                <div id="carouselIndicators" class="carousel slide col-5">
                   <div class="carousel-indicators">
                      <c:forEach var="detail_img"
@@ -181,14 +181,18 @@
 
                         <div>
                            <c:if
-                              test="${dl.goods_state ne '4' && dl.member_no != session_member_no }">
+                              test="${dl.goods_state ne '3' && dl.member_no != session_member_no }">
                               <button class="btn btn-outline-dark mt-2" id="chat"
                                  onclick="location.href='<c:url value='${detail_chat_link}'/>'">채팅하기</button>
                            </c:if>
-
+                           <c:if
+                              test="${dl.goods_state eq '3' }">
+                              <button class="btn btn-outline-dark mt-2" id="chat"
+                                 onclick="location.href='<c:url value='${detail_chat_link}'/>'" disabled="disabled">채팅하기</button>
+                           </c:if>
 
                            <c:if
-                              test="${dl.goods_state ne '4' && dl.member_no == session_member_no }">
+                              test="${dl.member_no == session_member_no }">
                               <div class="btn-group btn-group-sm" role="group"
                                  aria-label="Small button group" id="edit">
                                  <button type="button" class="btn btn-outline-primary"
@@ -202,6 +206,7 @@
                               test="${dl.goods_state eq '4' && dl.member_no == session_member_no }">
                               <div>삭제된 게시물입니다.</div>
                            </c:if>
+                           
                         </div>
                         <!-- 삭제 확인 모달창 -->
                         <div class="modal fade" id="staticBackdrop"
@@ -355,7 +360,6 @@
       
       
    </script>
-
       <!-- 카카오맵 api -->
       <script type="text/javascript"
          src="//dapi.kakao.com/v2/maps/sdk.js?appkey=977ee17ba59e7721767fe0fdf92b13a5&libraries=services"></script>
@@ -424,7 +428,7 @@
        },
        buttons: [
          {
-        title: '구매하기',
+        title: '이동하기',
         link: {
           webUrl: 'http://localhost/market/detail?goods_no=${dl.goods_no}',
         },

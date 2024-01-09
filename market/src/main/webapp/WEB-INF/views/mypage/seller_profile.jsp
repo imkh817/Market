@@ -68,7 +68,7 @@
 								</p>
 								<p class="col card-text text-body-tertiary lh-1"
 									style="font-size: 0.8rem;">
-									<i class="fa-solid fa-heart"></i> <span>&nbsp;관심</span>
+									<i class="fa-solid fa-heart"></i> <span>&nbsp;${heart_count }</span>
 								</p>
 								<div class="btn-group dropup">
 									<button type="button" class="btn dropdown-toggle"
