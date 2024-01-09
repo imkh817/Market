@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>마이페이지</title>
+<title>판매자 상품페이지</title>
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 <link rel="stylesheet" href="./css/pagination.css">
 <link rel="stylesheet" href="./css/navbar.css">

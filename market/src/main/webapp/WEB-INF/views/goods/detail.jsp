@@ -12,7 +12,7 @@
 <meta charset="UTF-8">
 <meta name="viewport"
    content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Product Detail</title>
+<title>상품 상세페이지</title>
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 <link rel="stylesheet" href="./css/detail.css">
 <link rel="stylesheet" href="./css/navbar.css">
@@ -216,7 +216,7 @@
                                     <button type="button" class="btn-close"
                                        data-bs-dismiss="modal" aria-label="Close"></button>
                                  </div>
-                                 <div class="modal-body">${dl.goods_name }을&nbsp;삭제하시겠습니까?</div>
+                                 <div class="modal-body">[${dl.goods_name }]을&nbsp;삭제하시겠습니까?</div>
                                  <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary"
                                        data-bs-dismiss="modal">닫기</button>
@@ -364,30 +364,24 @@
       var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
        mapOption = {
            center: new kakao.maps.LatLng(37.499593, 127.030474), // 지도의 중심좌표
-           level: 3 // 지도의 확대 레벨
+           level: 4 // 지도의 확대 레벨
        };  
 
-      // 지도를 생성합니다    
       var map = new kakao.maps.Map(mapContainer, mapOption); 
 
-      // 주소-좌표 변환 객체를 생성합니다
       var geocoder = new kakao.maps.services.Geocoder();
 
-      // 주소로 좌표를 검색합니다
       geocoder.addressSearch('${dl.goods_place}', function(result, status) {
 
-       // 정상적으로 검색이 완료됐으면 
         if (status === kakao.maps.services.Status.OK) {
 
            var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
-          // 결과값으로 받은 위치를 마커로 표시합니다
           var marker = new kakao.maps.Marker({
               map: map,
               position: coords
           });
 
-          // 인포윈도우로 장소에 대한 설명을 표시합니다
           var infowindow = new kakao.maps.InfoWindow({
               content: '<div id="place_info">${dl.goods_place}<br>' +
                           '<a id="place_a" href="https://map.kakao.com/link/map/${dl.goods_place},' + 
@@ -403,7 +397,6 @@
           infowindow.open(map, marker);
 
 
-           // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
            map.setCenter(coords);
              } 
          });    

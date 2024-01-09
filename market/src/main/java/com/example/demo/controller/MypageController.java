@@ -83,9 +83,10 @@ public class MypageController {
 	public String member_delete(Member member, Model model, HttpSession session) {
 	
 		int result = mypageService.member_delete(member, session);
-		System.out.println("멤버 삭제 됐는지 확인 : " + result);
 		model.addAttribute("result", result);
-		
+		if(result == 1) {
+			session.invalidate();
+		}
 		return "mypage/member_delete_result";
 	}
 	
