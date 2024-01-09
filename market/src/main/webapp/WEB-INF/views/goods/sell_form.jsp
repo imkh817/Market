@@ -11,6 +11,7 @@
 </head>
 
 <script type="text/javascript">
+
 	
 	var goods_name, goods_price, goods_content;
 	
@@ -84,6 +85,12 @@
 	function gpt_write(){
 		if(validate_gpt_write()){
 			console.log(goods_name, goods_price, goods_content);
+			
+			 // 버튼을 비활성화하고 로딩 중 메시지 표시
+			  var button = document.getElementById("gptButton");
+			  button.disabled = true;
+			  button.innerHTML = "로딩 중...";
+			  
 			$.ajax({
 				url: "gpt_write/prompt",
 				method:"post",
@@ -95,6 +102,11 @@
 					console.log(result);
 					$("#goods_content").val(result);
 				}, // end success
+				complete:function(){
+					// AJAX 요청 완료 후 버튼을 다시 활성화
+					button.disabled = false;
+				    button.innerHTML = "AI 글 검토";
+				}, // end complete
 				error: function (xhr, status, error) {
 					console.log(data)
 			        console.error("API 호출 실패: ", status, error);
@@ -157,7 +169,7 @@
 					<textarea class="form-control" id="goods_content" name="goods_content" rows="5" placeholder="AI가 작성한 글을 검토해드려요!"></textarea>
 				</div>
 				<div class="col-sm-2">
-					<button type="button" class="btn btn-primary btn-sm" onClick="gpt_write()">AI 글 검토</button>
+					<button type="button" class="btn btn-primary btn-sm" id="gptButton" onClick="gpt_write()">AI 글 검토</button>
 				</div>
 			</div>
 			
@@ -168,7 +180,6 @@
 					<p class="fst-italic">파일은 3장까지 업로드 가능하며, 9MB가 넘지 않아야 합니다.</p>
 				</div>
 			</div>
-			
 			
 			<div class="text-center mt-3">
 				<button type="submit" class="btn btn-primary" onclick="return validate_write()">상품 등록</button>

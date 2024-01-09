@@ -41,12 +41,12 @@
 			return false;
 		}
 		
-		if ($("#images")[0].files.length === 0) {
+		/* if ($("#images")[0].files.length === 0) {
 			console.log($("#images")[0].files.length);
 			alert("파일을 한 개 이상 선택해 주세요!");
 			$("#images").val("").focus();
 			return false;
-		}
+		} */
 		
 	}
 	
@@ -84,34 +84,45 @@
 	function gpt_write(){
 		if(validate_gpt_write()){
 			console.log(goods_name, goods_price, goods_content);
+			
+			 
+			// 버튼을 비활성화하고 로딩 중 메시지 표시
+			var button = document.getElementById("gptButton");
+			button.disabled = true;
+			button.innerHTML = "로딩 중...";
+
 			$.ajax({
-				url: "gpt_write/prompt",
-				method:"post",
-				data : JSON.stringify({ goods_name:goods_name,
-										goods_price:goods_price,
-										goods_content:goods_content}), // 데이터를 JSON 문자열로 변환
-				contentType: "application/json", // 서버에게 전송하는 데이터 유형을 알려줌
-				success:function(result){
+				url : "gpt_write/prompt",
+				method : "post",
+				data : JSON.stringify({
+					goods_name : goods_name,
+					goods_price : goods_price,
+					goods_content : goods_content
+				}), // 데이터를 JSON 문자열로 변환
+				contentType : "application/json", // 서버에게 전송하는 데이터 유형을 알려줌
+				success : function(result) {
 					console.log(result);
 					$("#goods_content").val(result);
 				}, // end success
-				error: function (xhr, status, error) {
+				complete:function(){
+					// AJAX 요청 완료 후 버튼을 다시 활성화
+					button.disabled = false;
+				    button.innerHTML = "AI 글 검토";
+				}, // end complete
+				error : function(xhr, status, error) {
 					console.log(data)
-			        console.error("API 호출 실패: ", status, error);
-			    } //  end error
+					console.error("API 호출 실패: ", status, error);
+				} //  end error
 			});// end ajax 
-			
+
 		}// end if
 	}
-	
 
 	/* if(content.value.length > 200){
 		alert("내용을 200자 이내로 입력 하세요.");
 		content.focus();
 		return false;
 	} */
-	
-	
 </script>
 
 <body class="pt-5">
@@ -160,7 +171,7 @@
 					placeholder="AI가 작성한 글을 검토해드려요!">${goods.goods_content }</textarea>
 				</div>
 				<div class="col-sm-2">
-					<button type="button" class="btn btn-primary btn-sm" onClick="gpt_write()">AI 글 검토</button>
+					<button type="button" class="btn btn-primary btn-sm" id="gptButton" onClick="gpt_write()">AI 글 검토</button>
 				</div>
 			</div>
 			
@@ -171,21 +182,16 @@
 					<p class="fst-italic">파일은 3장까지 업로드 가능하며, 9MB가 넘지 않아야 합니다.</p>
 				</div>
 			</div>
-			
-			<%-- ${goods.goods_image}
+
 			<div class="form-group row mt-3">
-				<label for="image_list" class="col-sm-2 col-form-label fw-bold"></label>
-				<div class="col-sm-2 input_container my-auto">
-					<img src="upload/148db4f7-c43c-4aee-b719-a7979066485e.jpg" class="img-fluid" alt="...">
-				</div>
-				<div class="col-sm-2 input_container my-auto">
-					<img src="upload/070d02b3-1683-4105-a6d4-5e1d931d14ee.jpg" class="img-fluid" alt="...">
-				</div>
-				<div class="col-sm-2 input_container my-auto">
-					<img src="upload/9a11488b-2b65-4a57-9082-af1b457f71a1.jpg" class="img-fluid" alt="...">
-				</div>
-			</div> --%>
-			
+				<label for="image_list" class="col-sm-2 col-form-label fw-bold">현재 등록된 파일</label>
+				<c:forEach items="${image_list}" var="image_list">
+					<div class="col-sm-2 input_container my-auto img-container">
+						<img src="upload/${image_list }" class="img-fluid" alt="...">
+					</div>
+				</c:forEach>
+			</div>
+
 			<div class="text-center mt-3">
 				<button type="submit" class="btn btn-primary" onclick="return validate_write()">상품 등록</button>
 			</div>
