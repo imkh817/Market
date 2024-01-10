@@ -44,6 +44,7 @@
 	where goods_no = #{goods_no}
 </update>
 
+<!-- 회원 탈퇴되면 글 상태도 4로 변경 -->
 <update id="goods_state_update_two" parameterType="int">
 	update goods set goods_state = 4
 	where member_no = #{member_no}
@@ -52,4 +53,16 @@
 <select id="get_member" parameterType="int" resultType="member">
 	select * from member where member_no = #{member_no}
 </select>
+
+<!-- 마이페이지 내에서 구인공고 페이징하기 위한 총 글 수 구하기 -->
+<select id="get_total" parameterType="int" resultType="int">
+	select count(*) from job where member_no = #{member_no}
+</select>
+
+<!-- 마이페이지 내에서 구인공고 목록 리스트 불러오기 -->
+<select id="get_job_list" parameterType="job" resultType="job">
+	select * from job where member_no = #{member_no}
+	order by job_regdate desc limit #{startRow}, 6
+</select>
+
 </mapper>

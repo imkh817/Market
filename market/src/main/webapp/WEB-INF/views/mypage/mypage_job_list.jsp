@@ -15,23 +15,30 @@
 <body style="padding-top: 20px;">
 
 	<%@ include file="/WEB-INF/views/include/navbar.jsp"%>
-	<section class="banner my-5 py-5">
-		<div class="title">
-			<h1>
-				우리 동네, 나의 일자리<br> <b>양배추마켓</b>
-			</h1>
-		</div>
-	</section>
+	
+	<!-- 프로필 정보 및 통계 영역 -->
+	<div class="mx-auto my-3 py-3" style="max-width: 768px;">
 
-	<div class="d-flex justify-content-center my-2 py-2">
-		<h3 class="fw-bold">우리 동네 알바</h3>
+		<div class="d-flex justify-content-center my-3 py-3">
+			<ul class="nav nav-underline gap-5">
+				<li class="nav-item"><a
+					class="nav-link <c:if test="${url=='mypage_list'}">active</c:if>"
+					aria-current="page" href="mypage_list" style="color: #47C83E;">판매
+						내역</a></li>
+				<li class="nav-item"><a class="nav-link"
+					href="member_liked_form" style="color: #47C83E;">관심 상품</a></li>
+				<li class="nav-item"><a class="nav-link"
+					href="mypage_job_list" style="color: #47C83E;">내 구인 공고</a></li>
+				<li class="nav-item"><a class="nav-link"
+					href="member_update_form" style="color: #47C83E;">정보 수정</a></li>	
+				<li class="nav-item"><a class="nav-link"
+					href="member_delete_form" style="color: #47C83E;">회원 탈퇴</a></li>
+			</ul>
+		</div>
 	</div>
 
-	<div class="d-flex justify-content-end mb-5 col-md-9">
-		<c:if test="${member_id != null }">
-			<button class="green-border-button write-button"
-				onClick="location.href='job_insert_form'">글 작성</button>
-		</c:if>
+	<div class="d-flex justify-content-center my-2 py-2">
+		<h3 class="fw-bold">나의 구인 공고 목록</h3>
 	</div>
 
 	<div class="container mb-3" style="max-width: 840px;">
@@ -77,16 +84,16 @@
 				<ul class="pagination">
 					<c:if test="${page.startPage > page.pagePerBlk }">
 						<li class="page-item"><a class="page-link"
-							style="color: #47C83E;" href="job_main?page=${page.startPage-1}">Previous</a></li>
+							style="color: #47C83E;" href="mypage_job_list?page=${page.startPage-1}">Previous</a></li>
 					</c:if>
 					<c:forEach begin="${page.startPage}" end="${page.endPage}"
 						var="pageNum">
 						<li class="page-item"><a class="page-link"
-							style="color: #47C83E;" href="job_main?page=${pageNum}">${pageNum}</a></li>
+							style="color: #47C83E;" href="mypage_job_list?page=${pageNum}">${pageNum}</a></li>
 					</c:forEach>
 					<c:if test="${page.endPage < page.totalPage}">
 						<li class="page-item"><a class="page-link"
-							style="color: #47C83E;" href="job_main?page=${page.startPage-1}">Next</a></li>
+							style="color: #47C83E;" href="mypage_job_list?page=${page.startPage-1}">Next</a></li>
 					</c:if>
 				</ul>
 			</nav>
