@@ -7,7 +7,7 @@
 	<c:param name="goods_no" value="0" />
 	<c:param name="member_no" value="20" />
 	<c:param name="session_member_no" value="${sessionScope.member_no}" />
-</c:url>
+</c:url> 
 <c:set var="sell_link"
 	value="${sessionScope.member_id==null ? 'login_form' : 'sell_form'}" />
 <c:set var="join"

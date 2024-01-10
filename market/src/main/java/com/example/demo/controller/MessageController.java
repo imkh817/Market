@@ -69,7 +69,7 @@ public class MessageController {
 
 		System.out.println("/message_ajax_list의 list 값:" + list);
 		
-		// 내비바에 안읽은 메시지 갯수 띄우기		
+		// 내비바에 안읽은 메시지 갯수 띄우기	
 		int unread_msg = 0;
 		for(Message mto : list) {
 			int unread = mto.getUnread();
