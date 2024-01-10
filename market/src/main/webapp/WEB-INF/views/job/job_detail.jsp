@@ -148,12 +148,7 @@
 							</div>
 							<div class="col-2 text-end" style="position: absolute; bottom: 140px; right: 70px; margin: 10px;">
 							<c:if test="${list.member_no != member_no}">
-								<button class="btn btn-outline-dark mt-2" id="chat" 
-<<<<<<< HEAD
-								onclick="location.href='message_list?member_no=${list.member_no }'">채팅하기</button>
-=======
-								onclick="location.href='chat?job_no=${list.job_no}&member_no=${list.member_no }'">채팅하기</button>
->>>>>>> main
+								<button class="btn btn-outline-dark mt-2" id="chat" onclick="location.href='message_list?member_no=${list.member_no }'">채팅하기</button>
 							</c:if>
 							</div>
 						</div>
