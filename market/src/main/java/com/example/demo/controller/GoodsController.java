@@ -237,38 +237,34 @@ public class GoodsController {
 				HttpServletRequest request, HttpSession session, Model model) throws Exception {
 			
 			for (MultipartFile MultipartFile : mf) {
-				System.out.println("컨트롤러 받아온 이미지: " + MultipartFile);
-			}
+				// 첨부파일을 수정하지 않았을 경우
+				if (MultipartFile.isEmpty() || MultipartFile.getSize() == 0) {
+					System.out.println("파일이 비어 있습니다.");
+					Goods get_goods = GoodsService.get_goods(goods);
+					goods.setGoods_image(get_goods.getGoods_image());
+				} else { // 첨부파일이 있을경우
+					System.out.println("파일이 존재하며, 크기는: " + MultipartFile.getSize() + " 바이트입니다.");
+					// 첨부파일 갯수가 3개 넘어갈때
+					if (mf.length > 3) {
+						model.addAttribute("result", 1);
+						return "goods/uploadResult";
+					}
 
-			// 첨부파일 값 없을때 size 몇인지 구해오기
-			int size = (int) mf.length; // 첨부파일의 크기 (단위:Byte)
-			System.out.println("글 수정시 파일 첨부 없을때: "+size);
-			
-			// 첨부파일 처리
-			if(size == 1) { // 첨부파일을 수정하지 않았을 경우
-				Goods get_goods= GoodsService.get_goods(goods);
-				goods.setGoods_image(get_goods.getGoods_image());
-			} else { // 첨부파일이 있을 경우
-				// 첨부파일 갯수가 3개 넘어갈때
-				if (mf.length > 3) {
-					model.addAttribute("result", 1);
-					return "goods/uploadResult";
-				}
-				
-				// 이미지 업로드
-				String upload_result = GoodsService.image_upload(mf, request);
+					// 이미지 업로드
+					String upload_result = GoodsService.image_upload(mf, request);
 
-				// 첨부파일 사이즈가 클 때
-				if (upload_result.equals("FileSizeOver")) {
-					model.addAttribute("result", 2);
-					return "goods/uploadResult";
+					// 첨부파일 사이즈가 클 때
+					if (upload_result.equals("FileSizeOver")) {
+						model.addAttribute("result", 2);
+						return "goods/uploadResult";
 
-					// 파일 확장자가 다를 때
-				} else if (upload_result.equals("FileNotMatch")) {
-					model.addAttribute("result", 3);
-					return "goods/uploadResult";
-				} else {
-					goods.setGoods_image(upload_result);
+						// 파일 확장자가 다를 때
+					} else if (upload_result.equals("FileNotMatch")) {
+						model.addAttribute("result", 3);
+						return "goods/uploadResult";
+					} else {
+						goods.setGoods_image(upload_result);
+					}
 				}
 			}
 

@@ -106,4 +106,11 @@
 		limit 0,1
 	</select>
 	
+	<!-- 기존 메세지 삭제 기능 -->
+	<update id="messageContentRemove" parameterType="int">
+		UPDATE message
+		SET message_content = '암호화 된 메세지입니다.1112233333'
+		WHERE message_no = #{messageNum};
+	</update>
+	
 </mapper>

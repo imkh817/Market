@@ -32,6 +32,8 @@ public interface MessageDao {
 
 	void createRoom(Message createRoom);
 
+	void messageContentRemove(int messageNum);
+
 	
 		
 
