@@ -49,6 +49,8 @@
 				<li class="nav-item"><a class="nav-link"
 					href="member_liked_form" style="color: #47C83E;">관심 상품</a></li>
 				<li class="nav-item"><a class="nav-link"
+					href="mypage_job_list" style="color: #47C83E;">내 구인 공고</a></li>
+				<li class="nav-item"><a class="nav-link"
 					href="member_update_form" style="color: #47C83E;">정보 수정</a></li>	
 				<li class="nav-item"><a class="nav-link"
 					href="member_delete_form" style="color: #47C83E;">회원 탈퇴</a></li>
@@ -67,7 +69,7 @@
 							alt="" style="width: 200px; height: 200px;">
 					</a>
 						<div class="card-body mx-1">
-							<p class="card-text lh-1">${list.goods_name}<a href="detail?goods_no=${list.goods_no}" style="text-decoration: none; color: black;">${list.goods_name}</a></p>
+							<p class="card-text lh-1"><a href="detail?goods_no=${list.goods_no}" style="text-decoration: none; color: black;">${list.goods_name}</a></p>
 							<p class="card-text lh-1 fw-bold">${list.goods_price}</p>
 							<p class="card-text lh-1" style="font-size: 0.8rem;">
 								<i class="fa-solid fa-location-dot"></i> <span>&nbsp;${list.goods_place}</span>

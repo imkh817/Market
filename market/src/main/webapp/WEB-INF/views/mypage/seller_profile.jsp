@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>마이페이지</title>
+<title>판매자 상품페이지</title>
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 <link rel="stylesheet" href="./css/pagination.css">
 <link rel="stylesheet" href="./css/navbar.css">
@@ -19,9 +19,16 @@
 			class="container p-4 mb-3 bg-body-tertiary shadow rounded rounded-4">
 			<div class="row">
 				<div class="col my-auto text-center">
-					<p class="fs-4 fw-bold mb-2">#${member_nickname}</p>
-					<img src="./images/picture.png" class="img-fluid" alt="프로필 이미지"
-						style="width: 100px; height: 100px;">
+						<p class="fs-4 fw-bold mb-2">#${member.member_nickname}</p>
+						<c:if test="${member.member_image == null }">
+							<img src="./images/user.png" class="img_preview rounded-circle"
+								style="width: 100px; height: 100px;" />
+						</c:if>
+						<c:if test="${member.member_image != null }">
+							<img src="./upload/${member.member_image }"
+								class="img_preview rounded-circle" alt="프로필 이미지"
+								style="width: 100px; height: 100px;">
+						</c:if>
 				</div>
 				<div class="col my-auto text-center pt-3">
 					<i class="fa-solid fa-gift fs-1 mb-2" style="color: #5ba95d;"></i>
@@ -42,8 +49,9 @@
 				<div class="col">
 					<div class="card" style="border: none;">
 
-						<img src="../images/example.png" class="card-img-top mx-auto my-2"
-							alt="" style="width: 200px; height: 200px;">
+						<img src="./upload/${list.goods_image}"
+							class="card-img-top mx-auto my-2" alt=""
+							style="width: 200px; height: 200px;">
 						<div class="card-body mx-1">
 							<p class="card-text lh-1">
 								<a href="detail?goods_no=${list.goods_no}"
@@ -60,7 +68,7 @@
 								</p>
 								<p class="col card-text text-body-tertiary lh-1"
 									style="font-size: 0.8rem;">
-									<i class="fa-solid fa-heart"></i> <span>&nbsp;관심</span>
+									<i class="fa-solid fa-heart"></i> <span>&nbsp;${heart_count }</span>
 								</p>
 								<div class="btn-group dropup">
 									<button type="button" class="btn dropdown-toggle"
@@ -96,7 +104,8 @@
 						var="pageNum">
 						<li
 							class="page-item <c:if test="${page.currentPage==pageNum}">active</c:if>"><a
-							class="page-link" href="seller_profile?goods_no=${list.goods_no }&member_no=${list.member_no }&page=${pageNum}">${pageNum}</a></li>
+							class="page-link"
+							href="seller_profile?goods_no=${list.goods_no }&member_no=${list.member_no }&page=${pageNum}">${pageNum}</a></li>
 					</c:forEach>
 					<c:if test="${page.endPage < page.totalPage}">
 						<li class="page-item"><a class="page-link"

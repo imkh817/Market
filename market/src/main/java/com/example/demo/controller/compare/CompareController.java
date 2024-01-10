@@ -33,6 +33,11 @@ public class CompareController {
 	public String lowest_baechu(String page,String compare_product,Model model) {
 		PagingPgm paging = compareService.paing(page, compare_product);
 		List<Goods> list = compareService.getList(paging, compare_product);
+		for(int i=0; i<list.size(); i++) {
+			String tmp[] = list.get(i).getGoods_image().split(",");
+			list.get(i).setGoods_image(tmp[0]);
+			System.out.println(list.get(i).getGoods_image());
+		}
 		ComparePrice compare_price = compareService.get_Compare_price(list);
 		System.out.println("list의 사이즈 : " + list.size());
 		model.addAttribute("list",list);

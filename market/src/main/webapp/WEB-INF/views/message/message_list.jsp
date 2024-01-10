@@ -10,6 +10,7 @@
 
 <!-- CSS File -->
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
+<link rel="stylesheet" href="./css/navbar.css">
 <link rel="stylesheet" href="./css/message_list.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.17.0/font/bootstrap-icons.css">
 <%@ include file="/WEB-INF/views/include/navbar.jsp"%>
@@ -390,4 +391,8 @@
 	    }(room, other_nick), 3000); */
 	</script>
 </body>
+<!-- load 함수로 동적 교체 -->
+<script>
+	$(".category").load("<c:url value='navbar' />");
+</script>
 </html>

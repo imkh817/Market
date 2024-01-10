@@ -10,6 +10,7 @@
 </c:if>
 <c:if test="${result == 1 }">
 	<script>
+		alert("회원 탈퇴에 성공하셨습니다.")
 		location.href = "home";
 	</script>
 </c:if>

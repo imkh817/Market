@@ -5,8 +5,8 @@
 <div class="container">
 	<footer
 		class="d-flex flex-wrap justify-content-between py-3 my-3 border-top">
-		<div class="row" style="font-size: 0.8rem">
-			<p class="col text-body-tertiary">
+		<div class="row" style="font-size: 14px">
+			<p class="col text-body-tertiary" style="font-size: 14px">
 				Copyright &copy; 2023 <font color="#000">(주)양배추마켓</font> All Rights
 				Reserved
 			</p>

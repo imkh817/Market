@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.model.Goods;
+import com.example.demo.model.Job;
 import com.example.demo.model.Member;
 import com.example.demo.model.PagingPgm;
 import com.example.demo.model.Translation;
@@ -83,9 +84,10 @@ public class MypageController {
 	public String member_delete(Member member, Model model, HttpSession session) {
 	
 		int result = mypageService.member_delete(member, session);
-		System.out.println("멤버 삭제 됐는지 확인 : " + result);
 		model.addAttribute("result", result);
-		
+		if(result == 1) {
+			session.invalidate();
+		}
 		return "mypage/member_delete_result";
 	}
 	
@@ -185,6 +187,37 @@ public class MypageController {
 	public String practice() {
 		return "mypage/practice";
 	}
+	
+	// 마이페이지 구인 공고 리스트
+	@RequestMapping("mypage_job_list")
+	public String mypage_job_list(String page, HttpSession session, Model model) {
+		int member_no = (int)session.getAttribute("member_no");
+		PagingPgm pp = mypageService.job_paging(page, member_no);
+		List<Job> list = mypageService.get_job(pp, member_no);
+		System.out.println("mypage job list : " + list);
+		
+		model.addAttribute("page", pp);
+		model.addAttribute("list", list);
+		
+		return "mypage/mypage_job_list";
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

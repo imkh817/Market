@@ -35,7 +35,7 @@ public class GptController {
         System.out.println("컨트롤러에서 result 출력: "+result.get("content")); // 내용만 출력
         
         String goods_content = (String)result.get("content");
-        goods_content = goods_content.replace("\n","<br>");
+ //       goods_content = goods_content.replace("\n","<br>");
         return goods_content;
 //        return new ResponseEntity<>(result, HttpStatus.OK);
     }

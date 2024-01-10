@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.demo.dao.MemberDao;
 import com.example.demo.dao.MypageDao;
 import com.example.demo.model.Goods;
+import com.example.demo.model.Job;
 import com.example.demo.model.Member;
 import com.example.demo.model.PagingPgm;
 import com.example.demo.service.join.JoinService;
@@ -83,9 +84,10 @@ public class MypageService {
 		Member user = new Member();
 		user.setMember_id((String) session.getAttribute("member_id"));
 		Member db = loginService.user_check(user);
-
+		
 		// 이미 여기서 비번확인을 했으니 xml파일에서는 그냥 절차만 밟아도 됨
 		if (joinService.match_password(member.getMember_pw(), db.getMember_pw())) {
+			mypageDao.goods_state_update_two((int)session.getAttribute("member_no"));
 
 			return mypageDao.member_delete(db.getMember_pw());
 		}
@@ -179,4 +181,30 @@ public class MypageService {
 	public Member get_member(int member_no) {
 		return mypageDao.get_member(member_no);
 	}
+
+	// 마이페이지 내에서 구인공고 목록 페이징
+	public PagingPgm job_paging(String page, int member_no) {
+		if(page == null || page.equals("")) {
+			page = "1";
+		}
+		int currentPage = Integer.parseInt(page);
+		int rowPerPage = 6;
+		int startRow = (currentPage - 1) * rowPerPage + 1;
+		int endRow = (startRow + rowPerPage) - 1;
+		int total = mypageDao.get_total(member_no);
+		
+		PagingPgm pp = new PagingPgm(total, rowPerPage, currentPage, startRow, endRow);
+		
+		return pp;
+	}
+
+	public List<Job> get_job(PagingPgm pp, int member_no) {
+		Job job = new Job();
+		job.setStartRow(pp.getStartRow() - 1);
+		job.setEndRow(pp.getEndPage());
+		job.setMember_no(member_no);
+		
+		return mypageDao.get_job_list(job);
+	}
+
 }

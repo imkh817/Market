@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -101,41 +102,54 @@ div {
 			</div>
 		</div>
 
-		<div class="d-flex justify-content-center my-3 py-3">
-			<div class="row row-cols-1 row-cols-md-3" style="max-width: 800px;">
-				<c:forEach var="list" items="${list}">
-					<div class="col">
-						<div class="card" style="border: none;">
-							<a href="#"> <img src="${list.goods_image}"
-								class="card-img-top mx-auto my-2" alt=""
-								style="width: 200px; height: 200px;">
-							</a>
-							<div class="card-body mx-1">
-								<a href="#" style="text-decoration: none; color: #000">
-									<p class="card-text lh-1">${list.goods_name}</p>
-								</a> <br> <a href="#"
-									style="text-decoration: none; color: #000">
-									<p class="card-text lh-1 fw-bold">${list.goods_price}원</p>
-								</a> <br>
-								<p class="card-text lh-1" style="font-size: 0.8rem;">
-									<i class="fa-solid fa-location-dot"></i> <span>&nbsp;${list.goods_place}</span>
+		
+		<div class="container mb-3" style="max-width: 768px">
+		<div class="row d-flex row-cols-1 row-cols-md-3">
+			<c:forEach var="list" items="${list}">
+				<div class="col">
+					<div class="card text-center" style="border: none;">
+						<a href="detail?goods_no=${list.goods_no}">
+							<img src="./upload/${list.goods_image}" class="card-img-top my-2"
+							alt="" style="width: 200px; height: 200px;">
+						</a>
+						<div class="card-body mx-1 px-0">
+							<p class="card-text text-start mx-3 px-1 lh-1" style="font-size: 0.9rem;">
+								<c:set var="truncated_sub"
+									value="${fn:substring(list.goods_name, 0, 12)}" />
+								<a href="detail?goods_no=${list.goods_no}"
+									style="text-decoration: none; color: black;"> <c:if
+										test="${fn:trim(list.goods_state)=='2'}">
+										<span class="badge bg-warning my-auto"
+											style="font-size: 0.6rem;">예약중</span>
+									</c:if> <c:if test="${fn:trim(list.goods_state)=='3'}">
+										<span class="badge bg-secondary my-auto"
+											style="font-size: 0.6rem;">판매완료</span>
+									</c:if> ${truncated_sub}
+								</a>
+								<c:if test="${fn:length(list.goods_name)>12}">...</c:if>
+							</p>
+							<p class="card-text text-start mx-3 px-1 lh-1 fw-bold">${list.goods_price}</p>
+							<p class="card-text text-start mx-3 px-1 lh-1"
+								style="font-size: 0.8rem;">
+								<i class="fa-solid fa-location-dot"></i> <span>&nbsp;${list.goods_place}</span>
+							</p>
+							<div class="row">
+								<p class="col card-text text-body-tertiary lh-1"
+									style="font-size: 0.8rem;">
+									<i class="fa-solid fa-eye"></i> <span>&nbsp;${list.goods_readcount}</span>
 								</p>
-								<div class="row">
-									<p class="col card-text text-body-tertiary lh-1"
-										style="font-size: 0.8rem;">
-										<i class="fa-solid fa-eye"></i> <span>&nbsp;${list.goods_readcount}</span>
-									</p>
-									<p class="col card-text text-body-tertiary lh-1"
-										style="font-size: 0.8rem;">
-										<i class="fa-solid fa-heart"></i> <span>&nbsp;관심</span>
-									</p>
-								</div>
+								<p class="col card-text text-body-tertiary lh-1"
+									style="font-size: 0.8rem;">
+									<i class="fa-solid fa-heart"></i> <span>&nbsp;${list.liked.liked_no}</span>
+								</p>
 							</div>
 						</div>
 					</div>
-				</c:forEach>
-			</div>
+				</div>
+			</c:forEach>
 		</div>
+	</div>
+		
 		<nav aria-label="Page navigation example">
 			<ul class="pagination justify-content-center">
 				<c:if test="${page.startPage > page.pagePerBlk }">
