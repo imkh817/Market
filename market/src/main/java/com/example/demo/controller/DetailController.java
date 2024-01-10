@@ -148,11 +148,14 @@ public class DetailController {
 		
 		Member member = mypageService.get_member(goods.getMember_no());
 		
+		int heart_count = likedService.heart_count(goods.getGoods_no());
+		
 		model.addAttribute("sell_count", sell_count);
 		model.addAttribute("liked_count", liked_count);
 		model.addAttribute("list", mypage_list);
 		model.addAttribute("page", pp);
 		model.addAttribute("member", member);
+		model.addAttribute("heart_count", heart_count);
 		
 		return "mypage/seller_profile";
 	}

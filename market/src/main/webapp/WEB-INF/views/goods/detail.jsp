@@ -12,7 +12,7 @@
 <meta charset="UTF-8">
 <meta name="viewport"
    content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Product Detail</title>
+<title>상품 상세페이지</title>
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 <link rel="stylesheet" href="./css/detail.css">
 <link rel="stylesheet" href="./css/navbar.css">
@@ -32,6 +32,7 @@
             <c:param name="member_no" value="${dl.member_no}" />
             <c:param name="session_member_no" value="${session_member_no}" />
         </c:url>
+        
       <!-- header -->
       <%@ include file="/WEB-INF/views/include/navbar.jsp"%>
 
@@ -42,7 +43,6 @@
          <div class="container" id="detail_goods">
             <div class="row">
                <!-- 상품 이미지 carousel -->
-
                <div id="carouselIndicators" class="carousel slide col-5">
                   <div class="carousel-indicators">
                      <c:forEach var="detail_img"
@@ -181,14 +181,18 @@
 
                         <div>
                            <c:if
-                              test="${dl.goods_state ne '4' && dl.member_no != session_member_no }">
+                              test="${dl.goods_state ne '3' && dl.member_no != session_member_no }">
                               <button class="btn btn-outline-dark mt-2" id="chat"
                                  onclick="location.href='<c:url value='${detail_chat_link}'/>'">채팅하기</button>
                            </c:if>
-
+                           <c:if
+                              test="${dl.goods_state eq '3' }">
+                              <button class="btn btn-outline-dark mt-2" id="chat"
+                                 onclick="location.href='<c:url value='${detail_chat_link}'/>'" disabled="disabled">채팅하기</button>
+                           </c:if>
 
                            <c:if
-                              test="${dl.goods_state ne '4' && dl.member_no == session_member_no }">
+                              test="${dl.member_no == session_member_no }">
                               <div class="btn-group btn-group-sm" role="group"
                                  aria-label="Small button group" id="edit">
                                  <button type="button" class="btn btn-outline-primary"
@@ -202,6 +206,7 @@
                               test="${dl.goods_state eq '4' && dl.member_no == session_member_no }">
                               <div>삭제된 게시물입니다.</div>
                            </c:if>
+                           
                         </div>
                         <!-- 삭제 확인 모달창 -->
                         <div class="modal fade" id="staticBackdrop"
@@ -216,7 +221,7 @@
                                     <button type="button" class="btn-close"
                                        data-bs-dismiss="modal" aria-label="Close"></button>
                                  </div>
-                                 <div class="modal-body">${dl.goods_name }을&nbsp;삭제하시겠습니까?</div>
+                                 <div class="modal-body">[${dl.goods_name }]을&nbsp;삭제하시겠습니까?</div>
                                  <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary"
                                        data-bs-dismiss="modal">닫기</button>
@@ -355,7 +360,6 @@
       
       
    </script>
-
       <!-- 카카오맵 api -->
       <script type="text/javascript"
          src="//dapi.kakao.com/v2/maps/sdk.js?appkey=977ee17ba59e7721767fe0fdf92b13a5&libraries=services"></script>
@@ -364,30 +368,24 @@
       var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
        mapOption = {
            center: new kakao.maps.LatLng(37.499593, 127.030474), // 지도의 중심좌표
-           level: 3 // 지도의 확대 레벨
+           level: 4 // 지도의 확대 레벨
        };  
 
-      // 지도를 생성합니다    
       var map = new kakao.maps.Map(mapContainer, mapOption); 
 
-      // 주소-좌표 변환 객체를 생성합니다
       var geocoder = new kakao.maps.services.Geocoder();
 
-      // 주소로 좌표를 검색합니다
       geocoder.addressSearch('${dl.goods_place}', function(result, status) {
 
-       // 정상적으로 검색이 완료됐으면 
         if (status === kakao.maps.services.Status.OK) {
 
            var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
-          // 결과값으로 받은 위치를 마커로 표시합니다
           var marker = new kakao.maps.Marker({
               map: map,
               position: coords
           });
 
-          // 인포윈도우로 장소에 대한 설명을 표시합니다
           var infowindow = new kakao.maps.InfoWindow({
               content: '<div id="place_info">${dl.goods_place}<br>' +
                           '<a id="place_a" href="https://map.kakao.com/link/map/${dl.goods_place},' + 
@@ -403,7 +401,6 @@
           infowindow.open(map, marker);
 
 
-           // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
            map.setCenter(coords);
              } 
          });    
@@ -431,7 +428,7 @@
        },
        buttons: [
          {
-        title: '구매하기',
+        title: '이동하기',
         link: {
           webUrl: 'http://localhost/market/detail?goods_no=${dl.goods_no}',
         },
@@ -448,4 +445,8 @@
 
    </c:forEach>
 </body>
+<!-- load 함수로 동적 교체 -->
+<script>
+	$(".category").load("<c:url value='navbar' />");
+</script>
 </html>
