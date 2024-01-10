@@ -272,4 +272,8 @@
 		</c:forEach>
 
 </body>
+<!-- load 함수로 동적 교체 -->
+<script>
+	$(".category").load("<c:url value='navbar' />");
+</script>
 </html>

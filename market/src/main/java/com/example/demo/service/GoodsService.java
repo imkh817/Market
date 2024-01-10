@@ -124,8 +124,7 @@ public class GoodsService {
 		String images = get_goods.getGoods_image();
 		System.out.println("이미지 파싱을 위해 이미지 불어오기: "+images);
 		
-		String[] image_list = images.split(images, ',');
-		System.out.println("파싱한 이미지: "+image_list);
+		String[] image_list = images.split(",");
 		
 		return image_list;
 	}

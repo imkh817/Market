@@ -11,6 +11,7 @@
 <!-- CSS File -->
 
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
+<link rel="stylesheet" href="./css/navbar.css">
 <link rel="stylesheet" href="./css/message_list.css">
 
 <!-- 메세지 전송 아이콘(종이비행기) 때문에 필요 -->
@@ -361,4 +362,8 @@
 	</script>
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 </body>
+<!-- load 함수로 동적 교체 -->
+<script>
+	$(".category").load("<c:url value='navbar' />");
+</script>
 </html>

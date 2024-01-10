@@ -35,7 +35,7 @@
 		<h4>원하는 상품이 얼마에 거래되고 있는지 알아보세요</h4>
 	</div>
 	<br>
-	<form action="lowest_naver" method="post"
+	<form action="lowest_naver"
 		class="d-flex me-auto w-25 mx-auto" role="search" id="search"
 		style="text-align: center;">
 		<input class="form-control me-2 px-2" type="search"
@@ -58,7 +58,6 @@
 		<div class="d-flex justify-content-center my-3 py-3" align="center">
 			<div class="row row-cols-1 row-cols-md-3" style="max-width: 800px;">
 				<c:forEach var="list" items="${list}">
-
 					<div class="col">
 						<div class="card" style="border: none;">
 						<a href="${list.link }">

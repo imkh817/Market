@@ -50,8 +50,6 @@ public class CreateImageService {
         RestTemplate template = new RestTemplate();
         HttpEntity<Map<String,Object>> entity = new HttpEntity<Map<String,Object>>(map,headers);
         ResponseEntity<String> response = template.exchange(url, HttpMethod.POST, entity, String.class);
-        System.out.println(response.getBody());
-        System.out.println("이미지 저장 진입");
         
         ObjectMapper obj = new ObjectMapper();
         String imageUrl="";
@@ -81,11 +79,7 @@ public class CreateImageService {
     }
     
     private static void downloadImage(String imageUrl, String destinationPath) throws IOException {
-    	// url객체 생성! -> karlo에서 받아온 이미지 url
         URL url = new URL(imageUrl);
-        // BufferedImage는 Java에서 이미지를 표현하고 조작하는 클래스이다.
-        // BufferedImage는 메모리 내에서 이미지 데이터를 관리하는데 유용하며, 다양한 이미지 처리 작업을 수행한다.
-        // 일반적으로 BufferedImage는 이미지를 메모리에 로드하거나, 새 이미지를 생성하고, 이미지를 그리고, 이미지를 저장하는 등의 작업에 사용된다.
 
         BufferedImage image = ImageIO.read(url);
         
