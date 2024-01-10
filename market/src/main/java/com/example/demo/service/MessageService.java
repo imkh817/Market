@@ -48,7 +48,6 @@ public class MessageService {
 
 		// 메세지 내역을 가져온다
 		ArrayList<Message> clist = (ArrayList) messageDao.room_content_list(to);
-		System.out.println("roomContentList의 to값 : " + to);
 		// 해당 방의 메세지들 중 받는 사람이 현재사용자의 nick인 메세지를 모두 읽음 처리한다
 		messageDao.message_read_chk(to);
 
@@ -79,17 +78,23 @@ public class MessageService {
 		String selectNick = messageDao.selectNick(member_no);
 		return selectNick;
 	}
-
+	
+	// 채팅방이 없을 시에 채팅방 생성하기.
 	public void createRoom(Message createRoom) {
+		// exist_chat : 메세지 내역이 있는지 검사하는 쿼리문
 		int exist_chat = messageDao.exist_chat(createRoom);
+		// 메세지 내역이 없는 경우
 		if (exist_chat == 0) {
 			int max_room = messageDao.max_room(createRoom);
+			// 룸 번호의 최댓 값을 구해와서 +1 을 한 뒤에 DTO에 저장
 			max_room = max_room + 1;
 			createRoom.setMessage_room(max_room);
+			// 이렇게 되면 보낸 이와 받는 이의 닉네임, 그리고 생성할 방의 번호를 지정해서 DAO에 넘길 수 있음.
 			messageDao.createRoom(createRoom);
-		} else { // 메세지 내역이 있다면 해당 room 번호를 가져온다.
-			int room = Integer.parseInt(messageDao.select_room(createRoom));
-			createRoom.setMessage_room(room);
-		}
+		} 
+	}
+
+	public void messageContentRemove(int messageNum) {
+		messageDao.messageContentRemove(messageNum);
 	}
 }
