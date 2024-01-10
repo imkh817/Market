@@ -200,16 +200,6 @@
 												data-bs-toggle="modal" data-bs-target="#staticBackdrop">삭제</button>
 										</div>
 									</c:if>
-									<%-- <c:if
-										test="${dl.goods_state eq '3' && dl.member_no == session_member_no }">
-										<div class="btn-group btn-group-sm" role="group"
-											aria-label="Small button group" id="edit">
-											<button type="button" class="btn btn-outline-primary"
-												onclick="location.href='update_sell_form?goods_no=${dl.goods_no}'">수정</button>
-											<button type="button" class="btn btn-outline-danger"
-												data-bs-toggle="modal" data-bs-target="#staticBackdrop">삭제</button>
-										</div>
-									</c:if> --%>
 
 
 								</div>
