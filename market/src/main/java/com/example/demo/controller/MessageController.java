@@ -27,7 +27,8 @@ public class MessageController {
 
 	// 메세지 목록
 	@RequestMapping(value = "/message_list")
-	public String message_list(HttpServletRequest request, HttpSession session, int goods_no, int member_no) {
+	public String message_list(HttpServletRequest request, HttpSession session,
+			 int member_no) {
 
 		// 채팅방이 없을 시에 채팅방 생성하기.
 		String nick = (String) session.getAttribute("member_nickname");

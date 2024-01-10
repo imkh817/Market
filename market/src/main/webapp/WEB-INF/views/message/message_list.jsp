@@ -52,9 +52,9 @@
 	<script>
 	
     // JSTL을 사용하여 JSP 내에서 Java 변수를 JavaScript로 가져오기
-    var goodsNo = ${param.goods_no};
     var memberNo = ${param.member_no};
-    var sessionMemberNo = ${param.session_member_no};
+    
+    
 /* 	const intervalId = setInterval(function () {
 	   }(), 3000); */
     
@@ -65,8 +65,7 @@
             type: "POST",  // 또는 "GET" 등 필요에 따라 변경
             url: "message_list",
             data: {
-                member_no: memberNo,
-                goods_no: goodsNo
+                member_no: memberNo
             },
             success: function(response) {
             	// 채팅방 리스트 주기적으로 리로드
