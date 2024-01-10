@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.example.demo.model.Goods;
+import com.example.demo.model.Job;
 import com.example.demo.model.Liked;
 import com.example.demo.model.Member;
 import com.example.demo.model.PagingPgm;
@@ -28,5 +29,9 @@ public interface MypageDao {
 	Member get_member(int member_no);
 
 	void goods_state_update_two(int member_no);
+
+	int get_total(int member_no);
+
+	List<Job> get_job_list(Job job);
 
 }

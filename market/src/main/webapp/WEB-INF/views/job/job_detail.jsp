@@ -188,8 +188,11 @@
 								</div>
 								<div id="map"></div>
 							</div>
-							<div class="col-2 text-end">
-								<button class="btn btn-outline-dark mt-2" id="chat" onclick="location.href='chat?goods_no=${dl.goods_no}&member_no=${dl.member_no }&session_member_no=${session_member_no }'">채팅하기</button>
+							<div class="col-2 text-end" style="position: absolute; bottom: 140px; right: 70px; margin: 10px;">
+							<c:if test="${list.member_no != member_no}">
+								<button class="btn btn-outline-dark mt-2" id="chat" 
+								onclick="location.href='chat?goods_no=${dl.goods_no}&member_no=${dl.member_no }&session_member_no=${session_member_no }'">채팅하기</button>
+							</c:if>
 							</div>
 						</div>
 
