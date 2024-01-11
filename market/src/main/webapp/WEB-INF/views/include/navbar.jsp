@@ -4,7 +4,6 @@
 <c:set var="path" value="${pageContext.request.contextPath}"></c:set>
 <c:url var="chat_link"
 	value="${sessionScope.member_no == null ? 'login_form' : 'message_list'}">
-	<c:param name="goods_no" value="0" />
 	<c:param name="member_no" value="20" />
 	<c:param name="session_member_no" value="${sessionScope.member_no}" />
 </c:url> 
