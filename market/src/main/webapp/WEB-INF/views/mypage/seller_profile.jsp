@@ -49,9 +49,10 @@
 				<div class="col">
 					<div class="card" style="border: none;">
 
+					<a href="detail?goods_no=${list.goods_no}">
 						<img src="./upload/${list.goods_image}"
 							class="card-img-top mx-auto my-2" alt=""
-							style="width: 200px; height: 200px;">
+							style="width: 200px; height: 200px;"></a>
 						<div class="card-body mx-1">
 							<p class="card-text lh-1">
 								<a href="detail?goods_no=${list.goods_no}"
