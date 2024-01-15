@@ -4,12 +4,9 @@
 <c:set var="path" value="${pageContext.request.contextPath}"></c:set>
 <c:url var="chat_link"
 	value="${sessionScope.member_no == null ? 'login_form' : 'message_list'}">
-	<c:param name="goods_no" value="0" />
 	<c:param name="member_no" value="20" />
 	<c:param name="session_member_no" value="${sessionScope.member_no}" />
 </c:url> 
-<c:set var="sell_link"
-	value="${sessionScope.member_id==null ? 'login_form' : 'sell_form'}" />
 <c:set var="join"
 	value="${sessionScope.member_id==null ? '회원가입' : '마이페이지'}" />
 <c:set var="join_link"
@@ -18,9 +15,6 @@
 	value="${sessionScope.member_id==null ? '로그인' : '로그아웃'}" />
 <c:set var="loginout_link"
 	value="${sessionScope.member_id==null ? 'login_form' : '/logout'}" />
-<c:set var="auth_link"
-	value="${sessionScope.member_id==null ? 'login_form' : '/auth_location'}" />
-
 <nav class="navbar navbar-expand-lg fixed-top"
 	style="background-color: #fff">
 	<div class="container-fluid ms-5 my-auto">
@@ -84,7 +78,7 @@
 							<p class="my-auto" style="font-size: 13px">채팅하기</p>
 						</div></a></li>
 				<li class="nav-item px-2 fs-2 me-4 my-auto"><a class="sell"
-					href="<c:url value='${sell_link}'/>"
+					href="sell_form"
 					style="color: inherit; text-decoration: none;"><div
 							class="hstack gap-2">
 							<i class="fa-solid fa-money-check-dollar"></i>
@@ -106,7 +100,7 @@
 							<li><a class="dropdown-item border-bottom"
 								href="<c:url value='${loginout_link}'/>">${loginout}</a></li>
 							<li><a class="dropdown-item pb-0"
-								href="<c:url value='${auth_link}'/>">내 위치 인증</a></li>
+								href="auth_location">내 위치 인증</a></li>
 						</ul>
 					</div>
 				</li>
