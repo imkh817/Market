@@ -150,7 +150,13 @@ public class GoodsController {
 
 	// 상품판매 글 등록 폼
 	@RequestMapping("sell_form")
-	public String sell_form(Model model) {
+	public String sell_form(Member member,HttpSession session, Model model) {
+		
+		
+		// 위치인증이 안되어 있는경우
+		String member_id = (String)session.getAttribute("member_id");
+		String result = GoodsService.user_check(member_id);
+		if ("N".equals(result)) return "goods/auth_result";
 
 		// 카테고리 불러오기
 		List<Category> Category = CategoryService.get_category();
